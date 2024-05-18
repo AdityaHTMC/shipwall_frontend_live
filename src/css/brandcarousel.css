@@ -1,0 +1,49 @@
+.carousel-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Adjust the width as needed */
+    margin: 0 auto;
+  }
+  
+  .carousel {
+    display: flex;
+    animation: carouselAnimation 9s linear infinite; /* Adjust the animation duration as needed */
+  
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scrollbar-color: transparent transparent;
+    overflow: -moz-scrollbars-none;
+  }
+  
+  .carousel::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+  
+  .carousel-card {
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    font-size: 24px;
+    transition: transform 0.3s ease;
+    opacity: 0.7;
+  }
+  
+  .carousel-card.active {
+    opacity: 1;
+  }
+  
+  @keyframes carouselAnimation {
+    0%, 100% {
+      transform: translateX(100%);
+    }
+    25%, 75% {
+      transform: translateX(0);
+    }
+  }
+  

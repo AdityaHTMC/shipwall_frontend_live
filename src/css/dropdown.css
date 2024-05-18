@@ -1,0 +1,141 @@
+.dropdown1 {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.dropdown1 a{
+    color: gray;
+}
+/* Style the button that triggers the dropdown */
+.dropdown1-btn {
+    position: relative;
+    background-color: inherit;
+    color: gray;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    display: inline;
+    border-bottom: 1px solid var(--tp-border-primary);
+}
+.dropdown1-btn:hover {
+    color: rgb(16, 117, 248);
+    
+}
+
+
+.dropdown2 {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.dropdown2 a{
+    color: gray;
+}
+/* Style the button that triggers the dropdown */
+.dropdown2-btn {
+    position: relative;
+    background-color: inherit;
+    color: gray;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    display: inline;
+    border-bottom: 1px solid var(--tp-border-primary);
+}
+.dropdown2-btn:hover {
+    color: rgb(16, 117, 248);
+    
+}
+
+
+
+
+/* Style the dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    top: 120px;
+    right: -160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+/* Style the dropdown links */
+.dropdown-content a {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: #333;
+}
+
+/* Change the link color on hover */
+.dropdown-content a:hover {
+    background-color: inherit;
+    sacle:1.1
+}
+
+/* Show the dropdown content on hover */
+.dropdown1:hover .dropdown-content {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dropdown2:hover .dropdown-content {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dropdown-content2 {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    top: 120px;
+    right: -160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+
+/* this css style writen by manish yadav start here */
+.customDrop.show{display:block!important;}
+.navallproducts li{padding:0px!important;}
+.navallproducts li a{margin-left:0px!important;}
+.treeNavBx{padding:0px;}
+.treeNavBx .accordion-button{padding:4px 0 4px 30px!important;border-bottom:1px solid #cfe2ff;}
+.treeNavBx .accordion-button::after{position:absolute;left:5px;}
+.treeNavBx .accordion-button:not(.collapsed){}
+.treeNavBx .accordion-collapse.collapse{padding:5px 0 5px 5px;background:#f1f6ff;position:relative;}
+.treeNavBx .accordion-collapse.collapse{background-color:rgba(207,226,255,0.2);}
+.treeNavBx .accordion-collapse.collapse ul li{padding-left:5px;}
+.treeNavBx .accordion-collapse.collapse ul li a{padding-left:5px;display:block;}
+.treeNavBx .treeDrop ul > li > a{padding:4px;border-bottom:1px solid #cfe2ff;font-size:16px;display:block;color:#000;}
+.treeNavBx .treeDrop ul > li:hover > a{background-color:#006acb;color:#fff;}
+.dropdown-menu.customDrop{transform:translate(0px, 44px)!important;border-radius:0px;}
+.dropdown-menu.customDrop:last-child{border-radius:0px!important;}
+.treeNavBx .treeDrop .accordion-collapse.collapse.hideli{display:none!important;}
+.treeNavBx .treeDrop .accordion-collapse.collapse.showli{display:block!important;}
+.customDrop.show{display:block!important;}
+.customDrop.hide{display:none!important;}
+/*.treeNavBx .accordion-collapse.remove{display:none;}*/
+/*.treeNavBx .accordion-collapse.active{display:block;}*/
+.categoriesListBx h3{margin-bottom:5px;}
+.categoriesListBx ul{margin:0px;padding:0px;}
+.categoriesListBx ul li{display:block;border-bottom:1px solid #f5f3f3;}
+.categoriesListBx ul li:last-child{border-bottom:none;}
+.categoriesListBx ul>li>a{padding-top:5px;padding-bottom:5px;display:block;color:#000;font-weight:500;}
+.categoriesListBx ul>li>a:before{content:"";display:inline-block;width:6px;height:6px;text-align:center;background-color:#E7E7E7;border-radius:50%;}
+.categoriesListBx ul>li .linkList{}
+.categoriesListBx ul>li .linkList a{margin-left:3px;padding-left:5px;padding-top:2px;padding-bottom:2px;display:block;font-size:14px;color:#000;border-left:1px solid #e7e7e7;}
+.categoriesListBx ul>li .linkList a:hover{color:#0989FF;}
+/* this css style writen by manish yadav end here */

@@ -1,0 +1,52 @@
+.address-data h4{
+    text-align: center;
+}
+
+.mutiple_billing_title{
+    text-align: center;
+}
+
+
+.user-doc-header{
+    padding: 50px 0
+}
+
+.user-doc-header h4{
+   padding: 20px 0;
+}
+
+
+.account-summary {
+    padding: 20px 0; /* Add margin for better spacing */
+  }
+  
+  .acc-box {
+    border: 1px solid #ddd;
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .acc-box span{
+    color: var(--tp-theme-primary);
+  }
+  
+  .acc-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Additional styling for the content inside the boxes */
+  .acc-box p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Optional: Add media queries for responsiveness */
+  @media (max-width: 768px) {
+    .acc-box {
+      margin-bottom: 0;
+    }
+  }
