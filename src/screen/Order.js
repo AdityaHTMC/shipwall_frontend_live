@@ -60,13 +60,13 @@ const Order = () => {
                         <Table striped bordered hover>
                           <thead>
                             <tr>
-                              <th>OrderID</th>
-                              <th>So Date</th>
-                              <th> Used Credit Amount</th>
-                              <th> COD Amount</th>
-                              <th> Online Amount</th>
-                              <th>Download Sales Order</th>
-                              <th>View Details</th>
+                              <th style={{ textAlign: 'center' }}>OrderID</th>
+                              <th style={{ textAlign: 'center' }}>So Date</th>
+                              <th style={{ textAlign: 'center' }}> Used Credit Amount</th>
+                              <th style={{ textAlign: 'center' }}> COD Amount</th>
+                              <th style={{ textAlign: 'center' }}> Online Amount</th>
+                              <th style={{ textAlign: 'center' }}>Download Sales Order</th>
+                              <th style={{ textAlign: 'center' }}>View Details</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -85,10 +85,10 @@ const Order = () => {
                                       )
                                     : ""}
                                 </td>
-                                <td> {item.usedcrdamt} </td>
-                                <td> {item.codamt} </td>
-                                <td> {item.onlineamt} </td>
-                                <td>
+                                <td style={{ textAlign: 'center' }}> {item.usedcrdamt} </td>
+                                <td style={{ textAlign: 'center' }}> {item.codamt} </td>
+                                <td style={{ textAlign: 'center' }}> {item.onlineamt} </td>
+                                <td style={{ textAlign: 'center' }}>
                                   <button
                                     onClick={() =>
                                       fetchsales(item?.soDocEntry, item?.soObjType)
@@ -98,7 +98,7 @@ const Order = () => {
                                   </button>
                                   <br />
                                 </td>
-                                <td style={{ cursor: "pointer" }}>
+                                <td style={{ cursor: "pointer" , textAlign: 'center' }}>
                                   <Link to={`/order-details/${item.soDocNum}`}>
                                     <FaEye />
                                   </Link>
@@ -111,18 +111,7 @@ const Order = () => {
                     )}
                   </div>
                 </div>
-                <div className="border-top pt-4 mx-4 mb-4">
-                  <p>
-                    <i className="fas fa-truck text-muted fa-lg" /> Free
-                    Delivery within 1-2 weeks
-                  </p>
-                  <p className="text-muted">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip
-                  </p>
-                </div>
+          
               </div>
             </div>
           </div>

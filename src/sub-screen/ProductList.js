@@ -9,55 +9,71 @@ import Modal from "react-bootstrap/Modal";
 import ProductCard from "../components/normal/Product-card/ProductCard";
 import { useApi } from "../contextApi/ApiContexts/ApiContexts";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { FaSpinner } from 'react-icons/fa';
+import { FaSpinner } from "react-icons/fa";
 import ProductColor from "../components/subscreen-componenets/ProductList-com/ProductColor";
 import ProductDepthCategory from "../components/subscreen-componenets/ProductList-com/ProductDepthCategory";
 import NewProductCard from "../components/normal/Product-card/NewProductCard";
 
 const ProductList = () => {
-  const { products, addToCart, addWishlist } = useAppContext();
-  const { filterItem, getItem, groupCod, categorieslist, productLoading } = useApi();
+  const { products, addToCart, addWishlist, addToNewCart } = useAppContext();
+  const { filterItem, getItem, groupCod, categorieslist, productLoading,newfilter } =
+    useApi();
   const { name, grpid } = useParams();
 
-  const [currentPage, setCurrentPage] = useState(1);  
+  const [currentPage, setCurrentPage] = useState(1);
   const [displayedItems, setDisplayedItems] = useState(8);
   const itemsPerPage = 4;
 
-  const filteredItemsWithImage1 = filterItem?.filter(item => item.image1);
+  const filteredItemsWithImage1 = filterItem?.filter((item) => item.image1);
   const location = useLocation();
 
   const handleLoadMore = () => {
-    setDisplayedItems(displayedItems + itemsPerPage); 
+    setDisplayedItems(displayedItems + itemsPerPage);
+  };
+
+  const isNumber = (value) => {
+    return !isNaN(value);
   };
 
   return (
     <>
-
-    {/* page breadcrumbs start */}
-    <section className="pageBreadcrumbs">
+      {/* page breadcrumbs start */}
+      <section className="pageBreadcrumbs">
         <article className="container">
           <ul>
-            <li><Link className="text" to="/">Home</Link></li>
+            <li>
+              <Link className="text" to="/">
+                Home
+              </Link>
+            </li>
             <li>{name && <span>{name}</span>}</li>
-            <li className="active">{grpid && <span>{grpid}</span>}</li>
+            {!isNumber(grpid) && grpid && (
+              <li className="active">
+                <span>{grpid}</span>
+              </li>
+            )}
           </ul>
         </article>
-    </section>
-    {/* page breadcrumbs end */}
-      
+      </section>
+      {/* page breadcrumbs end */}
+
       {/* page body part work start */}
       <section className="tp-shop-area pt-40 pb-40 pageBg">
         <div className="container">
-          <div className="row">            
+          <div className="row">
             <div className="col-xl-3 col-lg-4">
               <div className="sidebarFilterBx">
-              <ProductDepthCategory />
-              <ProductFilter list={filterItem} />
-              <ProductCategories list={filterItem} />
+                <ProductDepthCategory />
+                <ProductFilter list={filterItem} newfilter={newfilter} />
+                <ProductCategories list={filterItem} />
               </div>
             </div>
             <div className="col-xl-9 col-lg-8">
-              <div className="productCounter">{filterItem?.length} Products</div>
+              <div className="productCounter">
+                {filteredItemsWithImage1?.length > 0
+                  ? `${filterItem?.length} Products`
+                  : "Products"}
+              </div>
               {productLoading ? (
                 <div className="text-center">
                   <FaSpinner className="fa-spin" size={50} />
@@ -66,15 +82,18 @@ const ProductList = () => {
               ) : (
                 <div className="tp-shop-main-wrapper">
                   <div className="row h-100">
-                    {Array.isArray(filteredItemsWithImage1) && filteredItemsWithImage1?.length > 0 ? (
-                      filteredItemsWithImage1.slice(0, displayedItems).map((item) => (
-                        <NewProductCard
-                          key={item.cardcode}
-                          item={item}
-                          addWishlist={addWishlist}
-                          addToCart={addToCart}
-                        />
-                      ))
+                    {Array.isArray(filteredItemsWithImage1) &&
+                    filteredItemsWithImage1?.length > 0 ? (
+                      filteredItemsWithImage1
+                        .slice(0, displayedItems)
+                        .map((item) => (
+                          <NewProductCard
+                            key={item.cardcode}
+                            item={item}
+                            addWishlist={addWishlist}
+                            addToCart={addToNewCart}
+                          />
+                        ))
                     ) : (
                       <p>No products available</p>
                     )}
@@ -82,7 +101,12 @@ const ProductList = () => {
                   {/* Add More button */}
                   {filterItem?.length > displayedItems && (
                     <div className="text-center mt-4">
-                      <button className="btn btn-primary" onClick={handleLoadMore}>Add More</button>
+                      <button
+                        className="btn btn-primary"
+                        onClick={handleLoadMore}
+                      >
+                        Add More
+                      </button>
                     </div>
                   )}
                 </div>

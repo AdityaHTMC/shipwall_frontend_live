@@ -14,6 +14,7 @@ const AppContextProvider = ({ children }) => {
   const [wishListItem, setWishlistItem] = useState([]);
   const [cartItem, setCartItem] = useState([]);
   const [brandItem, setBrandItem] = useState([]);
+  const [brandCatelogueItem, setBrandCatelogueItem] = useState([])
   const [productBySearch, setProductBySearch] = useState([]);
   const [userLoading, setUserLoading] = useState(false);
   const [shippingPrice, setShippingPrice] = useState("");
@@ -48,6 +49,7 @@ const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
   const cardCode = localStorage.getItem("username9");
   const access = localStorage.getItem("accessC9");
+  const bplId = localStorage.getItem('bplId9')
 
   // useEffect(() => {
   //   const loadUserData = async () => {
@@ -189,7 +191,10 @@ const AppContextProvider = ({ children }) => {
 
   const getItem = async () => {
     try {
-      const response = await axios.post(`${base_url}/api/v1/item/list`, {
+      const response = await axios.post(`${base_url}/api/v1/customer/branch/item/list`,{
+        bplId: bplId,
+        cardCode:cardCode
+      }, {
         headers: {
           "Content-Type": "application/json",
           // Authorization: `Bearer ${access}`,
@@ -896,6 +901,37 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
+
+  const addToNewCart = async ({ itemCode, quantity, price, itemName, image1, fright1Amount, taxPerc }) => {
+    try {
+      const response = await axios.post(`${base_url}/api/v1/add-to-cart`, {
+        itemCode,
+        quantity,
+        price,
+        itemName,
+        image1,
+        fright1Amount,
+        taxPerc,
+        cardCode
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+  
+      const res = response.data;
+      toast.success(res?.message);
+      getCartList();
+    } catch (error) {
+      toast.error("Item is already present in your Order");
+    }
+  };
+
+
+
+
+
+
   const removeCartItem = async (id) => {
     const token = localStorage.getItem("token");
     try {
@@ -973,7 +1009,7 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
-  const addWishlist = async (code, price, name, pic,id) => {
+  const addWishlist = async (code, price, name, pic,id,itemAddCharges,taxPerc) => {
     try {
       if (cardCode) {
         const req = await fetch(`${base_url}/api/v1/wishlist/add`, {
@@ -987,7 +1023,9 @@ const AppContextProvider = ({ children }) => {
             Price: price,
             ItemName: name,
             Image1: pic,
-            ItemId:id
+            ItemId:id,
+            fright1Amount:itemAddCharges,
+            taxPerc:taxPerc
           }),
         });
 
@@ -1131,6 +1169,22 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
+
+  const getBrandCatelogue = async () => {
+    try {
+      const req = await fetch(`${base_url}/api/v1/brand/catalogue/list`, {
+        method: "POSt",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const res = await req.json();
+      setBrandCatelogueItem(res.data);
+    } catch (error) {
+      // console.log(error);
+    }
+  };
+
   const Createpayment = async (
     ctoken,
     selectedItems,
@@ -1197,7 +1251,7 @@ const AppContextProvider = ({ children }) => {
     order,
     ShipingMethodPrice,
     shippingPrice,
-    orderList,
+    orderList,  addToNewCart, getBrandCatelogue,brandCatelogueItem,
     
     // sap
     cms,

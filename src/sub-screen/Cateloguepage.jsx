@@ -4,19 +4,19 @@ import { useAppContext } from "../contextApi/AppContext";
 import { useApi } from "../contextApi/ApiContexts/ApiContexts";
 
 const Cateloguepage = () => {
-  const { brandItem, getBrand } = useAppContext();
+  const { getBrandCatelogue, brandCatelogueItem } = useAppContext();
   const { getItem , baseURL2 } = useApi();
   const navigate = useNavigate();
 
 
   useEffect(()=>{
- getBrand()
+    getBrandCatelogue()
   },[])
 
-   console.log(brandItem,'BI');
+   console.log(brandCatelogueItem,'BI');
    
 
-   const filteredBrandItems = brandItem.filter((item) => item.brand_catalogue !== "null");
+   const filteredBrandItems = brandCatelogueItem.filter((item) => item.brand_catalogue !== "null");
 
   // Function to handle downloading the PDF file
   const handleDownload = (fileName) => {

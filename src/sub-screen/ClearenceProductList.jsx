@@ -16,8 +16,8 @@ import NewProductCard from "../components/normal/Product-card/NewProductCard";
 import ClearenceCard from "../components/normal/Product-card/ClearenceCard";
 
 const ClearenceProductList = () => {
-  const { products, addToCart, addWishlist } = useAppContext();
-  const { filterItem, getClearenceItem, groupCod, categorieslist, productLoading , setClearenceData,clearenceData} = useApi();
+  const { products, addToCart, addWishlist,addToNewCart } = useAppContext();
+  const { filterItem, getClearenceItem, groupCod, categorieslist, productLoading , setClearenceData,clearenceData , clearenceDataFilter} = useApi();
   const { name, grpid } = useParams();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,7 +54,7 @@ const ClearenceProductList = () => {
         <div className="container">
           <div className="row">
             <div className="col-xl-3 col-lg-4">
-              <ProductFilter clearence={1} />
+              <ProductFilter clearence={1} newfilter={clearenceDataFilter}/>
               {/* <ProductCategories list={filterItem} /> */}
               {/* <ProductDepthCategory 
                /> */}
@@ -74,7 +74,7 @@ const ClearenceProductList = () => {
                           key={item.cardcode}
                           item={item}
                           addWishlist={addWishlist}
-                          addToCart={addToCart}
+                          addToCart={addToNewCart}
                         />
                       ))
                     ) : (

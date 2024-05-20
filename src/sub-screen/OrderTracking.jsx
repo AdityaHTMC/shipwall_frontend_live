@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { useApi } from "../contextApi/ApiContexts/ApiContexts";
-
+import { MdDownload } from "react-icons/md";
 const OrderTracking = () => {
   const { trackOrder, orderDetails } = useApi();
   const [orderId, setOrderId] = useState("");
+  const { orderList, fetchsales, handelDownload, getOrder } = useApi();
+
+  const handlefetchSale = async (soObjType, sotype) => {
+    await fetchsales(soObjType, sotype);
+  };
 
   const handleInputChange = (event) => {
     setOrderId(event.target.value);
@@ -11,7 +16,10 @@ const OrderTracking = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    trackOrder(orderId);
+    // Check if orderId is not empty before calling trackOrder
+    if (orderId.trim() !== "") {
+      trackOrder(orderId);
+    }
   };
 
   console.log("first", orderDetails);
@@ -67,19 +75,23 @@ const OrderTracking = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td style={{ borderBottom: "1px solid #ddd", padding: "10px" }}>
-                  {orderDetails[0]?.itemName}
-                </td>
-                <td style={{ borderBottom: "1px solid #ddd", padding: "10px" }}>
-                  {orderDetails[0]?.invoice}
-                </td>
-                <td style={{ borderBottom: "1px solid #ddd", padding: "10px" }}>
-                  {orderDetails && orderDetails[0] && orderDetails[0].ordrstatus
-                    ? orderDetails[0].ordrstatus
-                    : "Status Not updated"}
-                </td>
-              </tr>
+              {orderDetails.map((item, index) => (
+                <tr key={index}>
+                  <td style={{ borderBottom: "1px solid #ddd", padding: "10px" }}>
+                    {item.itemName}
+                  </td>
+                  <td style={{ borderBottom: "1px solid #ddd", padding: "10px" }}>
+                  {item?.invDocEntry !== 0 && (
+                                  <button onClick={()=>handlefetchSale(item.invDocEntry,item.invObjType)}>
+                                    Invoice : <MdDownload />
+                                  </button>
+                                )}
+                  </td>
+                  <td style={{ borderBottom: "1px solid #ddd", padding: "10px" }}>
+                    {item.ordrstatus ? item.ordrstatus : "Status Not updated"}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

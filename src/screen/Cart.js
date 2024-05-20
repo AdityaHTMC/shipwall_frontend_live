@@ -164,7 +164,7 @@ const Cart = () => {
               <div className="card border shadow-0">
                 <div className="m-4">
                   <h4 className="card-title mb-4 mt-4 text text-bg-primary p-3 text-center">
-                    Your Cart
+                    Your Order
                   </h4>
                   <div className="table-responsive">
                     <table className="table">
@@ -237,16 +237,16 @@ const Cart = () => {
                                 </button>
                               </div>
                             </td>
-                            <td>{item.price.toFixed(2)}</td>
-                            <td>{(item.quantity * item.price).toFixed(2)}</td>
+                            <td>{item.price?.toFixed(2)}</td>
+                            <td>{(item.quantity * item.price)?.toFixed(2)}</td>
                             <td>
-                              {(item.quantity * item.fright1Amount).toFixed(2)}
+                              {(item.quantity * item.fright1Amount)?.toFixed(2)}
                             </td>
                             <td>
                               {(
                                 (item.quantity * item.price * item.taxPerc) /
                                 100
-                              ).toFixed(2)}
+                              )?.toFixed(2)}
                             </td>
                             <td>
                               {(
@@ -255,7 +255,7 @@ const Cart = () => {
                                 item.quantity *
                                   item.price *
                                   (item.taxPerc / 100)
-                              ).toFixed(2)}
+                              )?.toFixed(2)}
                             </td>
                             <td>
                               <button
@@ -357,11 +357,11 @@ const Cart = () => {
                 <div className="card-body">
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Sub Total:</p>
-                    <p className="mb-2 text-danger">{totalSubTotal} </p>
+                    <p className="mb-2 text-danger">{totalSubTotal?.toFixed(2)} </p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Freight:</p>
-                    <p className="mb-2 text-danger">{totalFreight} </p>
+                    <p className="mb-2 text-danger">{totalFreight?.toFixed(2)} </p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Total tax:</p>

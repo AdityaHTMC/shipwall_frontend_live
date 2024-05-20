@@ -16,7 +16,7 @@ const baseURL2 = "https://shipwall.au/test/API/shipwall"; // Node Api Base URL
 
 const ProductDetail = () => {
   
-  const { cardCode , access , baseURL2,base_url  } = useApi()
+  const { cardCode , access , baseURL2,base_url,bplId  } = useApi()
 
   const {
     products,
@@ -25,6 +25,7 @@ const ProductDetail = () => {
     getSapItem,
     sapItem,
     isLogIn,
+    addToNewCart,
   } = useAppContext();
   const { id } = useParams();
   const { setLoginShow } = useApi();
@@ -34,12 +35,18 @@ const ProductDetail = () => {
   const [warehouseData, setWarehouseData] = useState({});
   const [activeTab, setActiveTab] = useState("description");
   const [cleanedDescription, setCleanedDescription] = useState('');
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const ProductDetailApi = async () => {
     try {
-      const response = await axios.get(
-        `${baseURL2}/api/v1/item/details/${id}`,
+      setLoading(true);
+      const response = await axios.post(
+        `${baseURL2}/api/v1/item/detail`,{
+          item_id: id,
+          cardCode:cardCode,
+          bplId:bplId
+        },
         {
           headers: {
             "Content-Type": "application/json",
@@ -54,7 +61,20 @@ const ProductDetail = () => {
     } catch (error) {
       console.log(error, "error my-context");
     }
+    finally {
+      setLoading(false); // Set loading to false when data is fetched
+    }
   };
+
+
+  console.log(ProductDetails,'ProductDetails');
+
+
+  const priceToPass = ProductDetails.clearanceSalePrice > 0 
+  ? ProductDetails.clearanceSalePrice 
+  : ProductDetails.salePrice > 0 
+    ? ProductDetails.salePrice 
+    : ProductDetails.itemPrice;
 
   const tabButtonStyle = {
     border: "none",
@@ -92,6 +112,10 @@ const ProductDetail = () => {
       ProductDetails.itemName,
       ProductDetails.image1,
       id,
+      ProductDetails.itemAddCharges,
+      ProductDetails.taxPerc
+
+
     );
     setIsWishlistClicked(!isWishlistClicked);
   };
@@ -220,8 +244,7 @@ const ProductDetail = () => {
         <article className="container">
           <ul>
             <li><Link className="text" to="/">Home</Link></li>
-            <li>Pages</li>
-            <li className="active">Product Details</li>
+            <li className="active">{ProductDetails?.itmsGrpNam}</li>
           </ul>
         </article>
     </section>
@@ -348,7 +371,13 @@ const ProductDetail = () => {
                 <h4>{itemName}</h4>
                 <h5 className="fw-bold text-primary">
                     {isLogIn ? (
-                      `AUD ${itemPrice}`
+                      `AUD ${
+                        ProductDetails?.clearanceSalePrice > 0 
+                          ? ProductDetails?.clearanceSalePrice 
+                          : ProductDetails?.salePrice > 0 
+                            ? ProductDetails?.salePrice 
+                            : ProductDetails?.itemPrice
+                      }`
                     ) : (
                       <span
                         style={{ cursor: "pointer" }}
@@ -412,16 +441,15 @@ const ProductDetail = () => {
                         <li>
                           <button
                             onClick={() => {
-                              addToCart(
-                                ProductDetails.itemCode,
-                                productQuantity,
-                                ProductDetails.itemPrice,
-                                ProductDetails.itemName,
-                                ProductDetails.Discount,
-                                ProductDetails.image1,
-                                ProductDetails.itemAddCharges,
-                                ProductDetails.taxPerc
-                              );
+                              addToNewCart(
+                                { itemCode: ProductDetails.itemCode,
+                                 quantity: productQuantity,
+                                 price: priceToPass,
+                                 itemName: ProductDetails.itemName,
+                                 image1: ProductDetails.image1,
+                                 fright1Amount: ProductDetails.itemAddCharges,
+                                 taxPerc: ProductDetails.taxPerc}
+                               );
                             }}
                             className="btn btn-primary rounded-pill"
                           >

@@ -38,13 +38,13 @@ const OrderDetails = () => {
                         <tr>
                           <th>Item Code </th>
                           <th>Item Name </th>
-                          <th>delDocNum</th>
+                          {/* <th>delDocNum</th>
                           <th>delDate</th>
                           <th>invDocNum</th>
-                          <th>invDate</th>
-                          <th>soQty</th>
-                          <th>delQty</th>
-                          <th>invQty</th>
+                          <th>invDate</th> */}
+                          <th style={{ textAlign: 'center' }}>Sales Order Quantity</th>
+                          <th style={{ textAlign: 'center' }}>Total Delivery Quantity</th>
+                          <th style={{ textAlign: 'center' }}>Total Invoice Quantity</th>
                           <th>Download Invoice </th>
                         </tr>
                       </thead>
@@ -54,13 +54,13 @@ const OrderDetails = () => {
                             <tr key={index}>
                               <td> {item.itemCode} </td>
                               <td> {item.itemName} </td>
-                              <td> {item.delDocNum} </td>
+                              {/* <td> {item.delDocNum} </td>
                               <td>{item.delDate !== null ? item.delDate : 0}</td>
                               <td> {item.invDocNum} </td>
-                              <td> {item.invDate !==null ? item.invDate : 0 } </td>
-                              <td> {item.soQty} </td>
-                              <td> {item.delQty} </td>
-                              <td> {item.invQty} </td>
+                              <td> {item.invDate !==null ? item.invDate : 0 } </td> */}
+                              <td style={{ textAlign: 'center' }}> {item.soQty} </td>
+                              <td style={{ textAlign: 'center' }}> {item.delQty} </td>
+                              <td style={{ textAlign: 'center' }}> {item.invQty} </td>
                               <td>
                                 {item?.invDocNum !== 0 && (
                                   <button onClick={()=>handlefetchSale(item.invDocEntry,item.invObjType)}>

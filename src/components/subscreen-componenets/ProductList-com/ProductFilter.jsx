@@ -6,17 +6,30 @@ import { useAppContext } from '../../../contextApi/AppContext';
 import { useApi } from '../../../contextApi/ApiContexts/ApiContexts';
 import _debounce from 'lodash/debounce';
 
-const ProductFilter = (props) => {
-  const { clearence } = props
+const ProductFilter = ({list,newfilter ,clearence}) => {
+  
+  
+  console.log(list,'fdsf')
+  console.log(newfilter,'newfilter...')
+  
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const mainControls = useAnimation();
   const { products } = useAppContext();
-  const [priceRange, setPriceRange] = useState([0, 10000]);
+  const [priceRange, setPriceRange] = useState([0, 100]);
+  const [priceLimits, setPriceLimits] = useState({ min: 0, max: 100 });
 
   const { getItem, setfilterPrice,getClearenceItem } = useApi();
   // const listitem = list[0]?.itmsGrpCod;
   // console.log(listitem, "grpcod");
+
+  useEffect(() => {
+    if (newfilter) {
+      const { min_price, max_price } = newfilter;
+      setPriceRange([min_price, max_price]);
+      setPriceLimits({ min: min_price, max: max_price });
+    }
+  }, [newfilter]);
 
   useEffect(() => {
     if (isInView) {
@@ -71,7 +84,7 @@ const ProductFilter = (props) => {
           <div className="mb-10">
             <Slider
               min={0}
-              max={10000}
+              max={100}
               step={1}
               range
               value={priceRange}

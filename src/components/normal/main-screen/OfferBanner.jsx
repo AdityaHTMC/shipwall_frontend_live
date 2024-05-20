@@ -33,7 +33,7 @@ const OfferBanner = () => {
     <>
         <section>
             <article className='container mb-4'>
-                <h2 class="newTitleBx">New Product & Offers</h2>
+                <h2 class="newTitleBx">New Products & Offers</h2>
                 <aside className='row'>
                     <div className='col-md-6 col-12 mb-4'>
                         <a href="/"><img src={lastM1} alt="" /></a>

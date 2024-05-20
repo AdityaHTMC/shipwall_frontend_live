@@ -9,6 +9,7 @@ const baseURL2 = "https://shipwall.au/API/shipwall"; // Node Api Base URL
 
 const cardCode = localStorage.getItem("username9");
 const access = localStorage.getItem("accessC9");
+const bplId = localStorage.getItem('bplId9')
 
 const ApiContexts = createContext();
 
@@ -19,6 +20,7 @@ export const ApiProvider = ({ children }) => {
   const isProductListPageBrand = location.pathname === '/product-brand/'
   const [Adddata, setAddData] = useState();
   const [filterItem, setfilterItem] = useState();
+  const[newfilter, setnewfilter] = useState();
   const [catlist, setcatList] = useState([]);
   const [allItem, setAllItem] = useState([]);
   const [listItemWith, setListItemWith] = useState([]);
@@ -42,6 +44,7 @@ export const ApiProvider = ({ children }) => {
   const [loginShow, setLoginShow] = useState(false);
 
   const [clearenceData , setClearenceData] = useState()
+  const [clearenceDataFilter , setClearenceDataFilter] = useState()
   const [ ledgerData , setledgerData ] = useState([])
 
 
@@ -132,7 +135,7 @@ export const ApiProvider = ({ children }) => {
     try {
       const cardName = JSON.parse(localStorage.getItem("log"));
       // const access = localStorage.getItem("accessC");
-      const bplId = localStorage.getItem('bplId')
+      const bplId = localStorage.getItem('bplId9')
       const currentDate = new Date().toISOString().slice(0, 10);
       // const cardCode = localStorage.getItem("username");
       const response = await axios.post(
@@ -199,14 +202,16 @@ export const ApiProvider = ({ children }) => {
           u_PROPRT3: pr3,
           u_PROPRT4: pr4,
           manufacturerId: "",
-          values: checkedValues
+          values: checkedValues,
+          bplId: bplId,
+          cardCode:cardCode
         };
       }
 
       console.log(requestData,'CPRs');
 
       const response = await axios.post(
-        `${baseURL2}/api/v1/item/list`,
+        `${baseURL2}/api/v1/customer/branch/item/list`,
         requestData,
         {
           headers: {
@@ -216,7 +221,9 @@ export const ApiProvider = ({ children }) => {
       );
 
       const { data } = response;
+
       setfilterItem(data?.data);
+      setnewfilter(data)
     } catch (error) {
       console.log(error, " error my-context ");
     } finally {
@@ -224,13 +231,17 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+ 
 
   const getClearenceItem = async (dataToSend) => {
     try {
       
       const response = await axios.post(
-        `${baseURL2}/api/v1/item/list`,
-       { ...dataToSend},
+        `${baseURL2}/api/v1/customer/branch/item/list`,
+       { ...dataToSend,
+        bplId: bplId,
+          cardCode:cardCode
+       },
         {
           headers: {
             "Content-Type": "application/json",
@@ -240,6 +251,7 @@ export const ApiProvider = ({ children }) => {
 
       const { data } = response;
       setClearenceData(data?.data);
+      setClearenceDataFilter(data)
     } catch (error) {
       console.log(error, " error my-context ");
     } finally {
@@ -336,8 +348,10 @@ export const ApiProvider = ({ children }) => {
 
   const searchProduct = async (dataToSend) => {
     try {
-      const req = await axios.post(`${baseURL2}/api/v1/item/list`, {
-        ...dataToSend
+      const req = await axios.post(`${baseURL2}/api/v1/customer/branch/item/list`, {
+        ...dataToSend,
+        bplId: bplId,
+        cardCode:cardCode
       }, {
         headers: {
           "Content-Type": "application/json",
@@ -600,7 +614,7 @@ export const ApiProvider = ({ children }) => {
 
   const handelDownload = async (documentFile) => {
     try {
-      const downloadURL = `https://shipwall.au/test/exportedfiles/${documentFile}`;
+      const downloadURL = `https://shipwall.au/exportedfiles/${documentFile}`;
       const response = await fetch(downloadURL);
       if (response.ok) {
         const blob = await response.blob();
@@ -659,6 +673,7 @@ export const ApiProvider = ({ children }) => {
         Adddata,
         getItem,
         filterItem,
+        newfilter,
         allItem,
         list_item,
         setMyData,
@@ -693,7 +708,7 @@ export const ApiProvider = ({ children }) => {
          setClearenceData,
          getClearenceItem,
          clearenceData,
-         getCmsDetails,cmsPage , getFleshNewsList , fleshNewsList , trackOrder ,orderDetails , ledgerData ,dowloadLedger , base_url , baseURL2 , cardCode , access 
+         getCmsDetails,cmsPage , getFleshNewsList , fleshNewsList , trackOrder ,orderDetails , ledgerData ,dowloadLedger , base_url , baseURL2 , cardCode , access ,bplId ,clearenceDataFilter
       }}
     >
       {children}

@@ -42,6 +42,7 @@ const PaymentModal = ({ amount, onHide, show, mode,selectedPaymentMethod,selecte
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                padding: "0px",
               }}
             >
               <div style={{ width: "4rem", height: "4rem" }}>

@@ -134,7 +134,7 @@ const HeaderMain = ({ loginShow, setLoginShow }) => {
                     {!isLogIn ? (
                       <div className="d-flex">
                         <img src={users} alt="crt" />
-                        <p onClick={() => setLoginShow(true)}>
+                        <p onClick={() => setLoginShow(true)} style={{ cursor: 'pointer' }}>
                           <span>Login</span>Account
                         </p>
                       </div>
@@ -147,7 +147,7 @@ const HeaderMain = ({ loginShow, setLoginShow }) => {
                           <div className="d-flex">
                             <img src={users} alt="crt" />
                             <p>
-                            Hello
+                            Welcome
                               <span>{loginData ? loginData.as_Name : ""}</span>
                              
                             </p>

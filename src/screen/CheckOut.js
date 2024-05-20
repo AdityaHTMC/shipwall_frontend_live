@@ -449,6 +449,7 @@ const CheckOut = () => {
                         value={onlinePayment.toFixed(2)}
                         step="0.01"
                         onChange={handleOnlinePaymentChange}
+                        disabled
                       />
                     </div>
                   </div>
@@ -558,10 +559,10 @@ const CheckOut = () => {
                       <label className="mb-2">
                         <b>Or Enter Address Manually : </b>
                       </label>
-                      <input
+                      <textarea
                         type="text"
                         className="form-control"
-                        style={{ height: "44px" }}
+                        style={{ height: "80px" }}
                         value={manualAddress}
                         onChange={handleManualAddressChange}
                         placeholder="Enter your address"
@@ -572,9 +573,9 @@ const CheckOut = () => {
                       <label className="mb-2">
                         <b>Order Note:</b>
                       </label>
-                      <input
+                      <textarea
                         className="form-control"
-                        style={{ height: "44px" }}
+                        style={{ height: "80px" }}
                         type="text"
                         value={note}
                         onChange={handleAddNote}
@@ -597,10 +598,10 @@ const CheckOut = () => {
                   </h4>
                 </div>
                 <div className="card-body">
-                  <div className="d-flex justify-content-between">
+                  {/* <div className="d-flex justify-content-between">
                     <p className="mb-2">Sum Of Input:</p>
                     <p className="mb-2">{inputValue}</p>
-                  </div>
+                  </div> */}
                   <hr className="mt-1 mb-2" />
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Total price:</p>
@@ -641,7 +642,7 @@ const CheckOut = () => {
                       note={note}
                     />
                     <h6 className="bg-warning text-dark rounded mt-3 p-2">
-                      Items in cart
+                      Items in Order
                     </h6>
 
                     {cartItem?.Items?.map((item, index) => (

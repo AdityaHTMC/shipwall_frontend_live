@@ -17,6 +17,12 @@ const ProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
   
   // console.log(item,'trending IP');
 
+  const priceToPass = item.clearanceSalePrice > 0 
+  ? item.clearanceSalePrice 
+  : item.salePrice > 0 
+    ? item.salePrice 
+    : item.itemPrice;
+
   return (
     <>
       <div
@@ -49,7 +55,13 @@ const ProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
               <span className="tp-product-price-2 new-price">
                 {isLogIn ? (
                   `AUD
-                   ${item.salePrice}`
+                   ${
+                    item.clearanceSalePrice > 0 
+                      ? item.clearanceSalePrice 
+                      : item.salePrice > 0 
+                        ? item.salePrice 
+                        : item.itemPrice
+                  }`
                 ) : (
                   <span
                     style={{ cursor: "pointer" }}
@@ -64,7 +76,7 @@ const ProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
                   className="tp-product-price-2 old-price"
                   style={{ marginLeft: "15px" }}
                 >
-                  AUD{item.itemPrice}
+                  AUD {item.itemPrice}
                 </span>
               ) : null}
             </div>
@@ -72,14 +84,13 @@ const ProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
               className="cartBtn"
               onClick={() =>
                 addToCart(
-                  item.itemCode,
-                  1,
-                  item.salePrice,
-                  item.itemName,
-                  item.discount,
-                  item.image1,
-                  item.itemAddCharges,
-                  item.taxPerc
+                { itemCode: item.itemCode,
+                  quantity:1,
+                  price: priceToPass,
+                  itemName: item.itemName,
+                  image1: item.image1,
+                  fright1Amount: item.itemAddCharges,
+                  taxPerc: item.taxPerc}
                 )
               }
               type="button"

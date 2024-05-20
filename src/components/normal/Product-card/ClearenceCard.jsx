@@ -14,6 +14,12 @@ const ClearenceCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
   }
   const isHompage = location.pathname === "/";
 
+  const priceToPass = item.clearanceSalePrice > 0 
+  ? item.clearanceSalePrice 
+  : item.salePrice > 0 
+    ? item.salePrice 
+    : item.itemPrice;
+
   console.log(item, 'CIS');
   return (
     <>
@@ -34,67 +40,60 @@ const ClearenceCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
             {/* product action */}
             <div className="tp-product-action-2 tp-product-action-blackStyle bg-white"></div>
           </div>
-          <div className="tp-product-content-2 pt-15 bg-white">
+          <div className="tp-product-content-2 pt-15">
             {/* <div className="tp-product-tag-2">
               <Link to="#">{item.ItmsGrpNam || ""}</Link>
             </div> */}
             <h6>
-              <Link to={`/product-details/${item._id}`}>
-                {item.itemName ? item.itemName.slice(0, 20) : ""}
+              <Link to="#">
+                {item.itemName ? item.itemName.slice(0, 22) : ""}
               </Link>
             </h6>
             <div className="tp-product-price-wrapper-2">
-
-             {/* Render both price spans if itemPrice and salePrice are not equal */}
-             {item.itemPrice !== item.salePrice ? (
-                  <>
-                    <span
-                      className="tp-product-price-2 old-price"
-                      style={{ marginLeft: "15px" }}
-                    >
-                      AUD{item.itemPrice}
-                    </span>
-                    <span
-                      className="tp-product-price-2 old-price"
-                      style={{ marginLeft: "15px" }}
-                    >
-                      AUD{item.salePrice}
-                    </span>
-                  </>
+              <span className="tp-product-price-2 new-price">
+                {isLogIn ? (
+                  `AUD
+                   ${
+                    item.clearanceSalePrice > 0 
+                      ? item.clearanceSalePrice 
+                      : item.salePrice > 0 
+                        ? item.salePrice 
+                        : item.itemPrice
+                  }`
                 ) : (
-                  // Render only salePrice span if itemPrice and salePrice are equal
                   <span
-                    className="tp-product-price-2 old-price"
-                    style={{ marginLeft: "15px" }}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => setLoginShow(true)}
                   >
-                    AUD{item.salePrice}
+                    Login to show Price
                   </span>
                 )}
-
-              <span className="tp-product-price-2 new-price" style={{marginLeft:'15px'}}>
-              {item.clearanceSalePrice}
               </span>
-              
-                
-             
+              { isLogIn && item.itemPrice !== item.salePrice ? (
+                <span
+                  className="tp-product-price-2 old-price"
+                  style={{ marginLeft: "15px" }}
+                >
+                  AUD{item.itemPrice}
+                </span>
+              ) : null}
             </div>
             <button
               className="cartBtn"
               onClick={() =>
                 addToCart(
-                  item.itemCode,
-                  1,
-                  item.clearanceSalePrice,
-                  item.itemName,
-                  item.discount,
-                  item.image1,
-                  item.itemAddCharges,
-                  item.taxPerc
+                { itemCode: item.itemCode,
+                  quantity:1,
+                  price: priceToPass,
+                  itemName: item.itemName,
+                  image1: item.image1,
+                  fright1Amount: item.itemAddCharges,
+                  taxPerc: item.taxPerc}
                 )
               }
               type="button"
             >
-              Add To Order
+              Add to Order
             </button>
           </div>
         </div>

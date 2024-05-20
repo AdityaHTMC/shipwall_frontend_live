@@ -19,7 +19,7 @@ const Product = () => {
   const mainControls = useAnimation();
   const [lgShow, setLgShow] = useState(false);
   const [productId, setProductId] = useState("");
-  const { products, addToCart, addWishlist } = useAppContext();
+  const { products, addToCart, addWishlist,addToNewCart} = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
   const {
@@ -155,7 +155,7 @@ const Product = () => {
                                 item={item}
                                 HandelQuickView={HandelQuickView}
                                 addWishlist={addWishlist}
-                                addToCart={addToCart}
+                                addToCart={addToNewCart}
                               />
                               <br />
                             </SwiperSlide>
