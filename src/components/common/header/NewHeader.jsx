@@ -157,7 +157,7 @@ const NewHeader = () => {
                   <Dropdown.ItemText>
                     <b>Help & Settings</b>
                   </Dropdown.ItemText>
-                  <Dropdown.Item as={Link} to='/account' >Your Account</Dropdown.Item>
+                  <Dropdown.Item as={Link} to='/account/profile' >Your Account</Dropdown.Item>
                   <Dropdown.Item as={Link} to='/contact-us'>Customer Service</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item onClick={logOutsap} >Sign out</Dropdown.Item>

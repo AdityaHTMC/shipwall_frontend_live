@@ -141,7 +141,7 @@ const HeaderMain = ({ loginShow, setLoginShow }) => {
                     ) : (
                       <>
                         <Link
-                          to="/account"
+                          to="/account/profile"
                           className="d-flex align-items-center"
                         >
                           <div className="d-flex">

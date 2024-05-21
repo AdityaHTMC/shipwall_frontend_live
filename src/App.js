@@ -54,6 +54,9 @@ import FAQpages from "./components/CMSPages/FAQpages";
 import Cateloguepage from "./sub-screen/Cateloguepage";
 import OrderTracking from "./sub-screen/OrderTracking";
 import OurStories from "./components/CMSPages/OurStories";
+import UserProfile from "./components/normal/account/UserProfile";
+import AccountSummary from "./components/normal/account/AccountSummary";
+import Return from "./screen/Return";
 
 function App() {
   const { isLoading } = useAppContext();
@@ -136,6 +139,26 @@ function App() {
 
             <Route path="/checkout/:id" element={<ProtectedRoute />}>
               <Route index element={<SingleProductCheckOut />} />
+            </Route>
+
+            <Route path="/account/profile" element={<ProtectedRoute />}>
+              <Route index element={<UserProfile />} />
+            </Route>
+
+            <Route path="/account/orders" element={<ProtectedRoute />}>
+              <Route index element={<Order />} />
+            </Route>
+
+            <Route path="/account/details" element={<ProtectedRoute />}>
+              <Route index element={<AccountSummary />} />
+            </Route>
+
+            <Route path="/account/address" element={<ProtectedRoute />}>
+              <Route index element={<ManageAddress />} />
+            </Route>
+
+            <Route path="/account/return" element={<ProtectedRoute />}>
+              <Route index element={<Return/>} />
             </Route>
             {/* <Route path="/test1" element={<Test />} /> */}
             <Route

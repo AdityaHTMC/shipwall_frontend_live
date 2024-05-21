@@ -85,7 +85,7 @@ const Bottommenu = ({ setLoginShow }) => {
                 </>
               ) : (
                 <div className="tp-mobile-item text-center">
-                  <Link to="/account" className="tp-mobile-item-btn btn">
+                  <Link to="/account/profile" className="tp-mobile-item-btn btn">
                     {/* <img
                       src={loginData ? loginData.profile : "https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png"}
                       alt="avatar"

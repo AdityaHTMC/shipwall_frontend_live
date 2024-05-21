@@ -83,7 +83,7 @@ const Footer = () => {
                <h4>Quick Links</h4>
                <ul>
                   <li><a href="/">Store Location</a></li>
-                  <li> <Link to='/account'> My Account </Link> </li>
+                  <li> <Link to='/account/profile'> My Account </Link> </li>
                   <li><a href="/">Orders Tracking</a></li>
                   <li><Link to='/cms/faq'>FAQS</Link></li>
                   <li><Link to='/cms/about-us'>About Us</Link></li>
