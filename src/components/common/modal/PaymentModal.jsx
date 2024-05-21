@@ -109,7 +109,7 @@ const PaymentModal = ({ amount, onHide, show, mode,selectedPaymentMethod,selecte
 
 
   return (
-    <Modal show={show} onHide={onHide} centered>
+    <Modal show={show} onHide={onHide} centered className="payment-modal">
       <Modal.Header className="text-bg-info" closeButton>
         <Modal.Title className="text text-center p-3">
           Payment Details
@@ -123,6 +123,7 @@ const PaymentModal = ({ amount, onHide, show, mode,selectedPaymentMethod,selecte
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                padding: '0px'
               }}
             >
               <div style={{ width: "4rem", height: "4rem" }}>
@@ -141,7 +142,7 @@ const PaymentModal = ({ amount, onHide, show, mode,selectedPaymentMethod,selecte
           <p className="text text-center text-bg-warning ">
                  Amount to pay {amount.toFixed(2)}
               </p>
-          <MyComponent amount={amount} selectedItem={selectedItem} cashOnDelivery={cashOnDelivery} freeCreditLimit={freeCreditLimit}/>
+          <MyComponent amount={amount} selectedItem={selectedItem} cashOnDelivery={cashOnDelivery} freeCreditLimit={freeCreditLimit} manualAddress={manualAddress} note={note}/>
         </Modal.Body>
       )}
       {/* <Modal.Footer>

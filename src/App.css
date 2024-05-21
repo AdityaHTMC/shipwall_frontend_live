@@ -192,3 +192,17 @@ height : 100%;
 .slick-slider .slick-slide a img{margin:0 auto;}
 .tp-product-item-2{border:1px solid #e6e7e9;box-shadow:0px 11px 11px 1px #e9e9e9;overflow:hidden;}
 .tp-product-item-2 .tp-product-content-2{padding:14px;}
+
+.payment-modal .modal-content{
+  padding: 20px 0px !important;
+}
+.payment-modal .modal-body{
+  padding: 0px !important;
+}
+#securepay-ui-container iframe{
+  width: 100% !important;
+}
+
+.custom-textarea{
+  min-height: 90px !important;
+}

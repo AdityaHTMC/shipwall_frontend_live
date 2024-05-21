@@ -131,7 +131,7 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
-  const PlaceReturnRequest = async (mergdata, remrks, selectedDate) => {
+  const PlaceReturnRequest = async (mergdata, remrks, selectedDate, returnAddress) => {
     try {
       const cardName = JSON.parse(localStorage.getItem("log"));
       // const access = localStorage.getItem("accessC");
@@ -155,6 +155,7 @@ export const ApiProvider = ({ children }) => {
             cardCode: cardCode,
             cardName: cardName?.as_Name,
             remarks: remrks,
+            u_SITEADDR: returnAddress || '',
             docType: "I",
             bplId: parseInt(bplId),
           },
@@ -612,6 +613,39 @@ export const ApiProvider = ({ children }) => {
     } catch (error) { }
   };
 
+
+  const newfetchsales = async (docEntry) => {
+    const DocEntry = `${docEntry}`;
+    try {
+      // const access = localStorage.getItem("accessC");
+
+      const response = await fetch(`${base_url}/api/Document/GeneratePdf`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${access}`,
+        },
+        body: JSON.stringify({
+          param: [
+            {
+              name: "Dockey@",
+              value: DocEntry,
+            },
+          ],
+          objType:"14",
+          docEntry: DocEntry,
+        }),
+      });
+      const data = await response.json();
+
+      const pathfile = data.as_Message;
+      const basePath = "C:\\inetpub\\wwwroot\\exportedfiles\\";
+      const relativePath = pathfile.replace(basePath, "");
+
+      await handelDownload(relativePath);
+    } catch (error) { }
+  };
+
   const handelDownload = async (documentFile) => {
     try {
       const downloadURL = `https://shipwall.au/exportedfiles/${documentFile}`;
@@ -708,7 +742,7 @@ export const ApiProvider = ({ children }) => {
          setClearenceData,
          getClearenceItem,
          clearenceData,
-         getCmsDetails,cmsPage , getFleshNewsList , fleshNewsList , trackOrder ,orderDetails , ledgerData ,dowloadLedger , base_url , baseURL2 , cardCode , access ,bplId ,clearenceDataFilter
+         getCmsDetails,cmsPage , getFleshNewsList , fleshNewsList , trackOrder ,orderDetails , ledgerData ,dowloadLedger , base_url , baseURL2 , cardCode , access ,bplId ,clearenceDataFilter, newfetchsales
       }}
     >
       {children}

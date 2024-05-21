@@ -13,6 +13,10 @@ const Order = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
+  useEffect(() => {
+    getOrder()
+  },[])
+
   const uniqueOrderList = orderList
     ? orderList.reduce((uniqueOrders, currentOrder) => {
         const existingOrder = uniqueOrders.find(
@@ -96,10 +100,13 @@ const Order = () => {
                                 <thead>
                                   <tr>
                                     <th style={{ textAlign: "center" }}>
-                                      OrderID
+                                      Order Number
                                     </th>
                                     <th style={{ textAlign: "center" }}>
-                                      So Date
+                                     Order Date
+                                    </th>
+                                    <th style={{ textAlign: "center" }}>
+                                     Order Value
                                     </th>
                                     <th style={{ textAlign: "center" }}>
                                       {" "}
@@ -138,6 +145,10 @@ const Order = () => {
                                               "dd/MM/yyyy"
                                             )
                                           : ""}
+                                      </td>
+                                      <td style={{ textAlign: "center" }}>
+                                        {" "}
+                                        {item.soDocTotal}{" "}
                                       </td>
                                       <td style={{ textAlign: "center" }}>
                                         {" "}

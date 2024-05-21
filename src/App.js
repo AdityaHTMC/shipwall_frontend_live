@@ -3,7 +3,7 @@ import "./css/mix.css";
 import "./css/dropdown.css";
 import "./css/newStyle.css";
 import Footer from "./components/common/footer/Footer";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useParams } from "react-router-dom";
 import Header from "./components/common/header/Header";
 import MainScreen from "./screen/MainScreen";
 import ContactUs from "./screen/ContactUs";
@@ -57,16 +57,21 @@ import OurStories from "./components/CMSPages/OurStories";
 import UserProfile from "./components/normal/account/UserProfile";
 import AccountSummary from "./components/normal/account/AccountSummary";
 import Return from "./screen/Return";
+import OrderInvoice from "./screen/OrderInvoice";
+import OrderReturn from "./screen/OrderReturn";
+import { AppPayment } from "./screen/payment/AppPayment";
 
 function App() {
   const { isLoading } = useAppContext();
+  const location = useLocation();
+  const params = useParams();
 
   return (
     <>
       {isLoading === false ? (
         <>
-          <Header />
-          <ScrollToTop/>
+          {!location.pathname.includes("/app-payment/") && <Header />}
+          <ScrollToTop />
           <ToastContainer position="top-center" />
           <Routes>
             <Route exact path="/" element={<MainScreen />} />
@@ -76,28 +81,47 @@ function App() {
             <Route path="/our-story" element={<OurStory />} />
             <Route path="/product" element={<ProductCards />} />
             <Route path="/product-list" element={<ProductList />} />
-            <Route path="/clearence-product-list" element={<ClearenceProductList />} />
+            <Route
+              path="/clearence-product-list"
+              element={<ClearenceProductList />}
+            />
             <Route path="/bestseller-product-list" element={<BestSeller />} />
             <Route path="/newLaunch-product-list" element={<NewLaunch />} />
-            <Route path="/brandCatalogue" element={<Cateloguepage/>} />
-            <Route path="/viewlogo" element={<ViewLogos/>} />
-            <Route path="/product-list/:name/:grpid" element={<ProductList />} />
+            <Route path="/brandCatalogue" element={<Cateloguepage />} />
+            <Route path="/viewlogo" element={<ViewLogos />} />
+            <Route
+              path="/product-list/:name/:grpid"
+              element={<ProductList />}
+            />
             <Route path="/product-list/:id" element={<SearchProductList />} />
             <Route path="/product-brand/:name" element={<ProductList />} />
-            <Route path="/cms/about-us" element={<AboutUs/>} />
-            <Route path="/cms/new-customers" element={<NewCustomer/>} />
-            <Route path="/cms/how-to-use-my-account" element={<HowUseAccount/>} />
-            <Route path="/cms/placing-an-order" element={<PlacingOrder/>} />
-            <Route path="/cms/payment-methods" element={<PaymentMethod/>} />
-            <Route path="/cms/delivery-dispatch" element={<DelivaryDispatch/>} />
-            <Route path="/cms/problems-with-your-order" element={<ProblemInOrder/>} />  
-            <Route path="/cms/help-center" element={<HelpCenter/>} />
-            <Route path="/cms/contact-us" element={<Contact/>} />
-            <Route path="/cms/report-abuse" element={<ReportAbuse/>} />
-            <Route path="/cms/privacy-policy" element={<PrivacyPolicyPage/>} />
-            <Route path="/cms/cancellation-refund-policy" element={<RefundPolicy/>} />
-            <Route path="/cms/our-stories" element={<OurStories/>} />
-            <Route path="/cms/faq" element={<FAQpages/>} />
+            <Route path="/cms/about-us" element={<AboutUs />} />
+            <Route path="/cms/new-customers" element={<NewCustomer />} />
+            <Route
+              path="/cms/how-to-use-my-account"
+              element={<HowUseAccount />}
+            />
+            <Route path="/cms/placing-an-order" element={<PlacingOrder />} />
+            <Route path="/cms/payment-methods" element={<PaymentMethod />} />
+            <Route
+              path="/cms/delivery-dispatch"
+              element={<DelivaryDispatch />}
+            />
+            <Route
+              path="/cms/problems-with-your-order"
+              element={<ProblemInOrder />}
+            />
+            <Route path="/cms/help-center" element={<HelpCenter />} />
+            <Route path="/cms/contact-us" element={<Contact />} />
+            <Route path="/cms/report-abuse" element={<ReportAbuse />} />
+            <Route path="/cms/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route
+              path="/cms/cancellation-refund-policy"
+              element={<RefundPolicy />}
+            />
+            <Route path="/cms/our-stories" element={<OurStories />} />
+            <Route path="/cms/faq" element={<FAQpages />} />
+            <Route path="/app-payment/:code" element={<AppPayment />} />
             {/* <Route path="/order-tracking" element={<OrderTracking/>} /> */}
             <Route
               path="/product-list-cat/:name"
@@ -110,12 +134,21 @@ function App() {
             <Route path="/order-details/:id" element={<ProtectedRoute />}>
               <Route index element={<OrderDetails />} />
             </Route>
+
+            <Route path="/order-invoice/:id" element={<ProtectedRoute />}>
+              <Route index element={<OrderInvoice />} />
+            </Route>
+
+            <Route path="/order-return/:id" element={<ProtectedRoute />}>
+              <Route index element={<OrderReturn />} />
+            </Route>
+
             <Route path="/cart" element={<ProtectedRoute />}>
               <Route index element={<Cart />} />
             </Route>
-            
+
             <Route path="/order-tracking" element={<ProtectedRoute />}>
-              <Route index element={<OrderTracking/>} />
+              <Route index element={<OrderTracking />} />
             </Route>
 
             <Route path="/wishlist" element={<ProtectedRoute />}>
@@ -158,17 +191,12 @@ function App() {
             </Route>
 
             <Route path="/account/return" element={<ProtectedRoute />}>
-              <Route index element={<Return/>} />
+              <Route index element={<Return />} />
             </Route>
             {/* <Route path="/test1" element={<Test />} /> */}
-            <Route
-              path="*"
-              element={
-                <Error/>
-              }
-            />
+            <Route path="*" element={<Error />} />
           </Routes>
-          <Footer />
+          {!location.pathname.includes("/app-payment/") && <Footer />}
         </>
       ) : (
         <PreLoading />

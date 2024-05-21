@@ -81,6 +81,33 @@ const PdfTable = ({ onClose }) => {
     return null
   }
 
+  const getType = (type) => {
+    if(type === '13'){
+      return 'Invoice'
+    }
+    else if(type === '14'){
+      return 'Credit Note'
+    }
+    else if(type === '204'){
+      return 'A/P Down Payment'
+    }
+    else if(type === '10000079'){
+      return 'TDS Adjustment'
+    }
+    else if(type === '30'){
+      return 'Journal Entry'
+    }
+    else if(type === '46'){
+      return 'Outgoing Payment'
+    }
+    else if(type === '24'){
+      return 'Incoming Payment'
+    }
+    else {
+      return 'X'
+    }
+  }
+
   return (
     <Fragment>
       {isConverting && (
@@ -115,7 +142,7 @@ const PdfTable = ({ onClose }) => {
                   {ledger.data.map((data, i) => (
                     <tr key={i}>
                       <td>{data?.taxDate}</td>
-                      <td>{data?.transType}</td>
+                      <td>{getType(data?.transType)}</td>
                       <td>{data?.debit}</td>
                       <td>{data?.credit}</td>
                       <td>{data?.cL_BAL}</td>

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useAppContext } from "../../contextApi/AppContext";
 
-const MyComponent = ({amount,selectedItem,cashOnDelivery,freeCreditLimit}) => {
+const MyComponent = ({amount,selectedItem,cashOnDelivery,freeCreditLimit, manualAddress, note, code}) => {
   const [cardtoken , setCardtoken] = useState("")
   const [paymentCreated, setPaymentCreated] = useState(false);
 
@@ -49,13 +49,16 @@ const MyComponent = ({amount,selectedItem,cashOnDelivery,freeCreditLimit}) => {
             }
           },
           card: {
-            onTokeniseSuccess: function (tokenisedCard) {
-                Createpayment(
+            onTokeniseSuccess: async function (tokenisedCard) {
+                await Createpayment(
                   tokenisedCard.token,
                   selectedItem,
                   cashOnDelivery,
                   freeCreditLimit,
-                  amount
+                  amount,
+                  manualAddress,
+                  note,
+                  code || null
                 );
             },
           },

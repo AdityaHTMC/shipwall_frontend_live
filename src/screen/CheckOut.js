@@ -557,7 +557,7 @@ const CheckOut = () => {
 
                     <div className="col-sm-6 col-12 mb-3">
                       <label className="mb-2">
-                        <b>Or Enter Address Manually : </b>
+                        <b>Delivery on your work site : </b>
                       </label>
                       <textarea
                         type="text"

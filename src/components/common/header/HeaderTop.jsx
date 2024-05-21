@@ -18,7 +18,7 @@ const HeaderTop = () => {
                 <Link to='/cms/our-stories'> About </Link>
               </li>
               <li>
-                <Link to='/order-tracking'>Order Tracking</Link>
+                <Link to='/account/orders'>Order Tracking</Link>
               </li>
               <li>
                 <Link to='/contact-us'>Contact Us</Link>

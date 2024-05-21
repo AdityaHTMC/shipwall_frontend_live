@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { MdDownload } from "react-icons/md";
 import Table from "react-bootstrap/Table";
-
+import { FaArrowLeft } from "react-icons/fa6";
 import { parseISO, format } from "date-fns";
 import { useApi } from "../contextApi/ApiContexts/ApiContexts";
-import { useNavigate } from "react-router-dom"
-import Order from './Order'
-
+import { useNavigate } from "react-router-dom";
+import Order from "./Order";
+import { Button } from "react-bootstrap";
+import { FaEye } from "react-icons/fa";
 
 const OrderDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { orderList, fetchsales, handelDownload, getOrder } = useApi();
   const filteredOrders =
     orderList && orderList?.filter((item) => item?.soDocNum == id);
@@ -19,7 +20,6 @@ const OrderDetails = () => {
   const handlefetchSale = async (soObjType, sotype) => {
     await fetchsales(soObjType, sotype);
   };
-
 
   return (
     <section className="bg-light py-2">
@@ -29,6 +29,13 @@ const OrderDetails = () => {
             <div className="card border shadow-0">
               <div className="m-4">
                 <h4 className="card-title mb-4 mt-4 mt-md-0 mt-lg-0 text text-bg-primary p-3 text-center">
+                  <Link
+                    className="btn btn-warning"
+                    to="/account/orders"
+                    style={{ float: "left", margin: "-4px 0 0" }}
+                  >
+                    <FaArrowLeft />
+                  </Link>
                   Sales Order Number : {id}
                 </h4>
                 <div>
@@ -42,10 +49,17 @@ const OrderDetails = () => {
                           <th>delDate</th>
                           <th>invDocNum</th>
                           <th>invDate</th> */}
-                          <th style={{ textAlign: 'center' }}>Sales Order Quantity</th>
-                          <th style={{ textAlign: 'center' }}>Total Delivery Quantity</th>
-                          <th style={{ textAlign: 'center' }}>Total Invoice Quantity</th>
-                          <th>Download Invoice </th>
+                          <th style={{ textAlign: "center" }}>
+                            Sales Order Quantity
+                          </th>
+                          <th style={{ textAlign: "center" }}>
+                            Total Delivery Quantity
+                          </th>
+                          <th style={{ textAlign: "center" }}>
+                            Total Invoice Quantity
+                          </th>
+                          {/* <th>Download Invoice </th> */}
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -58,20 +72,45 @@ const OrderDetails = () => {
                               <td>{item.delDate !== null ? item.delDate : 0}</td>
                               <td> {item.invDocNum} </td>
                               <td> {item.invDate !==null ? item.invDate : 0 } </td> */}
-                              <td style={{ textAlign: 'center' }}> {item.soQty} </td>
-                              <td style={{ textAlign: 'center' }}> {item.delQty} </td>
-                              <td style={{ textAlign: 'center' }}> {item.invQty} </td>
-                              <td>
+                              <td style={{ textAlign: "center" }}>
+                                {" "}
+                                {item.soQty}{" "}
+                              </td>
+                              <td style={{ textAlign: "center" }}>
+                                {" "}
+                                {item.delQty}{" "}
+                              </td>
+                              <td style={{ textAlign: "center" }}>
+                                {" "}
+                                {item.invQty}{" "}
+                              </td>
+                              {/* <td>
                                 {item?.invDocNum !== 0 && (
-                                  <button onClick={()=>handlefetchSale(item.invDocEntry,item.invObjType)}>
+                                  <button
+                                    onClick={() =>
+                                      handlefetchSale(
+                                        item.invDocEntry,
+                                        item.invObjType
+                                      )
+                                    }
+                                  >
                                     Invoice : <MdDownload />
                                   </button>
                                 )}
+                              </td> */}
+                              <td
+                                style={{
+                                  cursor: "pointer",
+                                  textAlign: "center",
+                                }}
+                              >
+                                <Link to={`/order-invoice/${item.soDocNum}`}>
+                                  <FaEye />
+                                </Link>
                               </td>
                             </tr>
                           ))}
                       </tbody>
-
                     </Table>
                     {/* <button onClick={handelback}>back</button> */}
                   </div>

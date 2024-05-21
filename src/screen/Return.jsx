@@ -31,6 +31,8 @@ const Return = () => {
   const [addedRows, setAddedRows] = useState(1);
   const [selectedDate, setSelectedDate] = useState(null);
   const [remarks, setRemarks] = useState("");
+  const [returnAddress, setReturnAddress] = useState("");
+
 
   const itemsPerPage = 8;
 
@@ -106,7 +108,7 @@ const Return = () => {
           price: parseFloat(selectedItems[index]?.price) || 0,
           priceBefDi: 0,
           fright1Amount: 0,
-          baseEntry: selectedInvoice[index]?.label || "",
+          baseEntry: selectedInvoice[index]?.value || "",
           baseType: "13",
           baseLine: 0,
           deliveryType: "",
@@ -143,7 +145,8 @@ const Return = () => {
         ...consolidatedCurrentItems,
         ...consolidatedAddedRows,
       ];
-      PlaceReturnRequest(consolidatedAddedRows, remarks, selectedDate);
+      console.log("consolidatedAddedRows", consolidatedAddedRows)
+      PlaceReturnRequest(consolidatedAddedRows, remarks, selectedDate, returnAddress);
     } catch (error) {
       console.log(error);
     } finally {
@@ -320,7 +323,7 @@ const Return = () => {
                           <>
                             <div>
                               <div className="row justify-content-between align-items-center mb-3">
-                                <div className="col-md-6">
+                                <div className="col-md-4">
                                   <label>
                                     <b>Date:</b>
                                   </label>
@@ -335,15 +338,29 @@ const Return = () => {
                                     <i class="fas fa-calendar-alt"></i>
                                   </div>
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-md-4">
+                                  <label>
+                                    <b>Return address:</b>
+                                  </label>
+                                  <textarea
+                                    type="text"
+                                    value={returnAddress}
+                                    onChange={(e) => setReturnAddress(e.target.value)}
+                                    className="form-control custom-textarea"
+                      
+                                    
+                                  />
+                                </div>
+                                <div className="col-md-4">
                                   <label>
                                     <b>Remarks:</b>
                                   </label>
-                                  <input
+                                  <textarea
                                     type="text"
                                     value={remarks}
                                     onChange={(e) => setRemarks(e.target.value)}
-                                    className="form-control customeInput"
+                                    className="form-control custom-textarea"
+                                    rows={5}
                                   />
                                 </div>
                               </div>

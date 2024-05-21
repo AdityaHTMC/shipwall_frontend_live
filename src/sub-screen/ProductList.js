@@ -25,7 +25,11 @@ const ProductList = () => {
   const itemsPerPage = 4;
 
   const filteredItemsWithImage1 = filterItem?.filter((item) => item.image1);
-  const location = useLocation();
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  const level1 = searchParams.get('level1') || ''
+  const level2 = searchParams.get('level2') || ''
+  const level3 = searchParams.get('level3') || ''
 
   const handleLoadMore = () => {
     setDisplayedItems(displayedItems + itemsPerPage);
@@ -47,6 +51,9 @@ const ProductList = () => {
               </Link>
             </li>
             <li>{name && <span>{name}</span>}</li>
+            {level1 && <li><span>{level1}</span></li>}
+            {level2 && <li><span>{level2}</span></li>}
+            {level3 && <li><span>{level3}</span></li>}
             {!isNumber(grpid) && grpid && (
               <li className="active">
                 <span>{grpid}</span>
