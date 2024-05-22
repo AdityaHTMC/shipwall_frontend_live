@@ -17,6 +17,9 @@ const PdfTable = ({ onClose }) => {
     }
   }, [])
 
+  console.log(ledgerData,'ledger data')
+
+
   const convertPdf = async () => {
     try {
       setIsConverting(true)
@@ -108,6 +111,8 @@ const PdfTable = ({ onClose }) => {
     }
   }
 
+  // const closingBalance = ledger?.data[ledger.data.length - 1]?.cL_BAL;
+
   return (
     <Fragment>
       {isConverting && (
@@ -133,7 +138,7 @@ const PdfTable = ({ onClose }) => {
                     <th>Transation Type</th>
                     <th>Debit</th>
                     <th>Credit</th>
-                    <th>Cl_BAL</th>
+                    {/* <th>Cl_BAL</th> */}
                     <th>Payment Method</th>
                     <th>Cheque Number</th>
                   </tr>
@@ -142,16 +147,20 @@ const PdfTable = ({ onClose }) => {
                   {ledger.data.map((data, i) => (
                     <tr key={i}>
                       <td>{data?.taxDate}</td>
-                      <td>{getType(data?.transType)}</td>
+                      <td>{data?.transaction_Type}</td>
                       <td>{data?.debit}</td>
                       <td>{data?.credit}</td>
-                      <td>{data?.cL_BAL}</td>
+                      {/* <td>{data?.cL_BAL}</td> */}
                       <td>{data?.pmntMode}</td>
                       <td>{data?.chqNumber}</td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
+              <div>
+                <p>Opening balance : {ledger?.data[0].oP_BAL} </p>
+                <p>Closing balance : {ledger?.data[ledger?.data?.length - 1]?.cL_BAL} </p>
+              </div>
             </Fragment>
           )}
         </div>

@@ -15,6 +15,8 @@ import ProductDepthCategory from "../components/subscreen-componenets/ProductLis
 import NewProductCard from "../components/normal/Product-card/NewProductCard";
 import ClearenceCard from "../components/normal/Product-card/ClearenceCard";
 
+import '../css/newStyle.css';
+
 const ClearenceProductList = () => {
   const { products, addToCart, addWishlist,addToNewCart } = useAppContext();
   const { filterItem, getClearenceItem, groupCod, categorieslist, productLoading , setClearenceData,clearenceData , clearenceDataFilter} = useApi();

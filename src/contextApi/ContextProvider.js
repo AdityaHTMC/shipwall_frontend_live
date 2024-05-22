@@ -1185,6 +1185,63 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
+  // const Createpayment = async (
+  //   ctoken,
+  //   selectedItems,
+  //   codam,
+  //   creditam,
+  //   onlineam,
+  //   manualAddress,
+  //   note,
+  //   code
+  // ) => {
+  //   try {
+  //     console.log("payment Data", {ctoken, selectedItems, codam,onlineam, creditam, manualAddress, note})
+  //     const req = await fetch(`${base_url}/api/createPayment`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         amount: onlineam.toFixed(2),
+  //         token: ctoken,
+  //         // orderId: 12345,
+  //       }),
+  //     });
+  //     const res = await req.json();
+  //     if (req.ok) {
+  //       if (res.status === "paid") {
+  //         toast.success(res.gatewayResponseMessage);
+  //         if(!code) {
+  //           SalseOrderPlace(
+  //             selectedItems,
+  //             codam?.toFixed(2) || 0,
+  //             creditam?.toFixed(2) || 0,
+  //             onlineam?.toFixed(2) || 0,
+  //             manualAddress,
+  //             note
+  //           );
+  //         }else{
+  //           window?.ReactNativeWebView?.postMessage(JSON.stringify({...res, success: true}))
+  //         }
+  //       } else {
+  //         if(code){
+  //           window?.ReactNativeWebView?.postMessage(JSON.stringify({...res, success: false}))
+  //         }
+  //         toast.error(res.gatewayResponseMessage);
+  //       }
+  //     }else{
+  //       window?.ReactNativeWebView?.postMessage(JSON.stringify({...res, success: false}))
+  //       toast.error(res?.errors[0]?.detail);
+  //     }
+  //     // setBrandItem(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //     window?.ReactNativeWebView?.postMessage(JSON.stringify({success: false, message: error?.message}))
+  //     toast.error(error.message);
+  //   }
+  // };
+
   const Createpayment = async (
     ctoken,
     selectedItems,
@@ -1196,23 +1253,23 @@ const AppContextProvider = ({ children }) => {
     code
   ) => {
     try {
-      console.log("payment Data", {ctoken, selectedItems, codam,onlineam, creditam, manualAddress, note})
-      const req = await fetch(`${base_url}/api/createPayment`, {
-        method: "POST",
+      console.log("payment Data", { ctoken, selectedItems, codam, onlineam, creditam, manualAddress, note });
+      const response = await axios.post(`${base_url}/api/createPayment`, {
+        amount: Number(onlineam),
+        token: ctoken,
+        // orderId: '1234'  order id is not mandatory
+      }, {
         headers: {
           "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: onlineam.toFixed(2),
-          token: ctoken,
-          // orderId: 12345,
-        }),
+        }
       });
-      const res = await req.json();
-      if (req.ok) {
+  
+      const res = response.data;
+      
+      if (response.status === 200) {
         if (res.status === "paid") {
           toast.success(res.gatewayResponseMessage);
-          if(!code) {
+          if (!code) {
             SalseOrderPlace(
               selectedItems,
               codam?.toFixed(2) || 0,
@@ -1221,27 +1278,27 @@ const AppContextProvider = ({ children }) => {
               manualAddress,
               note
             );
-          }else{
-            window?.ReactNativeWebView?.postMessage(JSON.stringify({...res, success: true}))
+          } else {
+            window?.ReactNativeWebView?.postMessage(JSON.stringify({ ...res, success: true }));
           }
         } else {
-          if(code){
-            window?.ReactNativeWebView?.postMessage(JSON.stringify({...res, success: false}))
+          if (code) {
+            window?.ReactNativeWebView?.postMessage(JSON.stringify({ ...res, success: false }));
           }
           toast.error(res.gatewayResponseMessage);
         }
-      }else{
-        window?.ReactNativeWebView?.postMessage(JSON.stringify({...res, success: false}))
+      } else {
+        if (code) {
+          window?.ReactNativeWebView?.postMessage(JSON.stringify({ ...res, success: false }));
+        }
         toast.error(res?.errors[0]?.detail);
       }
-      // setBrandItem(res.data);
     } catch (error) {
       console.log(error);
-      window?.ReactNativeWebView?.postMessage(JSON.stringify({success: false, message: error?.message}))
+      window?.ReactNativeWebView?.postMessage(JSON.stringify({ success: false, message: error?.message }));
       toast.error(error.message);
     }
   };
-
   const abc = {
     logOut,
     isLoggedIn,

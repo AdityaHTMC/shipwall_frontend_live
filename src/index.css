@@ -12,3 +12,5 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.rc-slider-track, .rc-slider-tracks{background-color:#1c69da!important;}
+.rc-slider-handle{border-color:#1c69da!important;background-color:#fff!important;opacity:1!important;}

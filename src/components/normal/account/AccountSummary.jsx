@@ -7,7 +7,7 @@ import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const AccountSummary = () => {
-  const { Adddata } = useApi();
+  const { Adddata,getBP } = useApi();
   const [loading, setLoading] = useState(true);
   const [pdfOpen, setPdfOpen] = useState(false);
 
@@ -15,6 +15,10 @@ const AccountSummary = () => {
     Adddata?.creditlimit - Adddata?.balance - Adddata?.soOpenAmount;
 
   const displayFreeCredit = freecredit < 0 ? 0 : freecredit;
+
+  useEffect(() => {
+    getBP()
+  },[])
 
   useEffect(() => {
     // Assuming Adddata is the API response and you want to check if it exists
@@ -66,6 +70,13 @@ const AccountSummary = () => {
               <p>Loading...</p>
             ) : (
               <div className="row">
+                <div className="col-md-12">
+                <div className="card border shadow-0">
+                <div className="card-header">
+                  <h4 className="card-title mb-4 mt-4 mt-md-0 mt-lg-0 text text-bg-primary p-3 text-center">Acccount Summary</h4>
+                </div>
+                <div className="row p-4">
+
                 <div className="col-md-4">
                   <div className="acc-box">
                     {" "}
@@ -111,6 +122,12 @@ const AccountSummary = () => {
                     </button>
                   </div>
                 </div>
+                </div>
+              
+                </div>
+                </div>
+
+   
               </div>
             )}
             {pdfOpen === true && <PdfTable onClose={setPdfOpen} />}

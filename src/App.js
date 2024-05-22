@@ -135,11 +135,11 @@ function App() {
               <Route index element={<OrderDetails />} />
             </Route>
 
-            <Route path="/order-invoice/:id" element={<ProtectedRoute />}>
+            <Route path="/order-invoice/:id/:itemcode" element={<ProtectedRoute />}>
               <Route index element={<OrderInvoice />} />
             </Route>
 
-            <Route path="/order-return/:id" element={<ProtectedRoute />}>
+            <Route path="/order-return/:id/:itemcode" element={<ProtectedRoute />}>
               <Route index element={<OrderReturn />} />
             </Route>
 
@@ -163,7 +163,7 @@ function App() {
             </Route>
 
             <Route path="/order" element={<ProtectedRoute />}>
-              <Route index element={<Order />} />
+              <Route index element={<Order/>} />
             </Route>
 
             <Route path="/address" element={<ProtectedRoute />}>
@@ -179,7 +179,7 @@ function App() {
             </Route>
 
             <Route path="/account/orders" element={<ProtectedRoute />}>
-              <Route index element={<Order />} />
+              <Route index element={<Order/>} />
             </Route>
 
             <Route path="/account/details" element={<ProtectedRoute />}>

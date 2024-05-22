@@ -101,8 +101,8 @@ const ManageAddress = () => {
         <Col sm={9}>
           <div className="row">
             <div className="col-lg-12">
-              <div className="address-data">
-                <h4>Address</h4>
+              <div className="card-header mt-2">
+                <h4 className="card-title mt-md-0 mt-lg-0 text text-bg-primary p-3 text-center">Address</h4>
                 <br />
                 {loading ? (
                   <p>Loading...</p>
@@ -110,7 +110,7 @@ const ManageAddress = () => {
                   <>
                     <div className="card">
                       <div className="card-header">
-                        <h4 className="text mb-0">Billing Details</h4>
+                        <h4 className="text mb-0 ">Billing Details</h4>
                       </div>
 
                       <div className="card-body">
@@ -120,7 +120,7 @@ const ManageAddress = () => {
                             {Array.isArray(billingAddress) &&
                               billingAddress.map((billingAddress, index) => (
                                 <>
-                                  <h5 className="mutiple_billing_title">
+                                  <h5 className="mutiple_billing_title text-center" style={{marginRight:'100px'}}>
                                     Billing Address : {index + 1}
                                   </h5>
                                   <tbody key={index}>
@@ -183,7 +183,7 @@ const ManageAddress = () => {
                     <br /> <br />
                     <div className="card">
                       <div className="card-header">
-                        <h4 className="text mb-0">Shipping Details</h4>
+                        <h4 className="text mb-0" >Shipping Details</h4>
                       </div>
 
                       <div className="card-body">
@@ -193,7 +193,7 @@ const ManageAddress = () => {
                             {Array.isArray(shippingAddress) &&
                               shippingAddress.map((shippingAddress, index) => (
                                 <>
-                                  <h5 className="mutiple_billing_title">
+                                  <h5 className="mutiple_billing_title" style={{marginRight:'70px'}}>
                                     Shipping Address : {index + 1}
                                   </h5>
                                   <tbody key={index}>

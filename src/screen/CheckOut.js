@@ -166,9 +166,25 @@ const CheckOut = () => {
   }, [cashOnDelivery, freeCreditLimit, totalPrice]);
 
   const handleCashOnDeliveryChange = (event) => {
-    const inputValue = parseFloat(event.target.value);
-    setCashOnDelivery(inputValue);
+    let inputValue = event.target.value;
+  
+    // If the input is empty, set inputValue to "0"
+    if (inputValue === "") {
+      inputValue = "0";
+    }
+  
+    // Parse the input value to a float
+    inputValue = parseFloat(inputValue);
+  
+    // Regular expression to match a number with up to two decimal places
+    const regex = /^\d*\.?\d{0,2}$/;
+  
+    // Test the value against the regex
+    if (regex.test(inputValue.toString())) {
+      setCashOnDelivery(inputValue);
+    }
   };
+  
 
   const handleFreeCreditLimitChange = (event) => {
     const inputValue = parseFloat(event.target.value);

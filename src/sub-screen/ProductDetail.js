@@ -15,8 +15,7 @@ import { useApi } from "../contextApi/ApiContexts/ApiContexts";
 const baseURL2 = "https://shipwall.au/test/API/shipwall"; // Node Api Base URL
 
 const ProductDetail = () => {
-  
-  const { cardCode , access , baseURL2,base_url,bplId  } = useApi()
+  const { cardCode, access, baseURL2, base_url, bplId } = useApi();
 
   const {
     products,
@@ -34,7 +33,8 @@ const ProductDetail = () => {
   const [ProductDetails, setproductDetails] = useState({});
   const [warehouseData, setWarehouseData] = useState({});
   const [activeTab, setActiveTab] = useState("description");
-  const [cleanedDescription, setCleanedDescription] = useState('');
+  const [cleanedDescription, setCleanedDescription] = useState("");
+  const [ProductDesc, setProductDesc] = useState();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -42,10 +42,11 @@ const ProductDetail = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        `${baseURL2}/api/v1/item/detail`,{
+        `${baseURL2}/api/v1/item/detail`,
+        {
           item_id: id,
-          cardCode:cardCode,
-          bplId:bplId
+          cardCode: cardCode,
+          bplId: bplId,
         },
         {
           headers: {
@@ -60,21 +61,42 @@ const ProductDetail = () => {
       await getSapItem(data.data.itemCode);
     } catch (error) {
       console.log(error, "error my-context");
-    }
-    finally {
+    } finally {
       setLoading(false); // Set loading to false when data is fetched
     }
   };
 
+  const ProductDescription = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `${baseURL2}/api/v1/item/description/details/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${access}`,
+          },
+        }
+      );
 
-  console.log(ProductDetails,'ProductDetails');
+      const { data } = response;
+      setProductDesc(data.data);
+    } catch (error) {
+      console.log(error, "error product description");
+    } finally {
+      setLoading(false); // Set loading to false when data is fetched
+    }
+  };
 
+  console.log(ProductDetails, "ProductDetails");
+  console.log(ProductDesc, "product description");
 
-  const priceToPass = ProductDetails.clearanceSalePrice > 0 
-  ? ProductDetails.clearanceSalePrice 
-  : ProductDetails.salePrice > 0 
-    ? ProductDetails.salePrice 
-    : ProductDetails.itemPrice;
+  const priceToPass =
+    ProductDetails.clearanceSalePrice > 0
+      ? ProductDetails.clearanceSalePrice
+      : ProductDetails.salePrice > 0
+      ? ProductDetails.salePrice
+      : ProductDetails.itemPrice;
 
   const tabButtonStyle = {
     border: "none",
@@ -114,8 +136,6 @@ const ProductDetail = () => {
       id,
       ProductDetails.itemAddCharges,
       ProductDetails.taxPerc
-
-
     );
     setIsWishlistClicked(!isWishlistClicked);
   };
@@ -141,12 +161,12 @@ const ProductDetail = () => {
   useEffect(() => {
     if (description) {
       // Create a temporary element to hold the description HTML
-      const tempDiv = document.createElement('div');
+      const tempDiv = document.createElement("div");
       tempDiv.innerHTML = description;
 
       // Remove <br> tags and trim unnecessary whitespace
       const cleanedHTML = tempDiv.innerHTML
-        .replace(/<br\s*\/?>/gi, '') // Remove <br> tags
+        .replace(/<br\s*\/?>/gi, "") // Remove <br> tags
         .trim(); // Trim whitespace
 
       // Set the cleaned HTML to state
@@ -157,9 +177,10 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       await ProductDetailApi();
+      await ProductDescription();
       setTimeout(async () => {
         await warehouse();
-      }, 10000);
+      }, 1000);
     };
 
     fetchData();
@@ -237,146 +258,147 @@ const ProductDetail = () => {
 
   return (
     <>
-
-
-    {/* page breadcrumbs start */}
-    <section className="pageBreadcrumbs mb-5">
+      {/* page breadcrumbs start */}
+      <section className="pageBreadcrumbs mb-5">
         <article className="container">
           <ul>
-            <li><Link className="text" to="/">Home</Link></li>
+            <li>
+              <Link className="text" to="/">
+                Home
+              </Link>
+            </li>
             <li className="active">{ProductDetails?.itmsGrpNam}</li>
           </ul>
         </article>
-    </section>
-    {/* page breadcrumbs end */}
+      </section>
+      {/* page breadcrumbs end */}
 
-
-    {/* product uppar part start */}
-    <section className="tp-product-details-area">
-      <div className="tp-product-details-top pb-40">
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-12">
-              <div className="tp-product-details-thumb-wrapper tp-tab d-sm-flex productZoomBx">
-                <nav>
-                  <div
-                    className="nav nav-tabs flex-sm-column "
-                    id="productDetailsNavThumb"
-                    role="tablist"
-                  >
-                    <button
-                      className="nav-link active"
-                      id="nav-1-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#nav-1"
-                      type="button"
-                      role="tab"
-                      aria-controls="nav-1"
-                      aria-selected="true"
+      {/* product uppar part start */}
+      <section className="tp-product-details-area">
+        <div className="tp-product-details-top pb-40">
+          <div className="container">
+            <div className="row">
+              <div className="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-12">
+                <div className="tp-product-details-thumb-wrapper tp-tab d-sm-flex productZoomBx">
+                  <nav>
+                    <div
+                      className="nav nav-tabs flex-sm-column "
+                      id="productDetailsNavThumb"
+                      role="tablist"
                     >
-                      <img src={image1} alt="" />
-                    </button>
-                    <button
-                      className="nav-link"
-                      id="nav-2-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#nav-2"
-                      type="button"
-                      role="tab"
-                      aria-controls="nav-2"
-                      aria-selected="false"
-                    >
-                      <img src={image2} alt="" />
-                    </button>
-                    <button
-                      className="nav-link"
-                      id="nav-3-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#nav-3"
-                      type="button"
-                      role="tab"
-                      aria-controls="nav-3"
-                      aria-selected="false"
-                    >
-                      <img src={image3} alt="" />
-                    </button>
-                    <button
-                      className="nav-link"
-                      id="nav-4-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#nav-4"
-                      type="button"
-                      role="tab"
-                      aria-controls="nav-4"
-                      aria-selected="false"
-                    >
-                      <img src={image4} alt="" />
-                    </button>
-                  </div>
-                </nav>
-                <div
-                  className="tab-content m-img"
-                  id="productDetailsNavContent"
-                >
-                  <div
-                    className="tab-pane fade show active"
-                    id="nav-1"
-                    role="tabpanel"
-                    aria-labelledby="nav-1-tab"
-                    tabindex="0"
-                  >
-                    <div className="productZoomImg">
-                      <img src={image1} alt="" />
+                      <button
+                        className="nav-link active"
+                        id="nav-1-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#nav-1"
+                        type="button"
+                        role="tab"
+                        aria-controls="nav-1"
+                        aria-selected="true"
+                      >
+                        <img src={image1} alt="" />
+                      </button>
+                      <button
+                        className="nav-link"
+                        id="nav-2-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#nav-2"
+                        type="button"
+                        role="tab"
+                        aria-controls="nav-2"
+                        aria-selected="false"
+                      >
+                        <img src={image2} alt="" />
+                      </button>
+                      <button
+                        className="nav-link"
+                        id="nav-3-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#nav-3"
+                        type="button"
+                        role="tab"
+                        aria-controls="nav-3"
+                        aria-selected="false"
+                      >
+                        <img src={image3} alt="" />
+                      </button>
+                      <button
+                        className="nav-link"
+                        id="nav-4-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#nav-4"
+                        type="button"
+                        role="tab"
+                        aria-controls="nav-4"
+                        aria-selected="false"
+                      >
+                        <img src={image4} alt="" />
+                      </button>
                     </div>
-                  </div>
+                  </nav>
                   <div
-                    className="tab-pane fade"
-                    id="nav-2"
-                    role="tabpanel"
-                    aria-labelledby="nav-2-tab"
-                    tabindex="0"
+                    className="tab-content m-img"
+                    id="productDetailsNavContent"
                   >
-                    <div className="productZoomImg">
-                      <img src={image2} alt="" />
+                    <div
+                      className="tab-pane fade show active"
+                      id="nav-1"
+                      role="tabpanel"
+                      aria-labelledby="nav-1-tab"
+                      tabindex="0"
+                    >
+                      <div className="productZoomImg">
+                        <img src={image1} alt="" />
+                      </div>
                     </div>
-                  </div>
-                  <div
-                    className="tab-pane fade"
-                    id="nav-3"
-                    role="tabpanel"
-                    aria-labelledby="nav-3-tab"
-                    tabindex="0"
-                  >
-                    <div className="productZoomImg">
-                      <img src={image3} alt="" />
+                    <div
+                      className="tab-pane fade"
+                      id="nav-2"
+                      role="tabpanel"
+                      aria-labelledby="nav-2-tab"
+                      tabindex="0"
+                    >
+                      <div className="productZoomImg">
+                        <img src={image2} alt="" />
+                      </div>
                     </div>
-                  </div>
-                  <div
-                    className="tab-pane fade"
-                    id="nav-4"
-                    role="tabpanel"
-                    aria-labelledby="nav-4-tab"
-                    tabindex="0"
-                  >
-                    <div className="productZoomImg">
-                      <img src={image4} alt="" />
+                    <div
+                      className="tab-pane fade"
+                      id="nav-3"
+                      role="tabpanel"
+                      aria-labelledby="nav-3-tab"
+                      tabindex="0"
+                    >
+                      <div className="productZoomImg">
+                        <img src={image3} alt="" />
+                      </div>
+                    </div>
+                    <div
+                      className="tab-pane fade"
+                      id="nav-4"
+                      role="tabpanel"
+                      aria-labelledby="nav-4-tab"
+                      tabindex="0"
+                    >
+                      <div className="productZoomImg">
+                        <img src={image4} alt="" />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>{" "}
-            {/* col end */}
-            <div className="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
-              <div className="tp-product-details-wrapper productDtlsBx">
-                <h4>{itemName}</h4>
-                <h5 className="fw-bold text-primary">
+              </div>{" "}
+              {/* col end */}
+              <div className="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
+                <div className="tp-product-details-wrapper productDtlsBx">
+                  <h4>{itemName}</h4>
+                  <h5 className="fw-bold text-primary">
                     {isLogIn ? (
                       `AUD ${
-                        ProductDetails?.clearanceSalePrice > 0 
-                          ? ProductDetails?.clearanceSalePrice 
-                          : ProductDetails?.salePrice > 0 
-                            ? ProductDetails?.salePrice 
-                            : ProductDetails?.itemPrice
+                        ProductDetails?.clearanceSalePrice > 0
+                          ? ProductDetails?.clearanceSalePrice
+                          : ProductDetails?.salePrice > 0
+                          ? ProductDetails?.salePrice
+                          : ProductDetails?.itemPrice
                       }`
                     ) : (
                       <span
@@ -388,122 +410,133 @@ const ProductDetail = () => {
                     )}
                   </h5>
                   <ul className="infoList">
-                      {attribute_value?.map((item, index) => (
-                        <>
-                          {item.attribute && (
-                            <li key={index}>
-                              {item.attribute} : {item.value}
-                            </li>
-                          )}
-                        </>
-                      ))}
-                    </ul>
-
-                    <div className="d-flex">
-                      <h5 className="me-3 text-success">
-                      {itemQty > 0 ? (
-                          <>
-                            <span>In Stock</span> <span>{itemQty}</span>
-                          </>
-                        ) : (
-                          <span className="text text-danger">Out of Stock</span>
+                    {attribute_value?.map((item, index) => (
+                      <>
+                        {item.attribute && (
+                          <li key={index}>
+                            {item.attribute} : {item.value}
+                          </li>
                         )}
-                      </h5>
-                      
-                      <button className="btn btn-secondary rounded-pill btn-sm">&nbsp;&nbsp;CHECK LOCATION WISE STOCK&nbsp;&nbsp;</button>
-                    </div>
-                    <hr className="mt-2 mb-0" />
-                    {/* <p className="mb-1">12 people are viewing this right now</p> */}
+                      </>
+                    ))}
+                  </ul>
 
-                      <ul className="btnBx mb-1 mt-2">
-                        <li>
-                          <div className="tp-product-quantity mb-15">
-                            <span
-                              onClick={decrementQuantity}
-                              className="tp-cart-minus"
-                            >
-                              <FaMinus />
-                            </span>
-                            <input
-                              className="tp-cart-input"
-                              type="text"
-                              Value={productQuantity}
-                              disabled
-                            />
-                            <span
-                              onClick={incrementQuantity}
-                              className="tp-cart-plus"
-                            >
-                              <FaPlus />
-                            </span>
-                          </div>
-                        </li>
-                        <li>
-                          <button
-                            onClick={() => {
-                              addToNewCart(
-                                { itemCode: ProductDetails.itemCode,
-                                 quantity: productQuantity,
-                                 price: priceToPass,
-                                 itemName: ProductDetails.itemName,
-                                 image1: ProductDetails.image1,
-                                 fright1Amount: ProductDetails.itemAddCharges,
-                                 taxPerc: ProductDetails.taxPerc}
-                               );
-                            }}
-                            className="btn btn-primary rounded-pill"
-                          >
-                            <b>&nbsp;&nbsp;&nbsp;Add To Order&nbsp;&nbsp;&nbsp;</b>
-                          </button>
-                        </li>
-                        {/* <li>
+                  <div className="d-flex">
+                    <h5 className="me-3 text-success">
+                      {itemQty > 0 ? (
+                        <>
+                          <span>In Stock</span> <span>{itemQty}</span>
+                        </>
+                      ) : (
+                        <span className="text text-danger">Out of Stock</span>
+                      )}
+                    </h5>
+
+                    <button className="btn btn-secondary rounded-pill btn-sm">
+                      &nbsp;&nbsp;CHECK LOCATION WISE STOCK&nbsp;&nbsp;
+                    </button>
+                  </div>
+                  <hr className="mt-2 mb-0" />
+                  {/* <p className="mb-1">12 people are viewing this right now</p> */}
+
+                  <ul className="btnBx mb-1 mt-2">
+                    <li>
+                      <div className="tp-product-quantity mb-15">
+                        <span
+                          onClick={decrementQuantity}
+                          className="tp-cart-minus"
+                        >
+                          <FaMinus />
+                        </span>
+                        <input
+                          className="tp-cart-input"
+                          type="text"
+                          Value={productQuantity}
+                          disabled
+                        />
+                        <span
+                          onClick={incrementQuantity}
+                          className="tp-cart-plus"
+                        >
+                          <FaPlus />
+                        </span>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => {
+                          addToNewCart({
+                            itemCode: ProductDetails.itemCode,
+                            quantity: productQuantity,
+                            price: priceToPass,
+                            itemName: ProductDetails.itemName,
+                            image1: ProductDetails.image1,
+                            fright1Amount: ProductDetails.itemAddCharges,
+                            taxPerc: ProductDetails.taxPerc,
+                          });
+                        }}
+                        className="btn btn-primary rounded-pill"
+                      >
+                        <b>&nbsp;&nbsp;&nbsp;Add To Order&nbsp;&nbsp;&nbsp;</b>
+                      </button>
+                    </li>
+                    {/* <li>
                           <button className="btn btn-warning rounded-pill" type="button">&nbsp;&nbsp;&nbsp;<b>BUY IT NOW</b>&nbsp;&nbsp;&nbsp;</button>
                         </li> */}
-                        <li>
-                          <button
-                            onClick={handleWishlistClick}
-                            type="button"
-                            className={`btn btn-outline-danger rounded-pill ${
-                              isWishlistClicked ? "wishlist-clicked" : ""
-                            }`}
-                          >&nbsp;&nbsp;
-                            {isWishlistClicked ? (
-                              <AiFillHeart className="heart-icon" />
-                            ) : (
-                              <AiOutlineHeart className="heart-icon" />
-                            )}
-                            &nbsp; Add to Wishlist &nbsp;&nbsp;
-                          </button>
-                        </li>
-                      </ul>
+                    <li>
+                      <button
+                        onClick={handleWishlistClick}
+                        type="button"
+                        className={`btn btn-outline-danger rounded-pill ${
+                          isWishlistClicked ? "wishlist-clicked" : ""
+                        }`}
+                      >
+                        &nbsp;&nbsp;
+                        {isWishlistClicked ? (
+                          <AiFillHeart className="heart-icon" />
+                        ) : (
+                          <AiOutlineHeart className="heart-icon" />
+                        )}
+                        &nbsp; Add to Wishlist &nbsp;&nbsp;
+                      </button>
+                    </li>
+                  </ul>
 
-                      <ul className="btnBx">
-                        <li>
-                          {brochure && (
-                            <button
-                              onClick={handledhownloadbrochure}
-                              type="button"
-                              className="btn btn-primary rounded-pill"
-                            >
-                             &nbsp;&nbsp;&nbsp;<FaDownload />&nbsp;<b>TECHNICAL DATASHEET DOWNLOAD</b>&nbsp;&nbsp;&nbsp;
-                            </button>
-                          )}
-                        </li>
-                        <li>
-                          <button class="btn btn-primary rounded-pill" type="button">&nbsp;&nbsp;&nbsp;<b>INQUIRY FOR BULK</b>&nbsp;&nbsp;&nbsp;</button>
-                        </li>
-                      </ul>
-                {/* <div className="tp-product-details-category">
+                  <ul className="btnBx">
+                    <li>
+                      {brochure && (
+                        <button
+                          onClick={handledhownloadbrochure}
+                          type="button"
+                          className="btn btn-primary rounded-pill"
+                        >
+                          &nbsp;&nbsp;&nbsp;
+                          <FaDownload />
+                          &nbsp;<b>TECHNICAL DATASHEET DOWNLOAD</b>
+                          &nbsp;&nbsp;&nbsp;
+                        </button>
+                      )}
+                    </li>
+                    <li>
+                      <button
+                        class="btn btn-primary rounded-pill"
+                        type="button"
+                      >
+                        &nbsp;&nbsp;&nbsp;<b>INQUIRY FOR BULK</b>
+                        &nbsp;&nbsp;&nbsp;
+                      </button>
+                    </li>
+                  </ul>
+                  {/* <div className="tp-product-details-category">
                 <span>{itmsGrpNam ? itmsGrpNam : ""}</span>
                 </div> */}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    {/* product uppar part end */}
-
+      </section>
+      {/* product uppar part end */}
 
       <section className="container mb-5">
         <div className="row">
@@ -543,31 +576,36 @@ const ProductDetail = () => {
 
           {activeTab === "description" && (
             <div className="tp-product-details-description">
-             <ReactQuill
-                value={cleanedDescription}
+              <ReactQuill
+                value={ProductDesc?.description}
                 readOnly={true}
                 modules={{ toolbar: false }}
                 theme="snow"
               />
-
             </div>
           )}
 
-          {activeTab === "technical" && <div> <ReactQuill
-                value={technical_information}
+          {activeTab === "technical" && (
+            <div>
+              {" "}
+              <ReactQuill
+                value={ProductDesc?.technical_information}
                 readOnly={true}
                 modules={{ toolbar: false }}
                 theme="snow"
               />
-              </div>}
-          {activeTab === "shipping" && <div className="tp-product-details-description">
-          <ReactQuill
-                value={shipping_information}
+            </div>
+          )}
+          {activeTab === "shipping" && (
+            <div className="tp-product-details-description">
+              <ReactQuill
+                value={ProductDesc?.shipping_information}
                 readOnly={true}
                 modules={{ toolbar: false }}
                 theme="snow"
               />
-            </div>}
+            </div>
+          )}
         </div>
       </section>
     </>

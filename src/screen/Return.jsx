@@ -286,7 +286,7 @@ const Return = () => {
               Orders
             </Link>
             <Link
-              to="/account/deatils"
+              to="/account/details"
               className={` list-group-item list-group-item-action`}
             >
               Account

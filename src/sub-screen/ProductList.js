@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import ProductFilter from "../components/subscreen-componenets/ProductList-com/ProductFilter";
 import ProductCategories from "../components/subscreen-componenets/ProductList-com/ProductCategories";
 import ProductBrand from "../components/subscreen-componenets/ProductList-com/ProductBrand";
@@ -16,7 +16,7 @@ import NewProductCard from "../components/normal/Product-card/NewProductCard";
 
 const ProductList = () => {
   const { products, addToCart, addWishlist, addToNewCart } = useAppContext();
-  const { filterItem, getItem, groupCod, categorieslist, productLoading,newfilter } =
+  const { filterItem, getItem, groupCod, categorieslist, productLoading,newfilter, setpr1, setpr2, setpr3, setpr4, setGroupCod } =
     useApi();
   const { name, grpid } = useParams();
 
@@ -24,12 +24,65 @@ const ProductList = () => {
   const [displayedItems, setDisplayedItems] = useState(8);
   const itemsPerPage = 4;
 
-  const filteredItemsWithImage1 = filterItem?.filter((item) => item.image1);
   const location = useLocation()
+  const navigate = useNavigate()
   const searchParams = new URLSearchParams(location.search)
   const level1 = searchParams.get('level1') || ''
   const level2 = searchParams.get('level2') || ''
   const level3 = searchParams.get('level3') || ''
+  const grpCode = searchParams.get('grpCode') || ''
+  
+  const filteredItemsWithImage1 = filterItem?.filter((item) => item.image1);
+
+  useEffect(() => {
+    const slug = grpid.split('-')
+    if(slug[1] === '1'){
+      setpr1(slug[2]);
+      setpr2(''); 
+      setpr3(''); 
+      setpr4('');
+    }
+    if(slug[1] === '2'){
+      setpr1(''); 
+      setpr2(slug[2]); 
+      setpr3(''); 
+      setpr4('');
+    }
+    if(slug[1] === '3'){
+      setpr1(''); 
+      setpr2(''); 
+      setpr3(slug[2]); 
+      setpr4('');
+    }
+    if(slug[1] === '4'){
+      setpr1(''); 
+      setpr2(''); 
+      setpr3(''); 
+      setpr4(slug[2]);
+    }
+    if(Number(grpCode) || Number(grpid)){
+      setGroupCod(Number(grpCode) || Number(grpid))
+    }
+  }, [grpid])
+
+  const generateUrl = (path, level) => {
+    if(level === 1){
+      setpr1("")
+      setpr2("")
+      setpr3("")
+      setpr4("")
+      navigate(`/product-list/${name}/${grpCode || grpid}`)
+    }
+    if(level === 2){
+      navigate(`/product-list/${name}/${path}?grpCode=${grpCode}`)
+    }
+    if(level === 3){
+      navigate(`/product-list/${name}/${path}?grpCode=${grpCode}&level1=${level1}`)
+    }
+    if(level === 4){
+      navigate(`/product-list/${name}/${path}?grpCode=${grpCode}&level1=${level1}&level2=${level2}`)
+    }
+  }
 
   const handleLoadMore = () => {
     setDisplayedItems(displayedItems + itemsPerPage);
@@ -50,13 +103,13 @@ const ProductList = () => {
                 Home
               </Link>
             </li>
-            <li>{name && <span>{name}</span>}</li>
-            {level1 && <li><span>{level1}</span></li>}
-            {level2 && <li><span>{level2}</span></li>}
-            {level3 && <li><span>{level3}</span></li>}
+            {name &&   <li style={{cursor: 'pointer'}} onClick={() => generateUrl(name, 1)}><span>{name?.split('-')[0]}</span></li>}
+            {level1 && <li style={{cursor: 'pointer'}} onClick={() => generateUrl(level1,2)}><span>{level1?.split('-')[0]}</span></li>}
+            {level2 && <li style={{cursor: 'pointer'}} onClick={() => generateUrl(level2, 3)}><span>{level2?.split('-')[0]}</span></li>}
+            {level3 && <li style={{cursor: 'pointer'}} onClick={() => generateUrl(level3, 4)}><span>{level3?.split('-')[0]}</span></li>}
             {!isNumber(grpid) && grpid && (
               <li className="active">
-                <span>{grpid}</span>
+                <span>{grpid?.split('-')[0]}</span>
               </li>
             )}
           </ul>

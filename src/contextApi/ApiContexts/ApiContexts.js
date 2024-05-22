@@ -672,8 +672,9 @@ export const ApiProvider = ({ children }) => {
     const fetchData = async () => {
       await getItem();
     };
-
-    fetchData();
+    if(groupCod) {
+      fetchData();
+    }
   }, [groupCod, pr1, pr2, pr3, pr4, checkedValues, min, max]);
 
   useEffect(() => {
@@ -687,7 +688,7 @@ export const ApiProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       await getBP();
-      await getItem();
+      // await getItem();
       await list_item();
       await list_item_With()
       // await searchProduct();
@@ -742,7 +743,7 @@ export const ApiProvider = ({ children }) => {
          setClearenceData,
          getClearenceItem,
          clearenceData,
-         getCmsDetails,cmsPage , getFleshNewsList , fleshNewsList , trackOrder ,orderDetails , ledgerData ,dowloadLedger , base_url , baseURL2 , cardCode , access ,bplId ,clearenceDataFilter, newfetchsales
+         getCmsDetails,cmsPage , getFleshNewsList , fleshNewsList , trackOrder ,orderDetails , ledgerData ,dowloadLedger , base_url , baseURL2 , cardCode , access ,bplId ,clearenceDataFilter, newfetchsales,getBP
       }}
     >
       {children}

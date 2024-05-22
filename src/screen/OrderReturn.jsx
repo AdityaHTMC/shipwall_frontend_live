@@ -11,11 +11,11 @@ import { Button } from "react-bootstrap";
 import { FaEye } from "react-icons/fa";
 
 const OrderReturn = () => {
-  const { id } = useParams();
+  const { id , itemcode} = useParams();
   const navigate = useNavigate();
   const { orderList, fetchsales, handelDownload, getOrder,newfetchsales } = useApi();
   const filteredOrders =
-    orderList && orderList?.filter((item) => item?.soDocNum == id);
+    orderList && orderList?.filter((item) => item?.soDocNum == id && item?.itemCode == itemcode);
 
   const handlefetchSale = async (invDocEntry) => {
     await newfetchsales(invDocEntry);
@@ -32,7 +32,7 @@ const OrderReturn = () => {
                 <h4 className="card-title mb-4 mt-4 mt-md-0 mt-lg-0 text text-bg-primary p-3 text-center">
                 <Link
                   className='btn btn-warning'
-                  to={`/order-invoice/${id}`}
+                  to={`/order-invoice/${id}/${itemcode}`}
                   style={{float:'left',margin:'-4px 0 0'}}
                 >
                   <FaArrowLeft />

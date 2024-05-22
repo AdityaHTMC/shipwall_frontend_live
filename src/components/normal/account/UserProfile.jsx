@@ -15,31 +15,6 @@ const UserProfile = () => {
   const [loading, setloading] = useState(false);
   const { base_url, baseURL2, cardCode, access } = useApi();
 
-  const getBP = async () => {
-    try {
-      setloading(true);
-      // const cardCode = localStorage.getItem("username");
-      // const access = localStorage.getItem("accessC");
-      const response = await axios.get(
-        `${base_url}/api/Masters/GetBP/${cardCode || "%20"}/C/%20/%20`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${access}`,
-          },
-        }
-      );
-
-      const { data } = response;
-
-      setAddData(data[0]);
-    } catch (error) {
-      // toast.error('Server Down');
-    } finally {
-      setloading(false);
-    }
-  };
-
   // console.log(Adddata,'d');
   const { addresses } = Adddata || { addresses: [] };
 
@@ -54,10 +29,32 @@ const UserProfile = () => {
   // console.log(shippingAddress, "Shipping Addresses");
 
   useEffect(() => {
-    const f = async () => {
-      await getBP();
+    const getBP = async () => {
+      try {
+        console.log("first page loaded");
+        setloading(true);
+        // const cardCode = localStorage.getItem("username");
+        // const access = localStorage.getItem("accessC");
+        const response = await axios.get(
+          `${base_url}/api/Masters/GetBP/${cardCode || "%20"}/C/%20/%20`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${access}`,
+            },
+          }
+        );
+
+        const { data } = response;
+
+        setAddData(data[0]);
+      } catch (error) {
+        // toast.error('Server Down');
+      } finally {
+        setloading(false);
+      }
     };
-    f();
+    getBP();
   }, []);
 
   return (
@@ -78,7 +75,7 @@ const UserProfile = () => {
               Orders
             </Link>
             <Link
-              to="/account/deatils"
+              to="/account/details"
               className={` list-group-item list-group-item-action`}
             >
               Account
@@ -105,7 +102,7 @@ const UserProfile = () => {
             <div className="h-100 mt-2">
               <div className="card">
                 <div className="card-header">
-                  <h4 className="text mb-0">Profile Details</h4>
+                  <h4 className="card-title mt-md-0 mt-lg-0 text text-bg-primary p-3 text-center">Profile Details</h4>
                 </div>
                 <div className="card-body">
                   {/* table part start */}
@@ -127,6 +124,7 @@ const UserProfile = () => {
                         <tr>
                           <th>Group</th>
                           <td>{Adddata ? Adddata?.groupName : ""}</td>
+                          
                         </tr>
                         <tr>
                           <th>Branch</th>
@@ -173,8 +171,8 @@ const UserProfile = () => {
                           <td>
                             {" "}
                             {item?.street} , {item?.block} , {item?.city} ,{" "}
-                            {item?.zipCode}, {item?.stateName} , {item?.countryName}
-                            ,{item?.county},{item?.streetNo}{" "}
+                            {item?.zipCode}, {item?.stateName} ,{" "}
+                            {item?.countryName},{item?.county},{item?.streetNo}{" "}
                           </td>
                         </tr>
                       </tbody>
@@ -207,8 +205,8 @@ const UserProfile = () => {
                           <td>
                             {" "}
                             {item?.street} , {item?.block} , {item?.city} ,{" "}
-                            {item?.zipCode}, {item?.stateName} , {item?.countryName}
-                            ,{item?.county},{item?.streetNo}{" "}
+                            {item?.zipCode}, {item?.stateName} ,{" "}
+                            {item?.countryName},{item?.county},{item?.streetNo}{" "}
                           </td>
                         </tr>
                       </tbody>

@@ -27,10 +27,6 @@ const NewHeader = () => {
   } = useAppContext();
 
   useEffect(() => {
-    console.log("itemMatrics", itemMatrics)
-  }, [itemMatrics])
-
-  useEffect(() => {
     function handleClickOutside(event) {
       if (showDropdown.some(drop => drop === true)) {
         if (!event.target?.closest('.dropdown')) {
@@ -104,30 +100,12 @@ const NewHeader = () => {
 
     if (level === 2) {
       await getsecondItemMatrices(sub?.u_ITMGRPCD, sub?.pcode);
-      setpr1(sub?.pcode)
-      setpr2("");
-      setpr3("");
-      setpr4("");
     }
     if (level === 3) {
       await get3rdItemMatrices(sub?.u_ITMGRPCD, sub?.pcode);
-      setpr1("")
-      setpr2(sub?.pcode);
-      setpr3("");
-      setpr4("");
     }
     if (level === 4) {
       await get4thItemMatrices(sub?.u_ITMGRPCD, sub?.pcode);
-      setpr1("")
-      setpr2("");
-      setpr3(sub?.pcode);
-      setpr4("");
-    }
-    if (level === 5) {
-      setpr1("")
-      setpr2("");
-      setpr3("");
-      setpr4(sub?.pcode);
     }
 
   };
@@ -187,7 +165,7 @@ const NewHeader = () => {
                                   <li className={sub?.count > 0 && "dropdown dropend"} key={i}>
                                     <Link
                                       className={`dropdown-item ${sub?.count > 0 && "dropdown-toggle dropdown-item2"}`}
-                                      to={`/product-list/${item?.itmsGrpNam}/${sub?.pname}`}
+                                      to={`/product-list/${item?.itmsGrpNam}/${sub?.pname}-1-${sub?.pcode}?grpCode=${item?.itmsGrpCod}`}
                                       onClick={(e) => { toggleMultilevelDropdown(e, 2, sub) }}
                                     >
                                       {sub?.pname}
@@ -199,7 +177,7 @@ const NewHeader = () => {
                                           <li className={sub2?.count > 0 && "dropdown dropend"} key={j}>
                                             <Link
                                               className={`dropdown-item ${sub2?.count > 0 && "dropdown-toggle dropdown-item3"}`}
-                                              to={`/product-list/${item?.itmsGrpNam}/${sub2?.pname}?level1=${sub?.pname}`}
+                                              to={`/product-list/${item?.itmsGrpNam}/${sub2?.pname}-2-${sub2?.pcode}?grpCode=${item?.itmsGrpCod}&level1=${sub?.pname}-1-${sub?.pcode}`}
                                               onClick={(e) => toggleMultilevelDropdown(e, 3, sub2)}
                                             >
                                               {sub2?.pname}
@@ -211,7 +189,7 @@ const NewHeader = () => {
                                                   <li className={sub3?.count > 0 && "dropdown dropend"} key={k}>
                                                     <Link
                                                       className={`dropdown-item ${sub3?.count > 0 && "dropdown-toggle dropdown-item4"}`}
-                                                      to={`/product-list/${item?.itmsGrpNam}/${sub3?.pname}?level1=${sub?.pname}&level2=${sub2?.pname}`}
+                                                      to={`/product-list/${item?.itmsGrpNam}/${sub3?.pname}-3-${sub3?.pcode}?grpCode=${item?.itmsGrpCod}&level1=${sub?.pname}-1-${sub?.pcode}&level2=${sub2?.pname}-2-${sub2?.pcode}`}
                                                       onClick={(e) => toggleMultilevelDropdown(e, 4, sub3)}
                                                     >
                                                       {sub3?.pname}
@@ -223,7 +201,7 @@ const NewHeader = () => {
                                                           <li className={sub4?.count > 0 && "dropdown dropend"} key={l}>
                                                             <Link
                                                               className="dropdown-item dropdown-item5"
-                                                              to={`/product-list/${item?.itmsGrpNam}/${sub4?.pname}?level1=${sub?.pname}&level2=${sub2?.pname}&level3=${sub3?.pname}`}
+                                                              to={`/product-list/${item?.itmsGrpNam}/${sub4?.pname}-4-${sub4?.pcode}?grpCode=${item?.itmsGrpCod}&level1=${sub?.pname}-1-${sub?.pcode}&level2=${sub2?.pname}-2-${sub2?.pcode}&level3=${sub3?.pname}-3-${sub3?.pcode}`}
                                                               onClick={(e) => toggleMultilevelDropdown(e, 5, sub4)}
                                                             >
                                                               {sub4?.pname}

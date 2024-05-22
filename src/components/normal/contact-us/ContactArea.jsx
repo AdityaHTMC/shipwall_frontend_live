@@ -75,7 +75,7 @@ const ContactArea = () => {
                             onChange={(e) => setName(e.target.value)}
                             name="name"
                             type="text"
-                            placeholder="Shivam Shaw"
+                            placeholder="Your Name"
                           />
                         </div>
                         <div className="tp-contact-input-title">
@@ -89,7 +89,7 @@ const ContactArea = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             name="email"
                             type="email"
-                            placeholder="shivam@gmail.com"
+                            placeholder="yourmail@gmail.com"
                           />
                         </div>
                         <div className="tp-contact-input-title">

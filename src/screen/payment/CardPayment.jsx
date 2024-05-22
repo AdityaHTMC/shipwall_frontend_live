@@ -24,6 +24,7 @@ const MyComponent = ({amount,selectedItem,cashOnDelivery,freeCreditLimit, manual
         await new Promise((resolve) => {
           script.onload = resolve;
         });
+  
 
         // Initialize securePayUI once the script is loaded
         window.mySecurePayUI = new window.securePayUI.init({

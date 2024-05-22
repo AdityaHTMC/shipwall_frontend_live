@@ -10,7 +10,7 @@ const HeaderTop = () => {
       <article className="container-fluid">
         <aside className="row">
           <div className="col-md-5 col-sm-5 col-12">
-            Express delivery and free returns within 30 days see details
+            Express delivery and free returns within 30 days
           </div>
           <div className="col-md-7 col-sm-7 col-12">
             <ul className="list-inline d-inline">

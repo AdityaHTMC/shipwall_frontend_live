@@ -104,7 +104,7 @@ const OrderDetails = () => {
                                   textAlign: "center",
                                 }}
                               >
-                                <Link to={`/order-invoice/${item.soDocNum}`}>
+                                <Link to={`/order-invoice/${item.soDocNum}/${item?.itemCode}`}>
                                   <FaEye />
                                 </Link>
                               </td>

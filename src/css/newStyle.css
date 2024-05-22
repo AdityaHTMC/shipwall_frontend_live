@@ -46,8 +46,8 @@ img{max-width:100%;}
 .sidebarFilterBx{padding:15px;background:#fff;}
 .sidebarFilterBx .newTitleBx{font-size:16px!important;font-weight:bold;}
 .sidebarFilterBx .tp-shop-widget-filter{padding-left:7px;padding-right:7px;}
-.sidebarFilterBx .rc-slider-handle{border:solid 2px #1c69da!important;opacity:1;background:#1c69da;}
-.sidebarFilterBx .rc-slider-track, .sidebarFilterBx .rc-slider-tracks{background-color:#1c69da;}
+.sidebarFilterBx .rc-slider-handle{border:solid 2px #1c69da!important;opacity:1;background:#1c69da!important;}
+.sidebarFilterBx .rc-slider-track, .sidebarFilterBx .rc-slider-tracks{background-color:#1c69da!important;}
 .sidebarFilterBx a{color:#5c5c5c;font-weight:500;}
 .sidebarFilterBx .checkItem > a{font-weight:400;font-size:14px;}
 .productCounter{margin-bottom:25px;padding:15px;background:#fff;font-size:16px;font-weight:500;line-height:18px;}
