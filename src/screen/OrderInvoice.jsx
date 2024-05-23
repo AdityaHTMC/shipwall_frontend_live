@@ -13,8 +13,21 @@ const OrderInvoice = () => {
   const { id, itemcode } = useParams();
   const navigate = useNavigate();
   const { orderList, fetchsales, handelDownload, getOrder } = useApi();
-  const filteredOrders =
-    orderList && orderList?.filter((item) => item?.soDocNum == id && item?.itemCode == itemcode);
+  // const filteredOrders =
+  //   orderList && orderList?.filter((item) => item?.soDocNum == id && item?.itemCode == itemcode);
+
+  const filteredOrders = orderList
+  ?.filter((item) => item?.soDocNum == id && item?.itemCode == itemcode)
+  ?.reduce((acc, current) => {
+    const x = acc.find((item) => item.invDocNum === current.invDocNum);
+    if (!x) {
+      return acc.concat([current]);
+    } else {
+      return acc;
+    }
+  }, []);
+
+  console.log(filteredOrders, "order invoice");
 
   const handlefetchSale = async (soObjType, sotype) => {
     await fetchsales(soObjType, sotype);
@@ -31,7 +44,7 @@ const OrderInvoice = () => {
                 <h4 className="card-title mb-4 mt-4 mt-md-0 mt-lg-0 text text-bg-primary p-3 text-center">
                 <Link
                   className='btn btn-warning'
-                  to={`/order-details/${id}`}
+                  to={`/order-details/${id}/${itemcode}`}
                   style={{float:'left',margin:'-4px 0 0'}}
                 >
                   <FaArrowLeft />
@@ -95,9 +108,12 @@ const OrderInvoice = () => {
                                   textAlign: "center",
                                 }}
                               >
+                                {
+                                  item.invQty >0 &&
                                 <Link to={`/order-return/${item.soDocNum}/${item?.itemCode}`}>
                                   <FaEye />
                                 </Link>
+                                }
                               </td>
                             </tr>
                           ))}

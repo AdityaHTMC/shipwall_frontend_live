@@ -14,8 +14,19 @@ const OrderReturn = () => {
   const { id , itemcode} = useParams();
   const navigate = useNavigate();
   const { orderList, fetchsales, handelDownload, getOrder,newfetchsales } = useApi();
-  const filteredOrders =
-    orderList && orderList?.filter((item) => item?.soDocNum == id && item?.itemCode == itemcode);
+  // const filteredOrders =
+  //   orderList && orderList?.filter((item) => item?.soDocNum == id && item?.itemCode == itemcode);
+
+  const filteredOrders = orderList
+  ?.filter((item) => item?.soDocNum == id && item?.itemCode == itemcode)
+  ?.reduce((acc, current) => {
+    const x = acc.find((item) => item.rrDocNum === current.rrDocNum);
+    if (!x) {
+      return acc.concat([current]);
+    } else {
+      return acc;
+    }
+  }, []);
 
   const handlefetchSale = async (invDocEntry) => {
     await newfetchsales(invDocEntry);
@@ -82,7 +93,7 @@ const OrderReturn = () => {
                                 {item.returnstatus}{" "}
                               </td>
                               <td style={{ textAlign: "center" }}>
-                              {item?.invDocNum !== 0 && (
+                              {item?.rrQty > 0 && (
                                   <button
                                     onClick={() =>
                                       handlefetchSale(

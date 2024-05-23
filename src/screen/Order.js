@@ -133,7 +133,7 @@ const Order = () => {
                                     <tr key={index}>
                                       <td style={{ cursor: "pointer" }}>
                                         <Link
-                                          to={`/order-details/${item.soDocNum}`}
+                                          to={`/order-details/${item.soDocNum}/${item?.itemCode}`}
                                         >
                                           {item?.soDocNum}
                                         </Link>
@@ -182,7 +182,7 @@ const Order = () => {
                                         }}
                                       >
                                         <Link
-                                          to={`/order-details/${item.soDocNum}`}
+                                          to={`/order-details/${item.soDocNum}/${item?.itemCode}`}
                                         >
                                           <FaEye />
                                         </Link>

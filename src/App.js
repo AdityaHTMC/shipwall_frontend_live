@@ -131,7 +131,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
 
             {/* Protected Routes */}
-            <Route path="/order-details/:id" element={<ProtectedRoute />}>
+            <Route path="/order-details/:id/:itemcode" element={<ProtectedRoute />}>
               <Route index element={<OrderDetails />} />
             </Route>
 

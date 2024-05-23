@@ -537,7 +537,7 @@ export const ApiProvider = ({ children }) => {
 
 
 
-  const dowloadLedger = async () => {
+  const dowloadLedger = async ({startDate ,endDate}) => {
     try {
 
       // const cardCode = localStorage.getItem("username");
@@ -552,8 +552,14 @@ export const ApiProvider = ({ children }) => {
       sixMonthsAgo.setMonth(today.getMonth() - 6);
       const sixMonthsAgoFormatted = formatDate(sixMonthsAgo);
 
+      const start = startDate ? startDate : sixMonthsAgoFormatted;
+      const end = endDate ? endDate : todayFormatted;
+
+      // console.log(sixMonthsAgoFormatted , todayFormatted , 'ledgersdate');
+      console.log(start , end , 'ledgersdate1');
+
       const req = await fetch(
-        `${base_url}/api/Document/GetCustomerLedger/${cardCode}/${sixMonthsAgoFormatted}/${todayFormatted}/3`,
+        `${base_url}/api/Document/GetCustomerLedger/${cardCode}/${start}/${end}/3`,
         {
           method: "GET",
           headers: {
@@ -564,6 +570,10 @@ export const ApiProvider = ({ children }) => {
       );
 
       const data = await req.json();
+
+      if(!Array.isArray(data) || data.length === 0) {
+        toast.info("No ledger data found")
+      }
       
       const chunkedData = [];
       for (let i = 0; i < data.length; i += 22) {

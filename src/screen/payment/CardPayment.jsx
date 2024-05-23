@@ -32,6 +32,7 @@ const MyComponent = ({amount,selectedItem,cashOnDelivery,freeCreditLimit, manual
           scriptId: "securepay-ui-js",
           clientId: "G37yGcxKnSKW4gOU6VGbcvkEROHEMWAr",
           merchantCode: "6KB0031",
+          // merchantCode: "6KB003",
           style: {
             backgroundColor: 'rgba(135, 206, 250)',
             label: {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 // import './../../../css/mix.css'
-import Dropdown from "react-bootstrap/Dropdown";
+
 import "./header.css";
 
 const HeaderTop = () => {

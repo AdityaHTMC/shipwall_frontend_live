@@ -11,11 +11,24 @@ import { Button } from "react-bootstrap";
 import { FaEye } from "react-icons/fa";
 
 const OrderDetails = () => {
-  const { id } = useParams();
+  const { id, itemcode } = useParams();
   const navigate = useNavigate();
   const { orderList, fetchsales, handelDownload, getOrder } = useApi();
-  const filteredOrders =
-    orderList && orderList?.filter((item) => item?.soDocNum == id);
+  // const filteredOrders =
+  //   orderList && orderList?.filter((item) => item?.soDocNum == id);
+
+  const filteredOrders = orderList
+    ?.filter((item) => item?.soDocNum == id)
+    ?.reduce((acc, current) => {
+      const x = acc.find((item) => item.itemCode === current.itemCode);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+
+  console.log(filteredOrders, "order details");
 
   const handlefetchSale = async (soObjType, sotype) => {
     await fetchsales(soObjType, sotype);
@@ -104,9 +117,13 @@ const OrderDetails = () => {
                                   textAlign: "center",
                                 }}
                               >
-                                <Link to={`/order-invoice/${item.soDocNum}/${item?.itemCode}`}>
-                                  <FaEye />
-                                </Link>
+                                {item.invQty > 0 && (
+                                  <Link
+                                    to={`/order-invoice/${item.soDocNum}/${item?.itemCode}`}
+                                  >
+                                    <FaEye />
+                                  </Link>
+                                )}
                               </td>
                             </tr>
                           ))}
