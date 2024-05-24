@@ -139,7 +139,7 @@ function App() {
               <Route index element={<OrderInvoice />} />
             </Route>
 
-            <Route path="/order-return/:id/:itemcode" element={<ProtectedRoute />}>
+            <Route path="/order-return/:id/:itemcode/:inv_num" element={<ProtectedRoute />}>
               <Route index element={<OrderReturn />} />
             </Route>
 

@@ -35,33 +35,35 @@ const ProductList = () => {
   const filteredItemsWithImage1 = filterItem?.filter((item) => item.image1);
 
   useEffect(() => {
-    const slug = grpid.split('-')
-    if(slug[1] === '1'){
-      setpr1(slug[2]);
-      setpr2(''); 
-      setpr3(''); 
-      setpr4('');
-    }
-    if(slug[1] === '2'){
-      setpr1(''); 
-      setpr2(slug[2]); 
-      setpr3(''); 
-      setpr4('');
-    }
-    if(slug[1] === '3'){
-      setpr1(''); 
-      setpr2(''); 
-      setpr3(slug[2]); 
-      setpr4('');
-    }
-    if(slug[1] === '4'){
-      setpr1(''); 
-      setpr2(''); 
-      setpr3(''); 
-      setpr4(slug[2]);
-    }
-    if(Number(grpCode) || Number(grpid)){
-      setGroupCod(Number(grpCode) || Number(grpid))
+    if(grpid){
+        const slug = grpid.split('-')
+        if(slug[1] === '1'){
+          setpr1(slug[2]);
+          setpr2(''); 
+          setpr3(''); 
+          setpr4('');
+        }
+        if(slug[1] === '2'){
+          setpr1(''); 
+          setpr2(slug[2]); 
+          setpr3(''); 
+          setpr4('');
+        }
+        if(slug[1] === '3'){
+          setpr1(''); 
+          setpr2(''); 
+          setpr3(slug[2]); 
+          setpr4('');
+        }
+        if(slug[1] === '4'){
+          setpr1(''); 
+          setpr2(''); 
+          setpr3(''); 
+          setpr4(slug[2]);
+        }
+        if(Number(grpCode) || Number(grpid)){
+          setGroupCod(Number(grpCode) || Number(grpid))
+        }
     }
   }, [grpid])
 

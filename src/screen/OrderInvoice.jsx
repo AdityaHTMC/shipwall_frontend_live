@@ -110,7 +110,7 @@ const OrderInvoice = () => {
                               >
                                 {
                                   item.invQty >0 &&
-                                <Link to={`/order-return/${item.soDocNum}/${item?.itemCode}`}>
+                                <Link to={`/order-return/${item.soDocNum}/${item?.itemCode}/${item?.invDocNum}`}>
                                   <FaEye />
                                 </Link>
                                 }

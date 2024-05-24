@@ -332,7 +332,7 @@ const AppContextProvider = ({ children }) => {
         await getWishList();
         setIsLogIn(true);
 
-        toast.success('Welcome Back');
+        toast.success(`Welcome Back ${data.as_Name} `);
       } else {
         console.log(data);
         toast.error(data.as_Message);
@@ -569,7 +569,8 @@ const AppContextProvider = ({ children }) => {
     setIsLogIn(false);
     setCartItem("");
     setWishlistItem("");
-    navigate("/");
+    // navigate("/");
+    window.location.reload();
   };
   // sap function end
   const getOrder = async () => {
@@ -903,6 +904,10 @@ const AppContextProvider = ({ children }) => {
 
 
   const addToNewCart = async ({ itemCode, quantity, price, itemName, image1, fright1Amount, taxPerc }) => {
+    if (!cardCode) {
+      toast.info('Login First');
+      return; // Exit the function early
+    }
     try {
       const response = await axios.post(`${base_url}/api/v1/add-to-cart`, {
         itemCode,
@@ -923,7 +928,7 @@ const AppContextProvider = ({ children }) => {
       toast.success(res?.message);
       getCartList();
     } catch (error) {
-      toast.error("Item is already present in your Order");
+      toast.error( error.response?.data?.message|| "Item is already present in your Order");
     }
   };
 
@@ -1033,8 +1038,7 @@ const AppContextProvider = ({ children }) => {
         toast.success(res?.message);
         getWishList();
       } else {
-        toast.info("Login first");
-        navigate("/");
+        toast.info("Login First");
       }
     } catch (error) {
       toast.error(error?.message);

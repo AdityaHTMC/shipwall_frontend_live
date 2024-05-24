@@ -41,7 +41,7 @@ const totalTaxReducer = (state, action) => {
 
 const Cart = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { cartItem, removeCartItem, products, updateQuantity } =
+  const { cartItem, removeCartItem, products, updateQuantity, cms } =
     useAppContext();
   const [product, setProduct] = useState([]);
 
@@ -387,7 +387,7 @@ const Cart = () => {
                       </Link>
                     )}
                     <Link
-                      to="/product-list"
+                      to={cms && cms.length > 1 ? `/product-list/${cms[1]?.itmsGrpNam}/${cms[1]?.itmsGrpCod}` : '/'}
                       className="btn btn-light w-100 border mt-2"
                     >
                       Back to shop

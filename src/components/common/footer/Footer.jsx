@@ -75,8 +75,8 @@ const Footer = () => {
                <h4>My Account</h4>
                <ul>
                   <li><Link>Product Support</Link></li>
-                  <li><Link >Checkout Shopping</Link></li>
-                  <li><Link>Order Wishlist</Link></li>
+                  <li><Link to='/cart'>Checkout Shopping</Link></li>
+                  <li><Link to='/wishlist'>Order Wishlist</Link></li>
                </ul>
             </div>
             <div className='col-md-3 col-sm-6 col-12'>
@@ -84,7 +84,7 @@ const Footer = () => {
                <ul>
                   <li><a href="/">Store Location</a></li>
                   <li> <Link to='/account/profile'> My Account </Link> </li>
-                  <li><a href="/">Orders Tracking</a></li>
+                  <li><Link to='/account/orders'>Orders Tracking</Link></li>
                   <li><Link to='/cms/faq'>FAQS</Link></li>
                   <li><Link to='/cms/about-us'>About Us</Link></li>
                   <li><Link to='/cms/our-stories'>Our Story</Link></li>
@@ -105,7 +105,7 @@ const Footer = () => {
             <div className='col-md-3'>
                <h4>Bulk Order</h4>
                <p className='fs-6'>Fill-up the detail for bulk order.</p>
-               <a className='btnBx' href="/">Inquiry Form</a>
+               <Link className='btnBx' to='/contact-us'>Inquiry Form</Link>
                <div className='socialMedia'>
                   <a href="/" target='_blank'><img src={facebook} alt="" /></a>
                   <a href="/" target='_blank'><img src={instagram} alt="" /></a>

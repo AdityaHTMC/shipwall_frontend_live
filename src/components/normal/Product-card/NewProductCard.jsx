@@ -43,7 +43,11 @@ const NewProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
             </div> */}
             <h6>
               <Link to="#">
-                {item.itemName ? item.itemName.slice(0, 22) : ""}
+                {item.itemName
+                  ? item.itemName.length > 30
+                    ? `${item.itemName.slice(0, 34)}...`
+                    : item.itemName
+                  : ""}
               </Link>
             </h6>
             <div className="tp-product-price-wrapper-2">

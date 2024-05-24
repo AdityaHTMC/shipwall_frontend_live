@@ -3,7 +3,7 @@ import "./../../../css/mix.css";
 import { Link, useLocation } from "react-router-dom";
 import { useAppContext } from "../../../contextApi/AppContext";
 import { useApi } from "../../../contextApi/ApiContexts/ApiContexts";
-import noImage from  '../../../img/new/no-image.jpg'
+import noImage from "../../../img/new/no-image.jpg";
 
 const ProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
   const location = useLocation();
@@ -14,21 +14,19 @@ const ProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
     return <div>No product found</div>;
   }
   const isHompage = location.pathname === "/";
-  
+
   // console.log(item,'trending IP');
 
-  const priceToPass = item.clearanceSalePrice > 0 
-  ? item.clearanceSalePrice 
-  : item.salePrice > 0 
-    ? item.salePrice 
-    : item.itemPrice;
+  const priceToPass =
+    item.clearanceSalePrice > 0
+      ? item.clearanceSalePrice
+      : item.salePrice > 0
+      ? item.salePrice
+      : item.itemPrice;
 
   return (
     <>
-      <div
-        key={item._id}
-        className="infinite-item"
-      >
+      <div key={item._id} className="infinite-item">
         <div className="tp-product-item-2 mb-40">
           <div className="tp-product-thumb-2 p-relative z-index-1 fix w-img">
             <Link to={`/product-details/${item._id}`}>
@@ -48,7 +46,11 @@ const ProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
             </div> */}
             <h6>
               <Link to="#">
-                {item.itemName ? item.itemName.slice(0, 22) : ""}
+                {item.itemName
+                  ? item.itemName.length > 30
+                    ? `${item.itemName.slice(0, 34)}...`
+                    : item.itemName
+                  : ""}
               </Link>
             </h6>
             <div className="tp-product-price-wrapper-2">
@@ -56,12 +58,12 @@ const ProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
                 {isLogIn ? (
                   `AUD
                    ${
-                    item.clearanceSalePrice > 0 
-                      ? item.clearanceSalePrice 
-                      : item.salePrice > 0 
-                        ? item.salePrice 
-                        : item.itemPrice
-                  }`
+                     item.clearanceSalePrice > 0
+                       ? item.clearanceSalePrice
+                       : item.salePrice > 0
+                       ? item.salePrice
+                       : item.itemPrice
+                   }`
                 ) : (
                   <span
                     style={{ cursor: "pointer" }}
@@ -71,7 +73,7 @@ const ProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
                   </span>
                 )}
               </span>
-              { isLogIn && item.itemPrice !== item.salePrice ? (
+              {isLogIn && item.itemPrice !== item.salePrice ? (
                 <span
                   className="tp-product-price-2 old-price"
                   style={{ marginLeft: "15px" }}
@@ -83,15 +85,15 @@ const ProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
             <button
               className="cartBtn"
               onClick={() =>
-                addToCart(
-                { itemCode: item.itemCode,
-                  quantity:1,
+                addToCart({
+                  itemCode: item.itemCode,
+                  quantity: 1,
                   price: priceToPass,
                   itemName: item.itemName,
                   image1: item.image1,
                   fright1Amount: item.itemAddCharges,
-                  taxPerc: item.taxPerc}
-                )
+                  taxPerc: item.taxPerc,
+                })
               }
               type="button"
             >

@@ -576,35 +576,78 @@ const ProductDetail = () => {
 
           {activeTab === "description" && (
             <div className="tp-product-details-description">
-              <ReactQuill
-                value={ProductDesc?.description}
-                readOnly={true}
-                modules={{ toolbar: false }}
-                theme="snow"
-              />
+              {
+                ProductDesc?.description? (
+                  <ReactQuill
+                    value={ProductDesc?.description}
+                    readOnly={true}
+                    modules={{ toolbar: false }}
+                    theme="snow"
+                  />
+                ) : (
+                  <p style={{
+                    textAlign: 'center',
+                    padding: '20px',
+                    fontSize: '16px',
+                    color: '#555',
+                    backgroundColor: '#f9f9f9',
+                    border: '1px solid #ddd',
+                    borderRadius: '4px',
+                    marginTop: '15px',
+                  }}>No additional description is available.</p>
+                )
+              }
             </div>
           )}
 
           {activeTab === "technical" && (
-            <div>
-              {" "}
-              <ReactQuill
-                value={ProductDesc?.technical_information}
-                readOnly={true}
-                modules={{ toolbar: false }}
-                theme="snow"
-              />
+            <div className="tp-product-details-description">
+             { ProductDesc?.technical_information ? (
+               <ReactQuill
+               value={ProductDesc?.technical_information}
+               readOnly={true}
+               modules={{ toolbar: false }}
+               theme="snow"
+             />
+             ): (
+               <p style={{
+                textAlign: 'center',
+                padding: '20px',
+                fontSize: '16px',
+                color: '#555',
+                backgroundColor: '#f9f9f9',
+                border: '1px solid #ddd',
+                borderRadius: '4px',
+                marginTop: '15px',
+              }}>No additional technical information is available.</p>
+             )
+             
+             }
+             
             </div>
           )}
           {activeTab === "shipping" && (
-            <div className="tp-product-details-description">
-              <ReactQuill
-                value={ProductDesc?.shipping_information}
-                readOnly={true}
-                modules={{ toolbar: false }}
-                theme="snow"
-              />
-            </div>
+               <div className="tp-product-details-description">
+               {ProductDesc?.shipping_information ? (
+                 <ReactQuill
+                   value={ProductDesc.shipping_information}
+                   readOnly={true}
+                   modules={{ toolbar: false }}
+                   theme="snow"
+                 />
+               ) : (
+                 <p style={{
+                  textAlign: 'center',
+                  padding: '20px',
+                  fontSize: '16px',
+                  color: '#555',
+                  backgroundColor: '#f9f9f9',
+                  border: '1px solid #ddd',
+                  borderRadius: '4px',
+                  marginTop: '15px',
+                }}>No additional shipping information is available.</p>
+               )}
+             </div>
           )}
         </div>
       </section>

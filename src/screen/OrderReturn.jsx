@@ -11,14 +11,14 @@ import { Button } from "react-bootstrap";
 import { FaEye } from "react-icons/fa";
 
 const OrderReturn = () => {
-  const { id , itemcode} = useParams();
+  const { id , itemcode, inv_num} = useParams();
   const navigate = useNavigate();
   const { orderList, fetchsales, handelDownload, getOrder,newfetchsales } = useApi();
   // const filteredOrders =
   //   orderList && orderList?.filter((item) => item?.soDocNum == id && item?.itemCode == itemcode);
 
   const filteredOrders = orderList
-  ?.filter((item) => item?.soDocNum == id && item?.itemCode == itemcode)
+  ?.filter((item) => item?.soDocNum == id && item?.itemCode == itemcode && item?.invDocNum == inv_num )
   ?.reduce((acc, current) => {
     const x = acc.find((item) => item.rrDocNum === current.rrDocNum);
     if (!x) {
@@ -27,6 +27,8 @@ const OrderReturn = () => {
       return acc;
     }
   }, []);
+
+  console.log(filteredOrders,'filteredOrders');
 
   const handlefetchSale = async (invDocEntry) => {
     await newfetchsales(invDocEntry);

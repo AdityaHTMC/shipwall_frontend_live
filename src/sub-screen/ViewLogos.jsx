@@ -9,7 +9,11 @@ const ViewBanner = () => {
   const { getItem } = useApi();
   const navigate = useNavigate()
 
-
+  useEffect(() => {
+    if(!brandItem || brandItem.length === 0) {
+      getBrand()
+    }
+  }, [brandItem])
  
   
 
