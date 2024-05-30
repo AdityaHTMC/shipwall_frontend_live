@@ -24,7 +24,7 @@ const Brand = () => {
     }
   }, [isInView]);
 
-  console.log(brandItem, "brand item");
+  // console.log(brandItem, "brand item");
 
   useEffect(() => {
     getBrand();

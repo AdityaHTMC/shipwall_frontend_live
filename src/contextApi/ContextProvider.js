@@ -376,7 +376,7 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
-  const ChangePassword = async (user, pass) => {
+  const ChangePassword = async (newPassword) => {
     try {
       const response = await axios.post(
         `${base_url2}/api/Admin/ChangePassword`,
@@ -384,8 +384,8 @@ const AppContextProvider = ({ children }) => {
           as_UserId: "manager",
           as_UserPass: "Admin@123",
           as_LogInUserType: "C",
-          as_LogInUserId: user,
-          as_LogInNewPass: pass,
+          as_LogInUserId: cardCode,
+          as_LogInNewPass: newPassword,
         },
         {
           headers: {
@@ -1257,9 +1257,10 @@ const AppContextProvider = ({ children }) => {
     code
   ) => {
     try {
+      const num = (Number(onlineam) * 100).toFixed(2);
       console.log("payment Data", { ctoken, selectedItems, codam, onlineam, creditam, manualAddress, note });
       const response = await axios.post(`${base_url}/api/createPayment`, {
-        amount: Number(onlineam),
+        amount: Number(num),
         token: ctoken,
         // orderId: '1234'  order id is not mandatory
       }, {

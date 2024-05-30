@@ -19,7 +19,7 @@ const Slider = () => {
 
   const center3Banners = bannerList.filter(item => item.position === "center3");
   
-  console.log(center2Banners,'c2');
+  // console.log(center2Banners,'c2');
   return (
     <>
       <div className="topGapMb">

@@ -53,7 +53,7 @@ const Product = () => {
   }, [isInView]);
 
 
-  console.log(clearenceData,'CDDddd');
+  // console.log(clearenceData,'CDDddd');
 
   return (
     <>

@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { json } from "react-router-dom";
@@ -537,12 +538,11 @@ export const ApiProvider = ({ children }) => {
 
 
 
-  const dowloadLedger = async ({startDate ,endDate}) => {
+  const dowloadLedger = async ({startDate ,endDate, code, token}) => {
     try {
 
       // const cardCode = localStorage.getItem("username");
       // const access = localStorage.getItem("accessC");
-
       // Get today's date
       const today = new Date();
       const todayFormatted = formatDate(today);
@@ -559,12 +559,12 @@ export const ApiProvider = ({ children }) => {
       console.log(start , end , 'ledgersdate1');
 
       const req = await fetch(
-        `${base_url}/api/Document/GetCustomerLedger/${cardCode}/${start}/${end}/3`,
+        `${base_url}/api/Document/GetCustomerLedger/${code || cardCode}/${start}/${end}/3`,
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${access}`,
+            Authorization: `Bearer ${token || access}`,
           },
         }
       );
@@ -573,6 +573,10 @@ export const ApiProvider = ({ children }) => {
 
       if(!Array.isArray(data) || data.length === 0) {
         toast.info("No ledger data found")
+        if(code && token){
+          window?.ReactNativeWebView?.postMessage(JSON.stringify({ message: "No ledger data found", success: false }));
+        }
+        return
       }
       
       const chunkedData = [];
@@ -588,6 +592,9 @@ export const ApiProvider = ({ children }) => {
      
     } catch (error) {
       console.error('Error fetching order details:', error);
+      if(code && token){
+        window?.ReactNativeWebView?.postMessage(JSON.stringify({message: error?.message, success: false }));
+      }
     }
   };
 

@@ -60,6 +60,8 @@ import Return from "./screen/Return";
 import OrderInvoice from "./screen/OrderInvoice";
 import OrderReturn from "./screen/OrderReturn";
 import { AppPayment } from "./screen/payment/AppPayment";
+import { AppPdf } from "./screen/app-pdf";
+import ChangePassword from "./components/normal/account/ChangePassword";
 
 function App() {
   const { isLoading } = useAppContext();
@@ -70,7 +72,7 @@ function App() {
     <>
       {isLoading === false ? (
         <>
-          {!location.pathname.includes("/app-payment/") && <Header />}
+          {!location.pathname.includes("/app-") && <Header />}
           <ScrollToTop />
           <ToastContainer position="top-center" />
           <Routes>
@@ -122,6 +124,8 @@ function App() {
             <Route path="/cms/our-stories" element={<OurStories />} />
             <Route path="/cms/faq" element={<FAQpages />} />
             <Route path="/app-payment/:code" element={<AppPayment />} />
+
+            <Route path="/app-pdf/:code" element={<AppPdf />} />
             {/* <Route path="/order-tracking" element={<OrderTracking/>} /> */}
             <Route
               path="/product-list-cat/:name"
@@ -193,10 +197,13 @@ function App() {
             <Route path="/account/return" element={<ProtectedRoute />}>
               <Route index element={<Return />} />
             </Route>
+            <Route path="/account/changePassord" element={<ProtectedRoute />}>
+              <Route index element={<ChangePassword/>} />
+            </Route>
             {/* <Route path="/test1" element={<Test />} /> */}
             <Route path="*" element={<Error />} />
           </Routes>
-          {!location.pathname.includes("/app-payment/") && <Footer />}
+          {!location.pathname.includes("/app-") && <Footer />}
         </>
       ) : (
         <PreLoading />

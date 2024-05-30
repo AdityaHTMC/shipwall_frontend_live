@@ -10,23 +10,20 @@ import { useApi } from "../../../contextApi/ApiContexts/ApiContexts";
 // const baseURL2 = "https://shipwall.au/test/API/shipwall";
 
 const ProductCategories = ({ list }) => {
-  const {baseURL2 , base_url} = useApi()
+  const { baseURL2, base_url } = useApi();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const mainControls = useAnimation();
-  const [subcate, setSubcate] = useState();
+  const [subcate, setSubcate] = useState([]);
   const [openStates, setOpenStates] = useState([]);
   const [currentlyOpenIndex, setCurrentlyOpenIndex] = useState(null);
 
-  const { catlist, groupCod, validCatCollepse, getItem, mydata,setCheckedValues,checkedValues } =
-    useApi();
-
-    
+  const { catlist, groupCod, validCatCollepse, getItem, mydata, setCheckedValues, checkedValues } = useApi();
 
   useEffect(() => {
     setOpenStates(Array(catlist.length).fill(false));
     return () => {
-      setCheckedValues([])
+      setCheckedValues([]);
     };
   }, [catlist]);
 
@@ -40,18 +37,16 @@ const ProductCategories = ({ list }) => {
     try {
       const response = await axios.post(
         `${baseURL2}/api/v1/item/attribute-value/list`,
-        {
-          attributeId: id,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        { attributeId: id },
+        { headers: { "Content-Type": "application/json" } }
       );
 
       const { data } = response;
-      setSubcate(data.data);
+
+      // Extract unique values
+      const uniqueValues = Array.from(new Set(data.data.map(item => item.value)));
+
+      setSubcate(uniqueValues);
 
       setOpenStates((prevStates) => {
         const newStates = prevStates.map((state, i) => i === index && !state);
@@ -65,19 +60,13 @@ const ProductCategories = ({ list }) => {
   const handleCheckboxChange = (event, value) => {
     if (event.target.checked) {
       setCheckedValues([...checkedValues, value]);
-      // getItem('','',)
     } else {
       setCheckedValues(checkedValues.filter((item) => item !== value));
     }
   };
 
-
-
   return (
-    <div
-      ref={ref}
-      style={{ position: "relative", overflow: "hidden" }}
-      className="tp-shop-widget">
+    <div ref={ref} style={{ position: "relative", overflow: "hidden" }} className="tp-shop-widget">
       <div>
         <h2 className="newTitleBx mb-2">Filter By Attributes</h2>
         <ul className="listUnderLine">
@@ -90,24 +79,18 @@ const ProductCategories = ({ list }) => {
               >
                 {item?.attribute}
               </Link>
-              <Collapse in={openStates[index] && subcate && subcate.length > 0}>
+              <Collapse in={openStates[index] && subcate.length > 0}>
                 <div>
-                  {subcate?.map((items, subIndex) => (
-                    <div className="checkItem">
+                  {subcate?.map((value, subIndex) => (
+                    <div className="checkItem" key={subIndex}>
                       <input
-                          type="checkbox"
-                          onChange={(event) =>
-                            handleCheckboxChange(event, items.value)
-                          }
-                        />&nbsp;
-                        <Link
-                          key={subIndex}
-                          // onClick={() =>
-                          //   handleattribute(item?.attribute, items?.value)
-                          // }
-                        >
-                          {items.value}
-                        </Link>
+                        type="checkbox"
+                        onChange={(event) => handleCheckboxChange(event, value)}
+                      />
+                      &nbsp;
+                      <Link>
+                        {value}
+                      </Link>
                     </div>
                   ))}
                 </div>

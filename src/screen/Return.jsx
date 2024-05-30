@@ -303,6 +303,12 @@ const Return = () => {
             >
               Return
             </Link>
+            <Link
+              to="/account/changePassord"
+              className={` list-group-item list-group-item-action`}
+            >
+              Change password
+            </Link>
           </div>
         </Col>
         <Col sm={9}>

@@ -8,8 +8,8 @@ import { useApi } from "../../../contextApi/ApiContexts/ApiContexts";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const base_url = "https://shipwall.au/WCF_API_HTTPS"; //SAP Base URL
-const baseURL2 = "https://shipwall.au/test/API/shipwall"; // Node Api Base URL
+// const base_url = "https://shipwall.au/WCF_API_HTTPS"; //SAP Base URL
+// const baseURL2 = "https://shipwall.au/test/API/shipwall"; // Node Api Base URL
 const UserProfile = () => {
   const [Adddata, setAddData] = useState();
   const [loading, setloading] = useState(false);
@@ -31,7 +31,6 @@ const UserProfile = () => {
   useEffect(() => {
     const getBP = async () => {
       try {
-        console.log("first page loaded");
         setloading(true);
         // const cardCode = localStorage.getItem("username");
         // const access = localStorage.getItem("accessC");
@@ -55,7 +54,7 @@ const UserProfile = () => {
       }
     };
     getBP();
-  }, []);
+  }, [cardCode]);
 
   return (
     <div className="container h-100">
@@ -91,6 +90,12 @@ const UserProfile = () => {
               className={` list-group-item list-group-item-action`}
             >
               Return
+            </Link>
+            <Link
+              to="/account/changePassord"
+              className={` list-group-item list-group-item-action`}
+            >
+              Change password
             </Link>
           </div>
         </Col>

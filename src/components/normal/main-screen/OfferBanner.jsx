@@ -17,7 +17,7 @@ const OfferBanner = () => {
       getFleshNewsList()
     },[])
 
-    console.log(fleshNewsList,'FNL');
+    // console.log(fleshNewsList,'FNL');
   
     const Middle1Banners = bannerList?.filter(item => item.position === "Middle1");
     const Middle2Banners = bannerList?.filter(item => item.position === "Middle2");

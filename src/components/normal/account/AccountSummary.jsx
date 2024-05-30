@@ -95,6 +95,12 @@ const AccountSummary = () => {
             >
               Return
             </Link>
+            <Link
+              to="/account/changePassord"
+              className={` list-group-item list-group-item-action`}
+            >
+              Change password
+            </Link>
           </div>
         </Col>
         <Col sm={9}>
@@ -104,7 +110,7 @@ const AccountSummary = () => {
             ) : (
               <div className="card border shadow-0">
                     <div className="card-header">
-                      <h4 className="card-title mt-md-0 mt-lg-0 text text-bg-primary p-3 text-center">Acccount Summary</h4>
+                      <h4 className="card-title mt-md-0 mt-lg-0 text text-bg-primary p-3 text-center">Account Summary</h4>
                     </div>
                     
                     

@@ -5,7 +5,7 @@ import jsPDF from "jspdf";
 import { useApi } from "../../../contextApi/ApiContexts/ApiContexts";
 import { toast } from "react-toastify";
 
-const PdfTable = ({ onClose, startDate, endDate }) => {
+const PdfTable = ({ onClose, startDate, endDate, code, token }) => {
   const { ledgerData, dowloadLedger } = useApi();
   const [pdfData, setPdfData] = useState("");
   const [isConverting, setIsConverting] = useState(false);
@@ -13,8 +13,12 @@ const PdfTable = ({ onClose, startDate, endDate }) => {
   const [totalDebit, setTotalDebit] = useState(null);
 
   useEffect(() => {
-    dowloadLedger({ startDate, endDate });
-  }, [startDate, endDate]);
+    if(code && token){
+      dowloadLedger({ startDate, endDate, code, token });
+    }else{
+      dowloadLedger({ startDate, endDate });
+    }
+  }, [startDate, endDate, code, token]);
 
   console.log(ledgerData, "ledger data");
 
@@ -26,14 +30,11 @@ const PdfTable = ({ onClose, startDate, endDate }) => {
 
       for (let i = 0; i < pages.length; i++) {
         pages[i].style.width = `${pages[i].scrollWidth}px`;
-        pages[i].style.height = "auto";
         pages[i].style.overflow = "auto";
         const canvas = await html2canvas(pages[i], {
           allowTainted: true,
           useCORS: true,
         });
-        pages[i].style.height = "0px";
-        pages[i].style.overflow = "hidden";
         pages[i].style.width = "auto";
         canvasArray.push(canvas);
       }
@@ -51,19 +52,28 @@ const PdfTable = ({ onClose, startDate, endDate }) => {
 
       const pdfData = pdf.output("datauristring");
       if (!!pdfData) {
-        setPdfData(pdfData);
-        const link = document.createElement("a");
-        link.href = pdfData;
-        link.download = `${ledgerData[0].data[0].cardName}-${ledgerData[0].data[0].cardCode}`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        toast.success("Ladger downloaded successfully");
+        if(code && token){
+          window?.ReactNativeWebView?.postMessage(JSON.stringify({ success: true, message: "Ladger downloaded successfully", data: pdfData }));
+        }else{
+          setPdfData(pdfData);
+          const link = document.createElement("a");
+          link.href = pdfData;
+          link.download = `${ledgerData[0].data[0].cardName}-${ledgerData[0].data[0].cardCode}`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
       } else {
         toast.error("cound not converted ladger into PDF file");
+        if(code && token){
+          window?.ReactNativeWebView?.postMessage(JSON.stringify({ success: false, message: "cound not converted ladger into PDF file" }));
+        }
       }
     } catch (error) {
       toast.error("something went wrong");
+      if(code && token){
+        window?.ReactNativeWebView?.postMessage(JSON.stringify({ success: false, message: "something went wrong" }));
+      }
     } finally {
       onClose(false);
       setIsConverting(false);
@@ -149,7 +159,7 @@ const PdfTable = ({ onClose, startDate, endDate }) => {
       {ledgerData.map((ledger, index) => (
         <div
           className="pdf-page p-4 "
-          style={{ height: 0, overflow: "scroll", minWidth: 1000 }}
+          style={{ overflow: "scroll", minWidth: 1000 }}
           key={index}
         >
           {ledger.data && ledger.data.length > 0 && (
@@ -165,7 +175,7 @@ const PdfTable = ({ onClose, startDate, endDate }) => {
                   {ledger.data[0].cardName}-{ledger.data[0].cardCode}
                 </h2>
               </div>
-              <Table striped bordered hover>
+              <Table bordered hover>
                 <thead>
                   <tr>
                     <th>TaxDate</th>
