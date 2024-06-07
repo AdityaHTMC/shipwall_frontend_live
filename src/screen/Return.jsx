@@ -308,6 +308,12 @@ const Return = () => {
               Return
             </Link>
             <Link
+              to="/account/suggestion"
+              className={` list-group-item list-group-item-action`}
+            >
+              Suggestion
+            </Link>
+            <Link
               to="/account/changePassord"
               className={` list-group-item list-group-item-action`}
             >
@@ -403,92 +409,6 @@ const Return = () => {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {/* {Array.isArray(currentItems) &&
-                                  currentItems.map((item, index) => (
-                                    <tr key={index}>
-                                      <td style={{ cursor: "pointer" }}>
-                                        <Select
-                                          options={invoiceOption}
-                                          onChange={(e) =>
-                                            handleinvoiceChange(e, index)
-                                          }
-                                          value={
-                                            selectedInvoice[index]
-                                              ? {
-                                                  value:
-                                                    selectedInvoice[index].value,
-                                                  label:
-                                                    selectedInvoice[index].label,
-                                                }
-                                              : null
-                                          }
-                                          styles={customStyles}
-                                        />
-                                      </td>
-                                      <td style={{ cursor: "pointer" }}>
-                                        <Select
-                                          options={
-                                            selectedInvoice[index]?.data.length > 0
-                                              ? invoiceSelected[index] &&
-                                                selectedInvoice[
-                                                  index
-                                                ]?.data[0]?.details?.map(
-                                                  (item1, index1) => ({
-                                                    value: item1,
-                                                    label: item1.itemCode,
-                                                  })
-                                                )
-                                              : null
-                                          }
-                                          onChange={(selectedOption) =>
-                                            handleDropdownChange(
-                                              index,
-                                              selectedOption.value
-                                            )
-                                          }
-                                          value={
-                                            selectedInvoice[index]?.data[0]?.details
-                                              .length === 1
-                                              ? {
-                                                  value:
-                                                    selectedInvoice[index]?.data[0]
-                                                      ?.details[0].itemCode,
-                                                  label:
-                                                    selectedInvoice[index]?.data[0]
-                                                      ?.details[0].itemCode,
-                                                }
-                                              : selectedInvoice[index]?.data[0]
-                                                  ?.details.length > 1
-                                              ? selectedItems[index] && {
-                                                  value: selectedItems[index],
-                                                  label:
-                                                    selectedItems[index].itemCode,
-                                                }
-                                              : null
-                                          }
-                                          styles={customStyles}
-                                          isDisabled={!invoiceSelected[index]}
-                                        />
-                                      </td>
-                                      <td> {selectedItems[index]?.description} </td>
-                                      <td> {selectedItems[index]?.quantity} </td>
-                                      <td>
-                                        {selectedItems[index]?.quantity -
-                                          selectedItems[index]?.tillRetQuantity ||
-                                          0}
-                                      </td>
-
-                                      <td>
-                                        <input
-                                          type="text"
-                                          value={returnQuantities[index] || ""}
-                                          onChange={(e) =>
-                                            handelChange(index, e.target.value)
-                                          }
-                                        />
-                                      </td>
-                                    </tr>
-                                  ))} */}
                                   {renderAddedRows(currentItems.length + 1)}
                                 </tbody>
                               </Table>

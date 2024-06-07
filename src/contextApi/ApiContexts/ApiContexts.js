@@ -132,6 +132,62 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+
+  const postCompalint = async ({selectedOrderId,selectedItemCode,messages}) => {
+    try {
+      // const cardCode = localStorage.getItem("username");
+      // const access = localStorage.getItem("accessC");
+      console.log(selectedItemCode,selectedOrderId,messages ,'data')
+      const response = await axios.post(
+        `${baseURL2}/api/v1/customer/complaint`,{
+          cardCode : cardCode,
+          orderId: selectedOrderId,
+          itemCode: selectedItemCode,
+          complaint: messages
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const { data, message } = response.data;
+      // toast.success(message);
+      
+      return data;
+    } catch (error) {
+      console.log(error, "context-api");
+      toast.error(error.response?.data?.message || "An error occurred");
+    }
+  };
+
+
+  const postSuggestion = async ({suggestions}) => {
+    try {
+      // const cardCode = localStorage.getItem("username");
+      // const access = localStorage.getItem("accessC");
+      const response = await axios.post(
+        `${baseURL2}/api/v1/customer/suggestion/add`,{
+          cardCode : cardCode,
+          suggestion: suggestions
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const { data, message } = response.data;
+      toast.success(message);
+      return data;
+    } catch (error) {
+      console.log(error, "context-api");
+      toast.error(error.response?.data?.message || "An error occurred");
+    }
+  };
+
   const PlaceReturnRequest = async (mergdata, remrks, selectedDate, returnAddress) => {
     try {
       const cardName = JSON.parse(localStorage.getItem("log"));
@@ -760,7 +816,7 @@ export const ApiProvider = ({ children }) => {
          setClearenceData,
          getClearenceItem,
          clearenceData,
-         getCmsDetails,cmsPage , getFleshNewsList , fleshNewsList , trackOrder ,orderDetails , ledgerData ,dowloadLedger , base_url , baseURL2 , cardCode , access ,bplId ,clearenceDataFilter, newfetchsales,getBP
+         getCmsDetails,cmsPage , getFleshNewsList , fleshNewsList , trackOrder ,orderDetails , ledgerData ,dowloadLedger , base_url , baseURL2 , cardCode , access ,bplId ,clearenceDataFilter, newfetchsales,getBP,postCompalint , postSuggestion
       }}
     >
       {children}

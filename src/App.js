@@ -63,6 +63,7 @@ import { AppPayment } from "./screen/payment/AppPayment";
 import { AppPdf } from "./screen/app-pdf";
 import ChangePassword from "./components/normal/account/ChangePassword";
 import TermsCondition from "./components/CMSPages/TermsCondition";
+import Suggestion from "./screen/Suggestion";
 
 function App() {
   const { isLoading } = useAppContext();
@@ -199,6 +200,11 @@ function App() {
             <Route path="/account/return" element={<ProtectedRoute />}>
               <Route index element={<Return />} />
             </Route>
+            
+            <Route path="/account/suggestion" element={<ProtectedRoute />}>
+              <Route index element={<Suggestion />} />
+            </Route>
+
             <Route path="/account/changePassord" element={<ProtectedRoute />}>
               <Route index element={<ChangePassword/>} />
             </Route>

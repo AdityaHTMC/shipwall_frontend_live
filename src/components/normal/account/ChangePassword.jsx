@@ -64,6 +64,12 @@ const ChangePassword = () => {
               Return
             </Link>
             <Link
+              to="/account/suggestion"
+              className={` list-group-item list-group-item-action`}
+            >
+              Suggestion
+            </Link>
+            <Link
               to="/account/changePassword"
               className={`list-group-item list-group-item-action`}
             >

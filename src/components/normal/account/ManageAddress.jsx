@@ -98,6 +98,12 @@ const ManageAddress = () => {
               Return
             </Link>
             <Link
+              to="/account/suggestion"
+              className={` list-group-item list-group-item-action`}
+            >
+              Suggestion
+            </Link>
+            <Link
               to="/account/changePassord"
               className={` list-group-item list-group-item-action`}
             >

@@ -104,10 +104,10 @@ const Footer = () => {
                </div>
             </div>
             <div className='col-md-3'>
-               <h4>Bulk Order</h4>
-               <p className='fs-6'>Fill-up the detail for bulk order.</p>
-               <Link className='btnBx' to='/contact-us'>Inquiry Form</Link>
-               <div className='socialMedia'>
+               <h4>Our Social Media Link</h4>
+               {/* <p className='fs-6'>Fill-up the detail for bulk order.</p>
+               <Link className='btnBx' to='/contact-us'>Inquiry Form</Link> */}
+               <div className='socialMedia '>
                   <a href="/" target='_blank'><img src={facebook} alt="" /></a>
                   <a href="/" target='_blank'><img src={instagram} alt="" /></a>
                   <a href="/" target='_blank'><img src={twitter} alt="" /></a>

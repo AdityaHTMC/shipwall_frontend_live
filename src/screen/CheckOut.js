@@ -582,6 +582,7 @@ const CheckOut = () => {
                         value={manualAddress}
                         onChange={handleManualAddressChange}
                         placeholder="Enter your address"
+                        disabled={!!shippingDDdata}
                       />
                     </div>
 
