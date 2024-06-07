@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { useAppContext } from "../../../contextApi/AppContext";
 
 const ChangePassword = () => {
-  const { ChangePassword } = useAppContext();
+  const { ChangePassword, logOutsap } = useAppContext();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-//   const cardCode = localStorage.getItem("username9");
+  //   const cardCode = localStorage.getItem("username9");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,6 +69,12 @@ const ChangePassword = () => {
             >
               Change password
             </Link>
+            <Link
+              onClick={logOutsap}
+              className={` list-group-item list-group-item-action`}
+            >
+              Sign Out
+            </Link>
           </div>
         </Col>
         <Col sm={9}>
@@ -95,11 +101,7 @@ const ChangePassword = () => {
                   placeholder="Confirm New Password"
                 />
               </Form.Group>
-              {error && (
-                <div className="text-danger mb-3">
-                  {error}
-                </div>
-              )}
+              {error && <div className="text-danger mb-3">{error}</div>}
               <Button variant="primary" onClick={handleClick}>
                 Change Password
               </Button>

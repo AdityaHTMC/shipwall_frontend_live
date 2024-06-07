@@ -11,6 +11,9 @@ import { Link } from "react-router-dom";
 // const base_url = "https://shipwall.au/WCF_API_HTTPS"; //SAP Base URL
 // const baseURL2 = "https://shipwall.au/test/API/shipwall"; // Node Api Base URL
 const UserProfile = () => {
+ 
+  const { logOutsap } = useAppContext();
+
   const [Adddata, setAddData] = useState();
   const [loading, setloading] = useState(false);
   const { base_url, baseURL2, cardCode, access } = useApi();
@@ -96,6 +99,12 @@ const UserProfile = () => {
               className={` list-group-item list-group-item-action`}
             >
               Change password
+            </Link>
+            <Link
+               onClick={logOutsap}
+              className={` list-group-item list-group-item-action`}
+            >
+              Sign Out
             </Link>
           </div>
         </Col>

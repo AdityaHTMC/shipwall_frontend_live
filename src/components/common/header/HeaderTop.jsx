@@ -9,10 +9,10 @@ const HeaderTop = () => {
     <section className="topHead">
       <article className="container-fluid">
         <aside className="row">
-          <div className="col-md-5 col-sm-5 col-12">
+          {/* <div className="col-md-5 col-sm-5 col-12">
             Express delivery and free returns within 30 days
-          </div>
-          <div className="col-md-7 col-sm-7 col-12">
+          </div> */}
+          <div className="col-md-12 col-sm-12 col-12">
             <ul className="list-inline d-inline">
               <li>
                 <Link to='/cms/our-stories'> About </Link>

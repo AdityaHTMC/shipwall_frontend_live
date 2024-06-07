@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 const base_url = "https://shipwall.au/WCF_API_HTTPS";
 
 const ManageAddress = () => {
+  const { logOutsap } = useAppContext();
   const { base_url, cardCode, access } = useApi();
 
   const [Adddata, setAddData] = useState();
@@ -101,6 +102,12 @@ const ManageAddress = () => {
               className={` list-group-item list-group-item-action`}
             >
               Change password
+            </Link>
+            <Link
+               onClick={logOutsap}
+              className={` list-group-item list-group-item-action`}
+            >
+              Sign Out
             </Link>
           </div>
         </Col>

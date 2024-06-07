@@ -62,6 +62,7 @@ import OrderReturn from "./screen/OrderReturn";
 import { AppPayment } from "./screen/payment/AppPayment";
 import { AppPdf } from "./screen/app-pdf";
 import ChangePassword from "./components/normal/account/ChangePassword";
+import TermsCondition from "./components/CMSPages/TermsCondition";
 
 function App() {
   const { isLoading } = useAppContext();
@@ -123,6 +124,7 @@ function App() {
             />
             <Route path="/cms/our-stories" element={<OurStories />} />
             <Route path="/cms/faq" element={<FAQpages />} />
+            <Route path="/cms/terms-conditions" element={<TermsCondition />} />
             <Route path="/app-payment/:code" element={<AppPayment />} />
 
             <Route path="/app-pdf/:code" element={<AppPdf />} />
@@ -200,6 +202,8 @@ function App() {
             <Route path="/account/changePassord" element={<ProtectedRoute />}>
               <Route index element={<ChangePassword/>} />
             </Route>
+
+            
             {/* <Route path="/test1" element={<Test />} /> */}
             <Route path="*" element={<Error />} />
           </Routes>

@@ -391,6 +391,7 @@ const ProductDetail = () => {
               <div className="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
                 <div className="tp-product-details-wrapper productDtlsBx">
                   <h4>{itemName}</h4>
+                  <h6>Item Code : {itemCode}</h6>
                   <h5 className="fw-bold text-primary">
                     {isLogIn ? (
                       `AUD ${

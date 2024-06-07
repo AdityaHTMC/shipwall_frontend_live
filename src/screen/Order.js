@@ -7,8 +7,11 @@ import Pagination from "react-bootstrap/Pagination";
 import { MdDownload } from "react-icons/md";
 import { useApi } from "../contextApi/ApiContexts/ApiContexts";
 import { Col, Row } from "react-bootstrap";
+import { useAppContext } from "../contextApi/AppContext";
 
 const Order = () => {
+  const { logOutsap } = useAppContext();
+
   const { orderList, fetchsales, getOrder } = useApi();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
@@ -77,6 +80,18 @@ const Order = () => {
               className={` list-group-item list-group-item-action`}
             >
               Return
+            </Link>
+            <Link
+              to="/account/changePassord"
+              className={` list-group-item list-group-item-action`}
+            >
+              Change password
+            </Link>
+            <Link
+               onClick={logOutsap}
+              className={` list-group-item list-group-item-action`}
+            >
+              Sign Out
             </Link>
           </div>
         </Col>

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import '../../css/mix.css'
 import { useApi } from '../../contextApi/ApiContexts/ApiContexts';
 import { Link } from 'react-router-dom';
+import ReactQuill from 'react-quill';
 
 
 const RefundPolicy = () => {
@@ -38,7 +39,12 @@ const RefundPolicy = () => {
          <div className='col-md-12'>
         <h4 className='mb-2' align="center">{cmsPage?.title}</h4>
          <p className="about-txt" align='justify'>
-         {cmsPage?.description} 
+         <ReactQuill
+                value={cmsPage?.description}
+                readOnly={true}
+                modules={{ toolbar: false }}
+                theme="snow"
+              />
          </p>
          </div>
        </div>

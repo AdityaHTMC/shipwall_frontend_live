@@ -9,8 +9,12 @@ import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
 import { addDays,format  } from "date-fns";
+import { useAppContext } from "../../../contextApi/AppContext";
 
 const AccountSummary = () => {
+ 
+  const { logOutsap } = useAppContext();
+
   const { Adddata, getBP } = useApi();
   const [loading, setLoading] = useState(true);
   const [pdfOpen, setPdfOpen] = useState(false);
@@ -101,12 +105,18 @@ const AccountSummary = () => {
             >
               Change password
             </Link>
+            <Link
+               onClick={logOutsap}
+              className={` list-group-item list-group-item-action`}
+            >
+              Sign Out
+            </Link>
           </div>
         </Col>
         <Col sm={9}>
           <div className="account-summary pt-0 mt-4">
             {loading ? (
-              <p>Loading...</p>
+              <p>Loading....</p>
             ) : (
               <div className="card border shadow-0">
                     <div className="card-header">

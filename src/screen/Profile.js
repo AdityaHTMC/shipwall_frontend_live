@@ -13,6 +13,7 @@ import { useAppContext } from "../contextApi/AppContext";
 import { Link, useLocation } from "react-router-dom";
 
 const Profile = () => {
+ 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const tabTerm = searchParams.get("tab") || null;

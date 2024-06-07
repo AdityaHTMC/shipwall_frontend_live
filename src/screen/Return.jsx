@@ -8,8 +8,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaPlusCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useAppContext } from "../contextApi/AppContext";
 
 const Return = () => {
+
+  const { logOutsap } = useAppContext();
+
   const {
     PlaceReturnRequest,
     getARInvoice,
@@ -308,6 +312,12 @@ const Return = () => {
               className={` list-group-item list-group-item-action`}
             >
               Change password
+            </Link>
+            <Link
+               onClick={logOutsap}
+              className={` list-group-item list-group-item-action`}
+            >
+              Sign Out
             </Link>
           </div>
         </Col>

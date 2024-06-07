@@ -119,7 +119,7 @@ const HeaderMain = ({ loginShow, setLoginShow }) => {
                           onClick={() => setQuery("")}
                           to={`/product-details/${item._id}`}
                         >
-                          {item?.itemName.slice(0, 25)}
+                          {item?.itemName.slice(0, 60)}
                         </Link>
                       </li>
                     ))}

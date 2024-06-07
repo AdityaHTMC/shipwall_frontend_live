@@ -98,6 +98,7 @@ const Footer = () => {
                   <li><Link to='/cms/report-abuse'>Report Abuse</Link></li>
                   <li><Link to='/cms/privacy-policy'>Privacy Policy</Link></li>
                   <li><Link to='/cms/cancellation-refund-policy'>Cancellation & Refund Policy</Link></li>
+                  <li><Link to='/cms/terms-conditions'>Terms & Conditions</Link></li>
                </ul>
             </div>
                </div>
