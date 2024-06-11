@@ -7,10 +7,15 @@ import { Button, Col, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaPlusCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAppContext } from "../contextApi/AppContext";
 
 const Suggestion = () => {
+ 
+  const location = useLocation();
+  const { pathname } = location;
+  console.log(pathname);
+
   const { logOutsap } = useAppContext();
 
   const { getARInvoice, arInvoiceList, postCompalint,postSuggestion } = useApi();
@@ -101,8 +106,10 @@ const Suggestion = () => {
             <Link
               to="/account/suggestion"
               className={` list-group-item list-group-item-action`}
+              style={{ backgroundColor: pathname === "/account/suggestion" ? "#0d6efd" : "transparent", color: pathname === "/account/suggestion" ? "#fff" : "#000" }}
             >
-              Suggestion
+              Suggestion & Complaint
+
             </Link>
             <Link
               to="/account/changePassord"

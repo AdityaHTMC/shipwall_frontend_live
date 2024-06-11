@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { Button, Col, Row, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAppContext } from "../../../contextApi/AppContext";
 
 const ChangePassword = () => {
+
+  const location = useLocation();
+  const { pathname } = location;
+  console.log(pathname);
+
   const { ChangePassword, logOutsap } = useAppContext();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -67,11 +72,13 @@ const ChangePassword = () => {
               to="/account/suggestion"
               className={` list-group-item list-group-item-action`}
             >
-              Suggestion
+              Suggestion & Complaint
+
             </Link>
             <Link
               to="/account/changePassword"
               className={`list-group-item list-group-item-action`}
+              style={{ backgroundColor: pathname === "/account/changePassord" ? "#0d6efd" : "transparent", color: pathname === "/account/changePassord" ? "#fff" : "#000" }}
             >
               Change password
             </Link>

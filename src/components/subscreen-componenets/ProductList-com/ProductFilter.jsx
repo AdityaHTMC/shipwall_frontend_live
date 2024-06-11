@@ -6,7 +6,7 @@ import { useAppContext } from "../../../contextApi/AppContext";
 import { useApi } from "../../../contextApi/ApiContexts/ApiContexts";
 import _debounce from "lodash/debounce";
 
-const ProductFilter = ({ list, newfilter, clearence }) => {
+const ProductFilter = ({ list, newfilter, clearence, searchQuery,searchPrcice }) => {
   console.log(list, "fdsf");
   console.log(newfilter, "newfilter...");
 
@@ -17,9 +17,15 @@ const ProductFilter = ({ list, newfilter, clearence }) => {
   const [priceRange, setPriceRange] = useState([0, 0]);
   const [priceLimits, setPriceLimits] = useState({ min: 0, max: 100 });
 
-  const { getItem, setfilterPrice, getClearenceItem } = useApi();
+  const { getItem, setfilterPrice, getClearenceItem,setKeySearch,getSearchfilter } = useApi();
   // const listitem = list[0]?.itmsGrpCod;
   // console.log(listitem, "grpcod");
+
+  useEffect(() => {
+    if(searchQuery){
+      setKeySearch(searchQuery)
+    }
+  }, [searchQuery])
 
   useEffect(() => {
     if (newfilter) {
@@ -42,7 +48,7 @@ const ProductFilter = ({ list, newfilter, clearence }) => {
   //   getItem(); // Directly trigger getItem when priceRange changes
   // }, [priceRange, getItem]);
 
-  console.log(priceRange, "PRRr");
+  // console.log(priceRange, "PRR");
 
   const handelfilter = () => {
     if (clearence == 1) {
@@ -52,10 +58,18 @@ const ProductFilter = ({ list, newfilter, clearence }) => {
         max_price: priceRange[1],
       };
       getClearenceItem(dataToSend);
-    } else {
+    } if(searchPrcice==2) {
+      const dataToSend = {
+        min_price: priceRange[0],
+        max_price: priceRange[1],
+        keyword_search: searchQuery
+      }
+      getSearchfilter(dataToSend)
+    }else{
       setfilterPrice(priceRange);
     }
   };
+
 
   const handlePriceRangeChange = (newRange) => {
     setPriceRange(newRange);

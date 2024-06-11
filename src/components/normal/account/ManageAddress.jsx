@@ -5,10 +5,15 @@ import "./ManageAddress.css";
 import axios from "axios";
 import { useApi } from "../../../contextApi/ApiContexts/ApiContexts";
 import { Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const base_url = "https://shipwall.au/WCF_API_HTTPS";
 
 const ManageAddress = () => {
+  const location = useLocation();
+  const { pathname } = location;
+  console.log(pathname);
+
+
   const { logOutsap } = useAppContext();
   const { base_url, cardCode, access } = useApi();
 
@@ -88,6 +93,7 @@ const ManageAddress = () => {
             <Link
               to="/account/address"
               className={` list-group-item list-group-item-action`}
+              style={{ backgroundColor: pathname === "/account/address" ? "#0d6efd" : "transparent", color: pathname === "/account/address" ? "#fff" : "#000" }}
             >
               Address
             </Link>
@@ -101,7 +107,8 @@ const ManageAddress = () => {
               to="/account/suggestion"
               className={` list-group-item list-group-item-action`}
             >
-              Suggestion
+              Suggestion & Complaint
+
             </Link>
             <Link
               to="/account/changePassord"

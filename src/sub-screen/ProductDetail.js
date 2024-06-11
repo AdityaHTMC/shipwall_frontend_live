@@ -453,7 +453,8 @@ const ProductDetail = () => {
                           className="tp-cart-input"
                           type="text"
                           Value={productQuantity}
-                          disabled
+                          min={1}
+                          onChange={(e) => setProductQuantity(Number(e.target.value))}
                         />
                         <span
                           onClick={incrementQuantity}

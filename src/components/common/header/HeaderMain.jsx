@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "./../../../css/mix.css";
 import { Link, useNavigate } from "react-router-dom";
 import OffCanvas from "./mobile-header/OffCanvas";
@@ -33,42 +33,83 @@ const HeaderMain = ({ loginShow, setLoginShow }) => {
   const [show, setShow] = useState(false);
   const [queary, setQuery] = useState("");
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(true);
 
-  function handleShow() {
-    setFullscreen(true);
-    setShow(true);
-  }
+  const popOverRef = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popOverRef.current && !popOverRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [popOverRef]);
+
+  // function handleShow() {
+  //   setFullscreen(true);
+  //   setShow(true);
+  // }
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
   };
 
+  useEffect(() => {
+    const searchProduc1t = async () => {
+      if(queary === '' || !queary){
+        return
+      }
+      console.log("loggedhere")
+      const dataToSend = {
+        keyword_search: queary,
+        itmsGrpCod:parseInt(selectedCategory)
+      };
+      searchProduct(dataToSend);
+      // setQuery('')
+    }
+    const timeInterval = setTimeout(() => {
+      searchProduc1t()
+    }, 600)
+   
+    return () => {
+      clearTimeout(timeInterval)
+    }
+
+  }, [queary])
+
   const handelSubmit = (event) => {
     event.preventDefault();
     const name = event.target.search1.value;
-    const dataToSend = {
-      keyword_search: name,
-    };
-    searchProduct(dataToSend);
-    navigate(`/product-list/${name}`);
-    setQuery("");
+    // const dataTo 
+    // searchProduct(dataToSend);
+    navigate(`/product-list/${name}?grp_code=${selectedCategory}`);
+    // setQuery("");
   };
 
+  
   const handelChange = (e) => {
     const name = e.target.value;
-    const dataToSend = {
-      keyword_search: name,
-      itmsGrpCod:parseInt(selectedCategory)
-    };
+    setIsOpen(e.target.value === '' ? false : true)
+    // const dataToSend = {
+    //   keyword_search: name,
+    //   itmsGrpCod:parseInt(selectedCategory)
+    // };
     setQuery(name);
-    searchProduct(dataToSend);
+    // searchProduct(dataToSend);
   };
 
 
 
-  useEffect(() => {
-    searchProduct("", queary);
-  }, [selectedCategory]);
+
+
+  // useEffect(() => {
+  //   searchProduct("", queary);
+  // }, [selectedCategory]);
 
   return (
     <>
@@ -103,8 +144,8 @@ const HeaderMain = ({ loginShow, setLoginShow }) => {
                 />
                 <button>Search</button>
               </form>
-              {queary.length > 0 && (
-                <div className="dropdown p-absolute bottom-0 w-100">
+              {queary.length > 0 && isOpen && (
+                <div className="dropdown p-absolute bottom-0 w-100" ref={popOverRef}>
                   <ul
                     className="dropdown-menu show"
                     style={{
@@ -123,6 +164,10 @@ const HeaderMain = ({ loginShow, setLoginShow }) => {
                         </Link>
                       </li>
                     ))}
+
+                    {productBySearch.length === 0 && (
+                      <p className="text-muted text-center mb-0">No product found</p>
+                    )}
                   </ul>
                 </div>
               )}

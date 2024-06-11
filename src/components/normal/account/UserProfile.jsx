@@ -6,12 +6,16 @@ import axios from "axios";
 import UserDocument from "./UserDocument";
 import { useApi } from "../../../contextApi/ApiContexts/ApiContexts";
 import { Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 // const base_url = "https://shipwall.au/WCF_API_HTTPS"; //SAP Base URL
 // const baseURL2 = "https://shipwall.au/test/API/shipwall"; // Node Api Base URL
 const UserProfile = () => {
  
+  const location = useLocation();
+  const { pathname } = location;
+  console.log(pathname);
+
   const { logOutsap } = useAppContext();
 
   const [Adddata, setAddData] = useState();
@@ -67,6 +71,7 @@ const UserProfile = () => {
             <Link
               to="/account/profile"
               className={` list-group-item list-group-item-action`}
+              style={{ backgroundColor: pathname === "/account/profile" ? "#0d6efd" : "transparent", color: pathname === "/account/profile" ? "#fff" : "#000" }}
             >
               Profile
             </Link>
@@ -98,7 +103,7 @@ const UserProfile = () => {
               to="/account/suggestion"
               className={` list-group-item list-group-item-action`}
             >
-              Suggestion
+              Suggestion & Complaint
             </Link>
             <Link
               to="/account/changePassord"

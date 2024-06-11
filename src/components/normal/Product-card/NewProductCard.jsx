@@ -75,7 +75,7 @@ const NewProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
                   className="tp-product-price-2 old-price"
                   style={{ marginLeft: "15px" }}
                 >
-                  AUD{item.itemPrice}
+                  AUD {item.itemPrice}
                 </span>
               ) : null}
             </div>

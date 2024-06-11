@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { json } from "react-router-dom";
@@ -10,27 +9,26 @@ const baseURL2 = "https://shipwall.au/API/shipwall"; // Node Api Base URL
 
 const cardCode = localStorage.getItem("username9");
 const access = localStorage.getItem("accessC9");
-const bplId = localStorage.getItem('bplId9')
+const bplId = localStorage.getItem("bplId9");
 
 const ApiContexts = createContext();
 
-
 export const ApiProvider = ({ children }) => {
-  const location = useLocation()
-  const isProductListPage = location.pathname === '/product-list/'
-  const isProductListPageBrand = location.pathname === '/product-brand/'
+  const location = useLocation();
+  const isProductListPage = location.pathname === "/product-list/";
+  const isProductListPageBrand = location.pathname === "/product-brand/";
   const [Adddata, setAddData] = useState();
   const [filterItem, setfilterItem] = useState();
-  const[newfilter, setnewfilter] = useState();
+  const [newfilter, setnewfilter] = useState();
   const [catlist, setcatList] = useState([]);
   const [allItem, setAllItem] = useState([]);
   const [listItemWith, setListItemWith] = useState([]);
   const [ProductDetails, setProDuctSetail] = useState();
   const [productBySearch, setProductBySearch] = useState([]);
   const [orderList, setOrderList] = useState();
-  const [ slugvalue , setSlugValue ] = useState()
-  const [ cmsPage , setCmspage ] = useState()
-  const [fleshNewsList , setFleshNewsList] = useState([])
+  const [slugvalue, setSlugValue] = useState();
+  const [cmsPage, setCmspage] = useState();
+  const [fleshNewsList, setFleshNewsList] = useState([]);
   const [orderDetails, setOrderDetails] = useState(null);
   // category matrix state
   const [pr1, setpr1] = useState();
@@ -40,24 +38,22 @@ export const ApiProvider = ({ children }) => {
   const [pr5, setpr5] = useState();
   const [groupCod, setGroupCod] = useState("");
   const [arInvoiceList, setArInvoiceList] = useState([]);
-  const [productLoading, setProductLoading] = useState(false)
+  const [productLoading, setProductLoading] = useState(false);
   const [checkedValues, setCheckedValues] = useState([]);
   const [loginShow, setLoginShow] = useState(false);
 
-  const [clearenceData , setClearenceData] = useState()
-  const [clearenceDataFilter , setClearenceDataFilter] = useState()
-  const [ ledgerData , setledgerData ] = useState([])
+  const [keySearch, setKeySearch] = useState("");
 
+  const [clearenceData, setClearenceData] = useState();
+  const [clearenceDataFilter, setClearenceDataFilter] = useState();
+  const [ledgerData, setledgerData] = useState([]);
 
   const [mydata, setMyData] = useState({
     attribute: "",
     value: "",
   });
 
-
-
   const [filterPrice, setfilterPrice] = useState([]);
-
 
   // useEffect(() => {
   //   if (isProductListPage && isProductListPageBrand) {
@@ -92,7 +88,8 @@ export const ApiProvider = ({ children }) => {
       // const cardCode = localStorage.getItem("username");
       // const access = localStorage.getItem("accessC");
       const response = await axios.get(
-        `${base_url}/api/Document/Get_ARInvoice/${docEntry || "%20"
+        `${base_url}/api/Document/Get_ARInvoice/${
+          docEntry || "%20"
         }/DTC/%20/${cardCode}`,
         {
           headers: {
@@ -114,7 +111,8 @@ export const ApiProvider = ({ children }) => {
       // const cardCode = localStorage.getItem("username");
       // const access = localStorage.getItem("accessC");
       const response = await axios.get(
-        `${base_url}/api/Document/Get_ARInvoice/${docEntry || "%20"
+        `${base_url}/api/Document/Get_ARInvoice/${
+          docEntry || "%20"
         }/DTC/%20/${cardCode}`,
         {
           headers: {
@@ -132,18 +130,22 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
-
-  const postCompalint = async ({selectedOrderId,selectedItemCode,messages}) => {
+  const postCompalint = async ({
+    selectedOrderId,
+    selectedItemCode,
+    messages,
+  }) => {
     try {
       // const cardCode = localStorage.getItem("username");
       // const access = localStorage.getItem("accessC");
-      console.log(selectedItemCode,selectedOrderId,messages ,'data')
+      console.log(selectedItemCode, selectedOrderId, messages, "data");
       const response = await axios.post(
-        `${baseURL2}/api/v1/customer/complaint`,{
-          cardCode : cardCode,
+        `${baseURL2}/api/v1/customer/complaint`,
+        {
+          cardCode: cardCode,
           orderId: selectedOrderId,
           itemCode: selectedItemCode,
-          complaint: messages
+          complaint: messages,
         },
         {
           headers: {
@@ -154,7 +156,7 @@ export const ApiProvider = ({ children }) => {
 
       const { data, message } = response.data;
       // toast.success(message);
-      
+
       return data;
     } catch (error) {
       console.log(error, "context-api");
@@ -162,15 +164,15 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
-
-  const postSuggestion = async ({suggestions}) => {
+  const postSuggestion = async ({ suggestions }) => {
     try {
       // const cardCode = localStorage.getItem("username");
       // const access = localStorage.getItem("accessC");
       const response = await axios.post(
-        `${baseURL2}/api/v1/customer/suggestion/add`,{
-          cardCode : cardCode,
-          suggestion: suggestions
+        `${baseURL2}/api/v1/customer/suggestion/add`,
+        {
+          cardCode: cardCode,
+          suggestion: suggestions,
         },
         {
           headers: {
@@ -188,11 +190,16 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
-  const PlaceReturnRequest = async (mergdata, remrks, selectedDate, returnAddress) => {
+  const PlaceReturnRequest = async (
+    mergdata,
+    remrks,
+    selectedDate,
+    returnAddress
+  ) => {
     try {
       const cardName = JSON.parse(localStorage.getItem("log"));
       // const access = localStorage.getItem("accessC");
-      const bplId = localStorage.getItem('bplId9')
+      const bplId = localStorage.getItem("bplId9");
       const currentDate = new Date().toISOString().slice(0, 10);
       // const cardCode = localStorage.getItem("username");
       const response = await axios.post(
@@ -212,7 +219,7 @@ export const ApiProvider = ({ children }) => {
             cardCode: cardCode,
             cardName: cardName?.as_Name,
             remarks: remrks,
-            u_SITEADDR: returnAddress || '',
+            u_SITEADDR: returnAddress || "",
             docType: "I",
             bplId: parseInt(bplId),
           },
@@ -229,12 +236,12 @@ export const ApiProvider = ({ children }) => {
 
       const { data } = response;
       if (data.ai_MessageId === 0) {
-        toast.success(data.as_Message)
+        toast.success(data.as_Message);
       } else {
-        toast.error(data.as_Message)
+        toast.error(data.as_Message);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -242,16 +249,15 @@ export const ApiProvider = ({ children }) => {
 
   const getItem = async (mId, g, price) => {
     try {
-      setProductLoading(true)
+      setProductLoading(true);
       let requestData = {};
       if (mId) {
         requestData = { manufacturerId: mId };
       } else {
         const { attribute, value } = mydata || {};
         requestData = {
-  
-          min_price: filterPrice ? min : '',
-          max_price: filterPrice ? max : '',
+          min_price: filterPrice ? min : "",
+          max_price: filterPrice ? max : "",
           itmsGrpCod: g || groupCod ? parseInt(groupCod) : "",
           attribute: mydata.attribute || "",
           value: mydata.value || "",
@@ -262,11 +268,12 @@ export const ApiProvider = ({ children }) => {
           manufacturerId: "",
           values: checkedValues,
           bplId: bplId,
-          cardCode:cardCode
+          cardCode: cardCode,
+          keyword_search: keySearch || "",
         };
       }
 
-      console.log(requestData,'CPRs');
+      console.log(requestData, "CPRs");
 
       const response = await axios.post(
         `${baseURL2}/api/v1/customer/branch/item/list`,
@@ -281,25 +288,42 @@ export const ApiProvider = ({ children }) => {
       const { data } = response;
 
       setfilterItem(data?.data);
-      setnewfilter(data)
+      setnewfilter(data);
     } catch (error) {
       console.log(error, " error my-context ");
     } finally {
-      setProductLoading(false)
+      setProductLoading(false);
     }
   };
 
- 
+  const getSearchfilter = async (dataToSend) => {
+    try {
+      const response = await axios.post(
+        `${baseURL2}/api/v1/customer/branch/item/list`,
+        { ...dataToSend, bplId: bplId, cardCode: cardCode },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const { data } = response;
+      setfilterItem(data?.data);
+      setnewfilter(data);
+      setProductBySearch(response.data.data);
+    } catch (error) {
+      console.log(error, " error my-context ");
+    } finally {
+      setProductLoading(false);
+    }
+  };
 
   const getClearenceItem = async (dataToSend) => {
     try {
-      
       const response = await axios.post(
         `${baseURL2}/api/v1/customer/branch/item/list`,
-       { ...dataToSend,
-        bplId: bplId,
-          cardCode:cardCode
-       },
+        { ...dataToSend, bplId: bplId, cardCode: cardCode },
         {
           headers: {
             "Content-Type": "application/json",
@@ -309,22 +333,19 @@ export const ApiProvider = ({ children }) => {
 
       const { data } = response;
       setClearenceData(data?.data);
-      setClearenceDataFilter(data)
+      setClearenceDataFilter(data);
     } catch (error) {
       console.log(error, " error my-context ");
     } finally {
-      setProductLoading(false)
+      setProductLoading(false);
     }
   };
 
-
-
   const getCmsDetails = async (dataTosend) => {
     try {
-    
       const response = await axios.post(
         `${baseURL2}/api/v1/cms/details`,
-        {...dataTosend},
+        { ...dataTosend },
         {
           headers: {
             "Content-Type": "application/json",
@@ -336,16 +357,13 @@ export const ApiProvider = ({ children }) => {
       // if (ItemCode) {
       //   setsingleItemdata(data);
       // } else {
-        setCmspage(data?.data);
+      setCmspage(data?.data);
       // }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
-
 
   const getFleshNewsList = async () => {
     try {
-     
       const response = await axios.post(
         `${baseURL2}/api/v1/flashy-news/list`,
         {},
@@ -356,14 +374,9 @@ export const ApiProvider = ({ children }) => {
         }
       );
       const { data } = response;
-        setFleshNewsList(data?.data);
-    } catch (error) {
-    }
+      setFleshNewsList(data?.data);
+    } catch (error) {}
   };
-
-  
-
-
 
   // const searchProduct = async (productName, onChange) => {
   //   try {
@@ -403,27 +416,31 @@ export const ApiProvider = ({ children }) => {
   //   }
   // };
 
-
   const searchProduct = async (dataToSend) => {
     try {
-      const req = await axios.post(`${baseURL2}/api/v1/customer/branch/item/list`, {
-        ...dataToSend,
-        bplId: bplId,
-        cardCode:cardCode
-      }, {
-        headers: {
-          "Content-Type": "application/json",
+      const req = await axios.post(
+        `${baseURL2}/api/v1/customer/branch/item/list`,
+        {
+          ...dataToSend,
+          bplId: bplId,
+          cardCode: cardCode,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      });
-      if (req.status === 200) {
+      );
+      if (req.status === 200 || req.status === 201) {
         const res = req.data;
         setProductBySearch(res.data);
+        setfilterItem(res);
+        setnewfilter(res);
       }
     } catch (error) {
       console.log(error, "error from mycontext");
     }
   };
-  
 
   const categorieslist = async () => {
     try {
@@ -477,12 +494,10 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
-
-
   const list_item_With = async (groupCode) => {
     try {
       const response = await axios.get(
-        `${baseURL2}/api/v1/item-group/matrices/list`,
+        `${baseURL2}/api/v1/item-group/matrices/list`
         // Include request body if require
       );
 
@@ -555,10 +570,8 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
-
   const trackOrder = async (orderId) => {
     try {
-
       // const cardCode = localStorage.getItem("username");
       // const access = localStorage.getItem("accessC");
 
@@ -582,21 +595,15 @@ export const ApiProvider = ({ children }) => {
         }
       );
 
-
       const data = await req.json();
       setOrderDetails(data);
-     
     } catch (error) {
-      console.error('Error fetching order details:', error);
+      console.error("Error fetching order details:", error);
     }
   };
 
-
-
-
-  const dowloadLedger = async ({startDate ,endDate, code, token}) => {
+  const dowloadLedger = async ({ startDate, endDate, code, token }) => {
     try {
-
       // const cardCode = localStorage.getItem("username");
       // const access = localStorage.getItem("accessC");
       // Get today's date
@@ -612,10 +619,12 @@ export const ApiProvider = ({ children }) => {
       const end = endDate ? endDate : todayFormatted;
 
       // console.log(sixMonthsAgoFormatted , todayFormatted , 'ledgersdate');
-      console.log(start , end , 'ledgersdate1');
+      console.log(start, end, "ledgersdate1");
 
       const req = await fetch(
-        `${base_url}/api/Document/GetCustomerLedger/${code || cardCode}/${start}/${end}/3`,
+        `${base_url}/api/Document/GetCustomerLedger/${
+          code || cardCode
+        }/${start}/${end}/3`,
         {
           method: "GET",
           headers: {
@@ -627,29 +636,32 @@ export const ApiProvider = ({ children }) => {
 
       const data = await req.json();
 
-      if(!Array.isArray(data) || data.length === 0) {
-        toast.info("No ledger data found")
-        if(code && token){
-          window?.ReactNativeWebView?.postMessage(JSON.stringify({ message: "No ledger data found", success: false }));
+      if (!Array.isArray(data) || data.length === 0) {
+        toast.info("No ledger data found");
+        if (code && token) {
+          window?.ReactNativeWebView?.postMessage(
+            JSON.stringify({ message: "No ledger data found", success: false })
+          );
         }
-        return
+        return;
       }
-      
+
       const chunkedData = [];
       for (let i = 0; i < data.length; i += 22) {
         chunkedData.push(data.slice(i, i + 22));
       }
-  
+
       const dataObjects = chunkedData.map((chunk, index) => ({
         page: index + 1,
-        data: chunk, 
-      }))
+        data: chunk,
+      }));
       setledgerData(dataObjects);
-     
     } catch (error) {
-      console.error('Error fetching order details:', error);
-      if(code && token){
-        window?.ReactNativeWebView?.postMessage(JSON.stringify({message: error?.message, success: false }));
+      console.error("Error fetching order details:", error);
+      if (code && token) {
+        window?.ReactNativeWebView?.postMessage(
+          JSON.stringify({ message: error?.message, success: false })
+        );
       }
     }
   };
@@ -683,9 +695,8 @@ export const ApiProvider = ({ children }) => {
       const relativePath = pathfile.replace(basePath, "");
 
       await handelDownload(relativePath);
-    } catch (error) { }
+    } catch (error) {}
   };
-
 
   const newfetchsales = async (docEntry) => {
     const DocEntry = `${docEntry}`;
@@ -705,7 +716,7 @@ export const ApiProvider = ({ children }) => {
               value: DocEntry,
             },
           ],
-          objType:"14",
+          objType: "14",
           docEntry: DocEntry,
         }),
       });
@@ -716,7 +727,7 @@ export const ApiProvider = ({ children }) => {
       const relativePath = pathfile.replace(basePath, "");
 
       await handelDownload(relativePath);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const handelDownload = async (documentFile) => {
@@ -740,12 +751,11 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
-
   useEffect(() => {
     const fetchData = async () => {
       await getItem();
     };
-    if(groupCod) {
+    if (groupCod) {
       fetchData();
     }
   }, [groupCod, pr1, pr2, pr3, pr4, checkedValues, min, max]);
@@ -763,7 +773,7 @@ export const ApiProvider = ({ children }) => {
       await getBP();
       // await getItem();
       await list_item();
-      await list_item_With()
+      await list_item_With();
       // await searchProduct();
       // await ProductDetailApi();
       await getOrder();
@@ -811,12 +821,31 @@ export const ApiProvider = ({ children }) => {
         setCheckedValues,
         checkedValues,
         loginShow,
-         setLoginShow,
-         listItemWith,
-         setClearenceData,
-         getClearenceItem,
-         clearenceData,
-         getCmsDetails,cmsPage , getFleshNewsList , fleshNewsList , trackOrder ,orderDetails , ledgerData ,dowloadLedger , base_url , baseURL2 , cardCode , access ,bplId ,clearenceDataFilter, newfetchsales,getBP,postCompalint , postSuggestion
+        setLoginShow,
+        listItemWith,
+        setClearenceData,
+        getClearenceItem,
+        getSearchfilter,
+        clearenceData,
+        setKeySearch,
+        getCmsDetails,
+        cmsPage,
+        getFleshNewsList,
+        fleshNewsList,
+        trackOrder,
+        orderDetails,
+        ledgerData,
+        dowloadLedger,
+        base_url,
+        baseURL2,
+        cardCode,
+        access,
+        bplId,
+        clearenceDataFilter,
+        newfetchsales,
+        getBP,
+        postCompalint,
+        postSuggestion,
       }}
     >
       {children}

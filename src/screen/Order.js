@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { parseISO, format } from "date-fns";
 import Table from "react-bootstrap/Table";
@@ -10,6 +10,9 @@ import { Col, Row } from "react-bootstrap";
 import { useAppContext } from "../contextApi/AppContext";
 
 const Order = () => {
+  const location = useLocation();
+  const { pathname } = location;
+  console.log(pathname);
   const { logOutsap } = useAppContext();
 
   const { orderList, fetchsales, getOrder } = useApi();
@@ -60,6 +63,7 @@ const Order = () => {
             <Link
               to="/account/orders"
               className={` list-group-item list-group-item-action`}
+              style={{ backgroundColor: pathname === "/account/orders" ? "#0d6efd" : "transparent", color: pathname === "/account/orders" ? "#fff" : "#000" }}
             >
               Orders
             </Link>
@@ -85,7 +89,8 @@ const Order = () => {
               to="/account/suggestion"
               className={` list-group-item list-group-item-action`}
             >
-              Suggestion
+              Suggestion & Complaint
+
             </Link>
             <Link
               to="/account/changePassord"

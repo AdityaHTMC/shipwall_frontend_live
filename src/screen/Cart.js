@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer } from "react";
 import "./../css/cart.css";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../contextApi/AppContext";
+import { CartItem } from "./cart-item";
 
 const totalPriceReducer = (state, action) => {
   switch (action.type) {
@@ -122,6 +123,14 @@ const Cart = () => {
     const newQuantity = currentQuantity + 1; // parseInt(currentQuantity) + 1;
     await updateQuantity(id, newQuantity, newQuantity * price);
   };
+  
+  const handleQuantity = async (e, id, price) => {
+    if(Number(e.target.value) < 1){
+      return
+    }
+    const newQuantity = Number(e.target.value) || 1 // parseInt(currentQuantity) + 1;
+    await updateQuantity(id, newQuantity, newQuantity * price);
+  }
 
   const handeCoupon = (e) => {
     e.preventDefault();
@@ -134,7 +143,7 @@ const Cart = () => {
   const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
   const itemsToShow = cartItem?.Items?.slice(startIndex, endIndex);
 
-  console.log(itemsToShow,'ITS')
+  console.log(itemsToShow, "ITS");
 
   console.log(itemsToShow);
   const goToNextPage = () => {
@@ -183,91 +192,102 @@ const Cart = () => {
                       </thead>
                       <tbody>
                         {itemsToShow?.map((item, index) => (
-                          <tr key={item.itemCode}>
-                            <td>
-                              <div className="d-flex flex-column">
-                                <Link
-                                  // to={`/product-details/${item._id}`}
-                                  className="nav-link"
-                                >
-                                  <img
-                                    src={item.image1}
-                                    className="border rounded me-3"
-                                    style={{
-                                      maxWidth: "90px",
-                                      maxHeight: "90px",
-                                    }}
-                                    alt={""}
-                                  />
-                                  <div className="product-name">
-                                    {item.itemName
-                                      ? item.itemName?.slice(0, 15)
-                                      : ""}
-                                  </div>
-                                </Link>
-                              </div>
-                            </td>
-                            {/* <td>1</td> */}
-                            <td>
-                              <div className="text-muted text-nowrap item-center gap-1 m-auto">
-                                <button
-                                  onClick={() =>
-                                    decrementQuantity(
-                                      item.itemCode,
-                                      item.quantity,
-                                      item.price
-                                    )
-                                  }
-                                  className="btn btn-outline-secondary border-0"
-                                >
-                                  <i className="fa-solid fa-minus"></i>
-                                </button>
-                                <span className="p-2">{item.quantity}</span>
-                                <button
-                                  onClick={() =>
-                                    incrementQuantity(
-                                      item.itemCode,
-                                      item.quantity,
-                                      item.price
-                                    )
-                                  }
-                                  className="btn btn-outline-secondary border-0"
-                                >
-                                  <i className="fa-solid fa-plus"></i>
-                                </button>
-                              </div>
-                            </td>
-                            <td>{item.price?.toFixed(2)}</td>
-                            <td>{(item.quantity * item.price)?.toFixed(2)}</td>
-                            <td>
-                              {(item.quantity * item.fright1Amount)?.toFixed(2)}
-                            </td>
-                            <td>
-                              {(
-                                (item.quantity * item.price * item.taxPerc) /
-                                100
-                              )?.toFixed(2)}
-                            </td>
-                            <td>
-                              {(
-                                item.quantity *
-                                  (item.price + item.fright1Amount) +
-                                item.quantity *
-                                  item.price *
-                                  (item.taxPerc / 100)
-                              )?.toFixed(2)}
-                            </td>
-                            <td>
-                              <button
-                                onClick={() => {
-                                  removeCartItem(item.itemCode);
-                                }}
-                                className="btn btn-light border text-danger icon-hover-danger"
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
-                            </td>
-                          </tr>
+                          // <tr key={item.itemCode}>
+                          //   <td>
+                          //     <div className="d-flex flex-column">
+                          //       <Link
+                          //         // to={`/product-details/${item._id}`}
+                          //         className="nav-link"
+                          //       >
+                          //         <img
+                          //           src={item.image1}
+                          //           className="border rounded me-3"
+                          //           style={{
+                          //             maxWidth: "90px",
+                          //             maxHeight: "90px",
+                          //           }}
+                          //           alt={""}
+                          //         />
+                          //         <div className="product-name">
+                          //           {item.itemName
+                          //             ? item.itemName?.slice(0, 15)
+                          //             : ""}
+                          //         </div>
+                          //       </Link>
+                          //     </div>
+                          //   </td>
+                          //   {/* <td>1</td> */}
+                          //   <td>
+                          //     <div className="text-muted text-nowrap align-items-center gap-1 m-auto d-flex">
+                          //       <button
+                          //         onClick={() =>
+                          //           decrementQuantity(
+                          //             item.itemCode,
+                          //             item.quantity,
+                          //             item.price
+                          //           )
+                          //         }
+                          //         className="btn btn-outline-secondary border-0"
+                          //       >
+                          //         <i className="fa-solid fa-minus"></i>
+                          //       </button>
+                          //       {/* <span className="p-2">{item.quantity}</span> */}
+                          //       <input
+                          //         value={item.quantity}
+                          //         onChange={handleQuantity}
+                          //         min={1}
+                          //         type="number"
+                          //         placeholder=""
+                          //         style={{height: 40, padding: '10px 5px', width: 100}}
+                          //         // className={!mobileValid ? "invalid" : ""}
+                          //       />
+
+                          //       <button
+                          //         onClick={() =>
+                          //           incrementQuantity(
+                          //             item.itemCode,
+                          //             item.quantity,
+                          //             item.price
+                          //           )
+                          //         }
+                          //         className="btn btn-outline-secondary border-0"
+                          //       >
+                          //         <i className="fa-solid fa-plus"></i>
+                          //       </button>
+                          //     </div>
+                          //   </td>
+                          //   <td>{item.price?.toFixed(2)}</td>
+                          //   <td>{(item.quantity * item.price)?.toFixed(2)}</td>
+                          //   <td>
+                          //     {(item.quantity * item.fright1Amount)?.toFixed(2)}
+                          //   </td>
+                          //   <td>
+                          //     {(
+                          //       (item.quantity * item.price * item.taxPerc) /
+                          //       100
+                          //     )?.toFixed(2)}
+                          //   </td>
+                          //   <td>
+                          //     {(
+                          //       item.quantity *
+                          //         (item.price + item.fright1Amount) +
+                          //       item.quantity *
+                          //         item.price *
+                          //         (item.taxPerc / 100)
+                          //     )?.toFixed(2)}
+                          //   </td>
+                          //   <td>
+                          //     <button
+                          //       onClick={() => {
+                          //         removeCartItem(item.itemCode);
+                          //       }}
+                          //       className="btn btn-light border text-danger icon-hover-danger"
+                          //     >
+                          //       <i className="fa-solid fa-trash"></i>
+                          //     </button>
+                          //   </td>
+                          // </tr>
+                          <CartItem key={item.itemCode} decrementQuantity={decrementQuantity} incrementQuantity={incrementQuantity} item={item} />
                         ))}
                       </tbody>
                     </table>
@@ -357,11 +377,15 @@ const Cart = () => {
                 <div className="card-body">
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Sub Total:</p>
-                    <p className="mb-2 text-danger">{totalSubTotal?.toFixed(2)} </p>
+                    <p className="mb-2 text-danger">
+                      {totalSubTotal?.toFixed(2)}{" "}
+                    </p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Freight:</p>
-                    <p className="mb-2 text-danger">{totalFreight?.toFixed(2)} </p>
+                    <p className="mb-2 text-danger">
+                      {totalFreight?.toFixed(2)}{" "}
+                    </p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Total tax:</p>
@@ -387,7 +411,11 @@ const Cart = () => {
                       </Link>
                     )}
                     <Link
-                      to={cms && cms.length > 1 ? `/product-list/${cms[1]?.itmsGrpNam}/${cms[1]?.itmsGrpCod}` : '/'}
+                      to={
+                        cms && cms.length > 1
+                          ? `/product-list/${cms[1]?.itmsGrpNam}/${cms[1]?.itmsGrpCod}`
+                          : "/"
+                      }
                       className="btn btn-light w-100 border mt-2"
                     >
                       Back to shop

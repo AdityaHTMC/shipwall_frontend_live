@@ -187,12 +187,27 @@ const CheckOut = () => {
   
 
   const handleFreeCreditLimitChange = (event) => {
-    const inputValue = parseFloat(event.target.value);
-    if (inputValue <= freecredit) {
-      setFreeCreditLimit(inputValue);
-    } else {
-      // Optionally display an error message or take appropriate action
-      toast.info("Input value exceeds available Free Credit Limit");
+    let inputValue = event.target.value;
+  
+    // If the input is empty, set inputValue to "0"
+    if (inputValue === "") {
+      inputValue = "0";
+    }
+  
+    // Parse the input value to a float
+    inputValue = parseFloat(inputValue);
+  
+    // Regular expression to match a number with up to two decimal places
+    const regex = /^\d*\.?\d{0,2}$/;
+  
+    // Test the value against the regex
+    if (regex.test(inputValue.toString())) {
+      if (inputValue <= freecredit) {
+        setFreeCreditLimit(inputValue);
+      } else {
+        // Optionally display an error message or take appropriate action
+        toast.info("Input value exceeds available Free Credit Limit");
+      }
     }
   };
 
@@ -615,10 +630,10 @@ const CheckOut = () => {
                   </h4>
                 </div>
                 <div className="card-body">
-                  {/* <div className="d-flex justify-content-between">
+                  <div className="d-flex justify-content-between">
                     <p className="mb-2">Sum Of Input:</p>
                     <p className="mb-2">{inputValue}</p>
-                  </div> */}
+                  </div>
                   <hr className="mt-1 mb-2" />
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Total price:</p>

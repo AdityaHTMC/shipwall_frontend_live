@@ -32,7 +32,7 @@ const ProductList = () => {
   const level3 = searchParams.get('level3') || ''
   const grpCode = searchParams.get('grpCode') || ''
   
-  const filteredItemsWithImage1 = filterItem?.filter((item) => item.image1);
+  const filteredItemsWithImage1 = Array.isArray(filterItem) && filterItem?.filter((item) => item.image1)
 
   useEffect(() => {
     if(grpid){

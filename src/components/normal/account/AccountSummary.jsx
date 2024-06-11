@@ -4,7 +4,7 @@ import { useApi } from "../../../contextApi/ApiContexts/ApiContexts";
 import { IoMdDownload } from "react-icons/io";
 import PdfTable from "./PdfTable";
 import { Col, Row, Modal, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
@@ -13,6 +13,10 @@ import { useAppContext } from "../../../contextApi/AppContext";
 
 const AccountSummary = () => {
  
+  const location = useLocation();
+  const { pathname } = location;
+  console.log(pathname);
+
   const { logOutsap } = useAppContext();
 
   const { Adddata, getBP } = useApi();
@@ -84,6 +88,7 @@ const AccountSummary = () => {
             <Link
               to="/account/details"
               className={` list-group-item list-group-item-action`}
+              style={{ backgroundColor: pathname === "/account/details" ? "#0d6efd" : "transparent", color: pathname === "/account/details" ? "#fff" : "#000" }}
             >
               Account
             </Link>
@@ -103,7 +108,8 @@ const AccountSummary = () => {
               to="/account/suggestion"
               className={` list-group-item list-group-item-action`}
             >
-              Suggestion
+              Suggestion & Complaint
+
             </Link>
             <Link
               to="/account/changePassord"

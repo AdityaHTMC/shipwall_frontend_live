@@ -89,7 +89,7 @@ const ContactArea = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             name="email"
                             type="email"
-                            placeholder="yourmail@gmail.com"
+                            placeholder="Enter your email"
                           />
                         </div>
                         <div className="tp-contact-input-title">
@@ -103,7 +103,7 @@ const ContactArea = () => {
                             onChange={handleMobileChange}
                             name="subject"
                             type="tel"
-                            placeholder="3526378291"
+                            placeholder="Enter your phone"
                             className={!mobileValid ? "invalid" : ""}
                           />
                         </div>

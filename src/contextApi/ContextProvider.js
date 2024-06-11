@@ -327,7 +327,8 @@ const AppContextProvider = ({ children }) => {
       if (data.ai_MessageId === 0) {
         setLoginData(data);
         localStorage.setItem("log9", JSON.stringify(data));
-        navigate("/");
+        // navigate("/");
+        window.open('/', '_self')
         await getCartList();
         await getWishList();
         setIsLogIn(true);
