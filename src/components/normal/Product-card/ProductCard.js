@@ -73,7 +73,13 @@ const ProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
                   </span>
                 )}
               </span>
-              {isLogIn && item.itemPrice !== item.salePrice ? (
+              {isLogIn &&
+              ((item.clearanceSalePrice > 0 &&
+                item.clearanceSalePrice !== item.itemPrice &&
+                item.clearanceSalePrice !== item.salePrice) ||
+                (item.salePrice > 0 &&
+                  item.salePrice !== item.itemPrice &&
+                  item.salePrice !== item.clearanceSalePrice)) ? (
                 <span
                   className="tp-product-price-2 old-price"
                   style={{ marginLeft: "15px" }}

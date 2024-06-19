@@ -37,7 +37,7 @@ const Header = () => {
                 <div className="tp-header-area p-relative sticky-lg-top z-index-11">
                     <HeaderTop />
                     <HeaderMain loginShow={loginShow} setLoginShow={setLoginShow} />
-                    {/* <HeaderBottom /> */}
+                    <HeaderBottom />
                     <Bottommenu setLoginShow={setLoginShow} loginShow={loginShow} />
                     <NewHeader/>
                 </div>

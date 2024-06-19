@@ -35,14 +35,30 @@ const OffCanvas = ({ onHide }) => {
         <Collapse in={showDropdown}>
           <div id="categories-dropdown">
             <ul onClick={onHide} className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <Link className="nav-link" to="/product-list">New Arrivels</Link>
-              </li>
-              {cms.map((item, index)=>(
-                  <li key={index} className="nav-item active">
-                  <Link className="nav-link" to="/product-list">{item.itmsGrpNam}</Link>
+             
+                  <li  className="nav-item active">
+                  <Link className="nav-link" to="/bestseller-product-list"> Bestsellers </Link>
                 </li>
-                  ))}
+
+                <li  className="nav-item active">
+                  <Link className="nav-link" to="/clearence-product-list"> Clearance Sale </Link>
+                </li>
+                <li  className="nav-item active">
+                  <Link className="nav-link" to="/newLaunch-product-list">  New Launch </Link>
+                </li>
+                <li  className="nav-item active">
+                  <Link className="nav-link" to="/viewlogo">  Brands</Link>
+                </li>
+
+                <li  className="nav-item active">
+                  <Link className="nav-link" to="/brandCatalogue">  Catalogue</Link>
+                </li>
+                <li  className="nav-item active">
+                  <Link className="nav-link" to="/account/profile">  Your Account</Link>
+                </li>
+                <li  className="nav-item active">
+                  <Link className="nav-link" to="/contact-us">   Customer Service</Link>
+                </li>
             </ul>
           </div>
         </Collapse>
@@ -51,15 +67,15 @@ const OffCanvas = ({ onHide }) => {
             <Link className="nav-link" to="/">Home</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/our-story">Our Story</Link>
+            <Link className="nav-link" to="/cms/our-stories">Our Story</Link>
           </li>
           <li className="nav-item dropdown">
-            <Link className="nav-link" to="/privacy-policy" >
+            <Link className="nav-link" to="/cms/privacy-policy" >
               Privacy Policy
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link " to="/terms-conditions">Term And Condition</Link>
+            <Link className="nav-link " to="/cms/terms-conditions">Terms And Conditions</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link " to="/contact-us">Contact Us</Link>

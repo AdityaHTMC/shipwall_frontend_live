@@ -46,7 +46,11 @@ const ClearenceCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
             </div> */}
             <h6>
               <Link to="#">
-                {item.itemName ? item.itemName.slice(0, 22) : ""}
+                {item.itemName
+                  ? item.itemName.length > 30
+                    ? `${item.itemName.slice(0, 34)}...`
+                    : item.itemName
+                  : ""}
               </Link>
             </h6>
             <div className="tp-product-price-wrapper-2">
@@ -69,12 +73,18 @@ const ClearenceCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
                   </span>
                 )}
               </span>
-              { isLogIn && item.itemPrice !== item.salePrice ? (
+              {isLogIn &&
+              ((item.clearanceSalePrice > 0 &&
+                item.clearanceSalePrice !== item.itemPrice &&
+                item.clearanceSalePrice !== item.salePrice) ||
+                (item.salePrice > 0 &&
+                  item.salePrice !== item.itemPrice &&
+                  item.salePrice !== item.clearanceSalePrice)) ? (
                 <span
                   className="tp-product-price-2 old-price"
                   style={{ marginLeft: "15px" }}
                 >
-                  AUD{item.itemPrice}
+                  AUD {item.itemPrice}
                 </span>
               ) : null}
             </div>

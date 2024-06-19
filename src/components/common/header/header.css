@@ -41,6 +41,22 @@
   border-radius: 5px;
 }
 
+
+.mobileNavBox{display:none;}
+
+@media only screen and (max-width: 1280px) {
+}
+
+@media only screen and (max-width: 1024px) {
+}
+
+@media only screen and (max-width: 980px) {
+  .mobileNavBox{display:block;}
+    .mobileNavBox .dropdown-menu{overflow-y:scroll;max-height:350px;}
+  .menuWrap{display:none;}
+}
+
+
 /* Media query for responsiveness */
 @media (max-width: 768px) {
   .modal {
