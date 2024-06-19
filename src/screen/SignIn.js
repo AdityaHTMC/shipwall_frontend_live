@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import { useAppContext } from "../contextApi/AppContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignIn = ({ show, onHide }) => {
   const { loginUser, LoginUser, base_url, base_url2 } = useAppContext();
@@ -114,6 +115,12 @@ const SignIn = ({ show, onHide }) => {
       setAlertMessage('Error verifying OTP. Please try again.');
       setShowAlert(true);
     }
+  };
+
+  const navigate = useNavigate()
+  const handleNewRegistration = () => {
+    onHide();
+    navigate('/contact-us');
   };
 
   return (
@@ -229,8 +236,12 @@ const SignIn = ({ show, onHide }) => {
               >
                 {showCardCode ? "Cancel" : "Forget Password?"}
               </Button>
+              <br/>
+              {!showCardCode ? <Button variant="link" onClick={handleNewRegistration}>New Registration</Button> : '' }
+              
             </div>
           )}
+          
         </Modal.Body>
       </Modal>
     </>

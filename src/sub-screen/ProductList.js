@@ -167,7 +167,7 @@ const ProductList = () => {
                         className="btn btn-primary"
                         onClick={handleLoadMore}
                       >
-                        Add More
+                        Load More
                       </button>
                     </div>
                   )}

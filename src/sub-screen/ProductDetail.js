@@ -154,9 +154,10 @@ const ProductDetail = () => {
     shipping_information,
     attribute_value,
     brochure,
+    itemQty,
   } = ProductDetails;
 
-  const { itemPrice, itemQty } = sapItem;
+  // const { itemPrice, itemQty } = sapItem;
 
   useEffect(() => {
     if (description) {
@@ -429,7 +430,9 @@ const ProductDetail = () => {
                           <span>In Stock</span> <span>{itemQty}</span>
                         </>
                       ) : (
-                        <span className="text text-danger">Out of Stock</span>
+                        <span className="text text-danger">
+                          Contact branch for Stock
+                        </span>
                       )}
                     </h5>
 
@@ -454,7 +457,9 @@ const ProductDetail = () => {
                           type="text"
                           Value={productQuantity}
                           min={1}
-                          onChange={(e) => setProductQuantity(Number(e.target.value))}
+                          onChange={(e) =>
+                            setProductQuantity(Number(e.target.value))
+                          }
                         />
                         <span
                           onClick={incrementQuantity}
@@ -467,15 +472,19 @@ const ProductDetail = () => {
                     <li>
                       <button
                         onClick={() => {
-                          addToNewCart({
-                            itemCode: ProductDetails.itemCode,
-                            quantity: productQuantity,
-                            price: priceToPass,
-                            itemName: ProductDetails.itemName,
-                            image1: ProductDetails.image1,
-                            fright1Amount: ProductDetails.itemAddCharges,
-                            taxPerc: ProductDetails.taxPerc,
-                          });
+                          if (itemQty > 0) {
+                            addToNewCart({
+                              itemCode: ProductDetails.itemCode,
+                              quantity: productQuantity,
+                              price: priceToPass,
+                              itemName: ProductDetails.itemName,
+                              image1: ProductDetails.image1,
+                              fright1Amount: ProductDetails.itemAddCharges,
+                              taxPerc: ProductDetails.taxPerc,
+                            });
+                          } else {
+                            alert("Contact branch for Stock");
+                          }
                         }}
                         className="btn btn-primary rounded-pill"
                       >
@@ -578,78 +587,85 @@ const ProductDetail = () => {
 
           {activeTab === "description" && (
             <div className="tp-product-details-description">
-              {
-                ProductDesc?.description? (
-                  <ReactQuill
-                    value={ProductDesc?.description}
-                    readOnly={true}
-                    modules={{ toolbar: false }}
-                    theme="snow"
-                  />
-                ) : (
-                  <p style={{
-                    textAlign: 'center',
-                    padding: '20px',
-                    fontSize: '16px',
-                    color: '#555',
-                    backgroundColor: '#f9f9f9',
-                    border: '1px solid #ddd',
-                    borderRadius: '4px',
-                    marginTop: '15px',
-                  }}>No additional description is available.</p>
-                )
-              }
+              {ProductDesc?.description ? (
+                <ReactQuill
+                  value={ProductDesc?.description}
+                  readOnly={true}
+                  modules={{ toolbar: false }}
+                  theme="snow"
+                />
+              ) : (
+                <p
+                  style={{
+                    textAlign: "center",
+                    padding: "20px",
+                    fontSize: "16px",
+                    color: "#555",
+                    backgroundColor: "#f9f9f9",
+                    border: "1px solid #ddd",
+                    borderRadius: "4px",
+                    marginTop: "15px",
+                  }}
+                >
+                  No additional description is available.
+                </p>
+              )}
             </div>
           )}
 
           {activeTab === "technical" && (
             <div className="tp-product-details-description">
-             { ProductDesc?.technical_information ? (
-               <ReactQuill
-               value={ProductDesc?.technical_information}
-               readOnly={true}
-               modules={{ toolbar: false }}
-               theme="snow"
-             />
-             ): (
-               <p style={{
-                textAlign: 'center',
-                padding: '20px',
-                fontSize: '16px',
-                color: '#555',
-                backgroundColor: '#f9f9f9',
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                marginTop: '15px',
-              }}>No additional technical information is available.</p>
-             )
-             
-             }
-             
+              {ProductDesc?.technical_information ? (
+                <ReactQuill
+                  value={ProductDesc?.technical_information}
+                  readOnly={true}
+                  modules={{ toolbar: false }}
+                  theme="snow"
+                />
+              ) : (
+                <p
+                  style={{
+                    textAlign: "center",
+                    padding: "20px",
+                    fontSize: "16px",
+                    color: "#555",
+                    backgroundColor: "#f9f9f9",
+                    border: "1px solid #ddd",
+                    borderRadius: "4px",
+                    marginTop: "15px",
+                  }}
+                >
+                  No additional technical information is available.
+                </p>
+              )}
             </div>
           )}
           {activeTab === "shipping" && (
-               <div className="tp-product-details-description">
-               {ProductDesc?.shipping_information ? (
-                 <ReactQuill
-                   value={ProductDesc.shipping_information}
-                   readOnly={true}
-                   modules={{ toolbar: false }}
-                   theme="snow"
-                 />
-               ) : (
-                 <p style={{
-                  textAlign: 'center',
-                  padding: '20px',
-                  fontSize: '16px',
-                  color: '#555',
-                  backgroundColor: '#f9f9f9',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  marginTop: '15px',
-                }}>No additional shipping information is available.</p>
-               )}
-             </div>
+            <div className="tp-product-details-description">
+              {ProductDesc?.shipping_information ? (
+                <ReactQuill
+                  value={ProductDesc.shipping_information}
+                  readOnly={true}
+                  modules={{ toolbar: false }}
+                  theme="snow"
+                />
+              ) : (
+                <p
+                  style={{
+                    textAlign: "center",
+                    padding: "20px",
+                    fontSize: "16px",
+                    color: "#555",
+                    backgroundColor: "#f9f9f9",
+                    border: "1px solid #ddd",
+                    borderRadius: "4px",
+                    marginTop: "15px",
+                  }}
+                >
+                  No additional shipping information is available.
+                </p>
+              )}
+            </div>
           )}
         </div>
       </section>

@@ -53,7 +53,7 @@ const SearchProductList = () => {
   const endIndex = Math.min(startIndex + displayedItems, totalItems);
   const itemsToShow = Array.isArray(productBySearch) && productBySearch?.slice(startIndex, endIndex);
 
-  console.log(productBySearch,'pbs')
+  // console.log(productBySearch,'pbs')
 
   const goToNextPage = () => {
     if (currentPage < totalPages) {
