@@ -17,8 +17,11 @@ const NewCategory = () => {
   useEffect(() => {
     if (listItemWith) {
       setLoading(false);
+      console.log('first',listItemWith)
     }
   }, [listItemWith]);
+
+
 
   useEffect(() => {
     if (isInView) {
@@ -72,7 +75,7 @@ const NewCategory = () => {
                         
                           <li key={firstLevelItem._id}>
                             <Link
-                          to={`/product-list/${item.itmsGrpNam}/${firstLevelItem.pname}`}
+                          to={`/product-list/${item.itmsGrpNam}/${firstLevelItem.pname}-${firstLevelItem.plevel}-${firstLevelItem.pcode}?grpCode=${firstLevelItem?.u_ITMGRPCD}`}
                           onClick={() =>
                             setpr1(
                               firstLevelItem?.pcode

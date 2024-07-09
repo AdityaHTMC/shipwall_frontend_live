@@ -46,7 +46,7 @@ const ClearenceProductList = () => {
         <article className="container">
           <ul>
             <li><Link className="text" to="/">Home</Link></li>
-            <li className="active">Clearence Products </li>
+            <li className="active">Special Sales</li>
             {/* <li>{name && <span>{name}</span>}</li> */}
           </ul>
         </article>

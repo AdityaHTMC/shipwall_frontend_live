@@ -27,7 +27,7 @@ const ViewBanner = () => {
           <div className="brandBx">
             {Array.isArray(brandItem) &&
               brandItem
-                .filter((item) => item.image) // Filter out items with empty image
+                .filter((item) => item.image  && item.is_popular == true) // Filter out items with empty image
                 .map((item, index) => (
                   <div className="item" key={index}>
                     <Link

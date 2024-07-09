@@ -459,6 +459,7 @@ const CheckOut = () => {
                         step="0.01"
                         value={cashOnDelivery}
                         onChange={handleCashOnDeliveryChange}
+                        disabled
                       />
                     </div>
                   </div>

@@ -42,7 +42,7 @@ const Brand = () => {
         <motion.div className="brandBx">
           {Array.isArray(brandItem) &&
             brandItem
-              .filter((item) => item?.image)
+              .filter((item) => item?.image && item.is_popular == true)
               .map((item, index) => (
                 <div className="item" key={index}>
                   <Link

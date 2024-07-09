@@ -127,7 +127,7 @@ const NewHeader = () => {
                     </Dropdown.Item>
                     <Dropdown.Item as={Link} to="/clearence-product-list">
                       {" "}
-                      Clearance Sale
+                      Special Sale
                     </Dropdown.Item>
                     <Dropdown.Item as={Link} to="/newLaunch-product-list">
                       New Launch
@@ -313,10 +313,10 @@ const NewHeader = () => {
                   })}
                   {/*********** mega menu work end here ***********/}
                   <li>
-                    <Link to="/bestseller-product-list">Bestsellers</Link>
+                    <Link to="/bestseller-product-list">Best Sellers</Link>
                   </li>
                   <li>
-                    <Link to="/clearence-product-list"> Clearance Sale</Link>
+                    <Link to="/clearence-product-list"> Special Sale</Link>
                   </li>
                   <li>
                     <Link to="/newLaunch-product-list"> New Launch</Link>
