@@ -45,6 +45,7 @@ const AppContextProvider = ({ children }) => {
   const [thirditemMatrics, setThirdSecondItemMatrics] = useState([]);
   const [forthitemMatrics, setForthSecondItemMatrics] = useState([]);
   const [sapItem, setSapItem] = useState([]);
+  const [groupCodes, setgroupCodes] = useState([]);
 
   const navigate = useNavigate();
   const cardCode = localStorage.getItem("username9");
@@ -193,7 +194,8 @@ const AppContextProvider = ({ children }) => {
     try {
       const response = await axios.post(`${base_url}/api/v1/customer/branch/item/list`,{
         bplId: bplId,
-        cardCode:cardCode
+        cardCode:cardCode,
+        groupCode: Number(groupCodes)
       }, {
         headers: {
           "Content-Type": "application/json",
@@ -555,7 +557,9 @@ const AppContextProvider = ({ children }) => {
       if (response.status === 200) {
         const { data } = response;
         setsingleBPdata(data[0]);
+        setgroupCodes(data[0].groupCode)
         localStorage.setItem("bplId9", data[0].dftbplid);
+        localStorage.setItem("groupCode9", data[0].groupCode);
       } else {
         console.log(response.data);
       }
@@ -1364,7 +1368,7 @@ const AppContextProvider = ({ children }) => {
     ContactUs,
     getBrand,
     isLogIn,
-    dethlevel
+    dethlevel,groupCodes
   };
 
   return <AppContext.Provider value={abc}>{children}</AppContext.Provider>;

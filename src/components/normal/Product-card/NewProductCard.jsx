@@ -50,16 +50,16 @@ const NewProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
                   : ""}
               </Link>
             </h6>
-            <div className="tp-product-price-wrapper-2">
+            <p className="mt-2" align="center"> {item?.itemCode} </p>
+            <div className="tp-product-price-wrapper-2 mt-0">
               <span className="tp-product-price-2 new-price">
                 {isLogIn ? (
-                  `AUD
-                   ${
-                    item.clearanceSalePrice > 0 
-                      ? item.clearanceSalePrice 
-                      : item.salePrice > 0 
-                        ? item.salePrice 
-                        : item.itemPrice
+                  `AUD ${
+                    item.isClearance === "Yes"
+                      ? item.clearanceSalePrice
+                      : item.salePrice > 0
+                      ? item.salePrice
+                      : item.itemPrice
                   }`
                 ) : (
                   <span
@@ -70,13 +70,13 @@ const NewProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
                   </span>
                 )}
               </span>
+
               {isLogIn &&
-              ((item.clearanceSalePrice > 0 &&
-                item.clearanceSalePrice !== item.itemPrice &&
-                item.clearanceSalePrice !== item.salePrice) ||
-                (item.salePrice > 0 &&
-                  item.salePrice !== item.itemPrice &&
-                  item.salePrice !== item.clearanceSalePrice)) ? (
+              ((item.isClearance === "Yes" &&
+                item.clearanceSalePrice !== item.itemPrice) ||
+                (item.isClearance === "No" &&
+                  item.salePrice > 0 &&
+                  item.salePrice !== item.itemPrice)) ? (
                 <span
                   className="tp-product-price-2 old-price"
                   style={{ marginLeft: "15px" }}

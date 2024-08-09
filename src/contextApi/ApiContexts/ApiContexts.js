@@ -10,6 +10,7 @@ const baseURL2 = "https://shipwall.au/API/shipwall"; // Node Api Base URL
 const cardCode = localStorage.getItem("username9");
 const access = localStorage.getItem("accessC9");
 const bplId = localStorage.getItem("bplId9");
+const groupCodes = localStorage.getItem("groupCode9");
 
 const ApiContexts = createContext();
 
@@ -269,6 +270,7 @@ export const ApiProvider = ({ children }) => {
           values: checkedValues,
           bplId: bplId,
           cardCode: cardCode,
+          groupCode: Number(groupCodes),
           keyword_search: keySearch || "",
         };
       }
@@ -300,7 +302,7 @@ export const ApiProvider = ({ children }) => {
     try {
       const response = await axios.post(
         `${baseURL2}/api/v1/customer/branch/item/list`,
-        { ...dataToSend, bplId: bplId, cardCode: cardCode },
+        { ...dataToSend, bplId: bplId, cardCode: cardCode , groupCode: Number(groupCodes) },
         {
           headers: {
             "Content-Type": "application/json",
@@ -323,7 +325,7 @@ export const ApiProvider = ({ children }) => {
     try {
       const response = await axios.post(
         `${baseURL2}/api/v1/customer/branch/item/list`,
-        { ...dataToSend, bplId: bplId, cardCode: cardCode },
+        { ...dataToSend, bplId: bplId, cardCode: cardCode ,groupCode: Number(groupCodes) },
         {
           headers: {
             "Content-Type": "application/json",
@@ -424,6 +426,7 @@ export const ApiProvider = ({ children }) => {
           ...dataToSend,
           bplId: bplId,
           cardCode: cardCode,
+          groupCode: Number(groupCodes)
         },
         {
           headers: {

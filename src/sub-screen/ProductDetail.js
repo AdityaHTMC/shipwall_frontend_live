@@ -26,6 +26,7 @@ const ProductDetail = () => {
     isLogIn,
     addToNewCart,
   } = useAppContext();
+  const groupCodes = localStorage.getItem("groupCode9");
   const { id } = useParams();
   const { setLoginShow } = useApi();
   // const [ProductDetails, setProductDetails] = useState(null);
@@ -47,6 +48,7 @@ const ProductDetail = () => {
           item_id: id,
           cardCode: cardCode,
           bplId: bplId,
+          groupCode: Number(groupCodes),
         },
         {
           headers: {
@@ -394,13 +396,30 @@ const ProductDetail = () => {
                   <h4>{itemName}</h4>
                   <h6>Item Code : {itemCode}</h6>
                   <h5 className="fw-bold text-primary">
-                    {isLogIn ? (
+                    {/* {isLogIn ? (
                       `AUD ${
                         ProductDetails?.clearanceSalePrice > 0
                           ? ProductDetails?.clearanceSalePrice
                           : ProductDetails?.salePrice > 0
                           ? ProductDetails?.salePrice
                           : ProductDetails?.itemPrice
+                      }`
+                    ) : (
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setLoginShow(true)}
+                      >
+                        Login to show Price
+                      </span>
+                    )} */}
+
+                    {isLogIn ? (
+                      `AUD ${
+                        ProductDetails.isClearance === "Yes"
+                          ? ProductDetails.clearanceSalePrice
+                          : ProductDetails.salePrice > 0
+                          ? ProductDetails.salePrice
+                          : ProductDetails.itemPrice
                       }`
                     ) : (
                       <span

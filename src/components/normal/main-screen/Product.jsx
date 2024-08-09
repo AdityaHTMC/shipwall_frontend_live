@@ -30,7 +30,7 @@ const Product = () => {
   } = useApi();
 
   useEffect(() => {
-    // setClearenceData({isClearance: 'Yes'})
+   
     const dataToSend = {
       isHotProduct: "Yes",
     };
