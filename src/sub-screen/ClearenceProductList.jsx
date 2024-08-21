@@ -84,7 +84,7 @@ const ClearenceProductList = () => {
                     )}
                   </div>
                   {/* Add More button */}
-                  {filterItem?.length > displayedItems && (
+                  {filteredItemsWithImage1?.length > displayedItems && (
                     <div className="text-center mt-4">
                       <button className="btn btn-primary" onClick={handleLoadMore}>Add More</button>
                     </div>
