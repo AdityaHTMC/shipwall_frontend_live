@@ -436,7 +436,11 @@ export const ApiProvider = ({ children }) => {
       );
       if (req.status === 200 || req.status === 201) {
         const res = req.data;
-        setProductBySearch(res.data);
+        if(dataToSend?.keyword_search?.length > 3){
+          setProductBySearch([...res.data, ...productBySearch]);
+        }else{
+          setProductBySearch(res.data);
+        }
         setfilterItem(res);
         setnewfilter(res);
       }
