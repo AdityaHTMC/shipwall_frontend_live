@@ -18,7 +18,7 @@ const ProductBrand = () => {
     console.log(brandItem)
   return (
     <div ref={ref} style={{position:"relative",overflow:"hidden"}} className="tp-shop-widget mb-50">
-                        <h3 className="tp-shop-widget-title">Popular Brands</h3>
+                        <h3 className="tp-shop-widget-title">Brand We Serve</h3>
 
                         <motion.div className="tp-shop-widget-content"
                         variants={{

@@ -45,7 +45,7 @@ const ProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
               <Link to="#">{item.ItmsGrpNam || ""}</Link>
             </div> */}
             <h6>
-              <Link to="#">
+              <Link to={`/product-details/${item._id}`}>
                 {item?.itemName
                   ? item?.itemName?.length > 30
                     ? `${item?.itemName.slice(0, 34)}...`
@@ -53,7 +53,8 @@ const ProductCard = ({ item, HandelQuickView, addWishlist, addToCart }) => {
                   : ""}
               </Link>
             </h6>
-            <p className="mt-2" align="center"> {item?.itemCode} </p>
+            <Link to={`/product-details/${item._id}`}><p className="mt-2" align="center"> {item?.itemCode} </p> </Link>
+            
             <div className="tp-product-price-wrapper-2 mt-0">
               <span className="tp-product-price-2 new-price">
                 {isLogIn ? (

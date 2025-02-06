@@ -38,7 +38,7 @@ const Brand = () => {
   return (
     <section className="tp-brand-area pb-50">
       <div className="container">
-        <h2 className="newTitleBx">Popular Brands</h2>
+        <h2 className="newTitleBx">Brand We Serve</h2>
         <motion.div className="brandBx">
           {Array.isArray(brandItem) &&
             brandItem

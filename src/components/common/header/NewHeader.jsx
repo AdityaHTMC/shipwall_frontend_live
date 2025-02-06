@@ -325,7 +325,7 @@ const NewHeader = () => {
               </div>
             </div>
             <div className="col-md-2 lastItem d-none d-sm-block">
-              Hotline: <a href="tel:+61432812126">+61 432 812 126</a>
+              Hotline: <a href="tel:+61432812126">+1800 812 314</a>
             </div>
           </aside>
         </article>

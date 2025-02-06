@@ -3,6 +3,7 @@ import { AppContext } from "./AppContext";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useApi } from "./ApiContexts/ApiContexts";
 
 const AppContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,6 +21,7 @@ const AppContextProvider = ({ children }) => {
   const [shippingPrice, setShippingPrice] = useState("");
   const [orderList, setOrderList] = useState({});
   const [bannerList, setBannerList] = useState([]);
+  const {setLoginShow} =useApi()
   const [dethlevel,setdepthLevel] = useState({
     first : false,
     second : false,
@@ -900,6 +902,7 @@ const AppContextProvider = ({ children }) => {
         }
       } else {
         toast.info("Login First");
+        setLoginShow(true)
         // navigate("/");
       }
     } catch (error) {
@@ -911,6 +914,7 @@ const AppContextProvider = ({ children }) => {
   const addToNewCart = async ({ itemCode, quantity, price, itemName, image1, fright1Amount, taxPerc }) => {
     if (!cardCode) {
       toast.info('Login First');
+      setLoginShow(true)
       return; // Exit the function early
     }
     try {

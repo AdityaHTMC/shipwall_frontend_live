@@ -28,7 +28,7 @@ const MainScreen = () => {
     <OfferBanner/>
     <Brand/>
     <NewCategory/>
-    <HomeVideoBx/>
+    {/* <HomeVideoBx/> */}
     {/* <Feature/>
     <Subscriber/> */}
     </>
