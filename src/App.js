@@ -64,6 +64,7 @@ import { AppPdf } from "./screen/app-pdf";
 import ChangePassword from "./components/normal/account/ChangePassword";
 import TermsCondition from "./components/CMSPages/TermsCondition";
 import Suggestion from "./screen/Suggestion";
+import StoreLocation from "./components/CMSPages/StoreLocation";
 
 function App() {
   const { isLoading } = useAppContext();
@@ -125,6 +126,7 @@ function App() {
             />
             <Route path="/cms/our-stories" element={<OurStories />} />
             <Route path="/cms/faq" element={<FAQpages />} />
+            <Route path="/cms/store-location" element={<StoreLocation />} />
             <Route path="/cms/terms-conditions" element={<TermsCondition />} />
             <Route path="/app-payment/:code" element={<AppPayment />} />
 

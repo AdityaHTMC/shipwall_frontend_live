@@ -16,7 +16,7 @@ const MapArea = () => {
                         </span>
                     </div>
                     <div className="tp-map-iframe">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389.1671643299924!2d115.89043317490494!3d-31.84766611723165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2a32b1a407abb931%3A0xd102f660b1b565db!2s1%2F21%20Vale%20St%2C%20Malaga%20WA%206090%2C%20Australia!5e0!3m2!1sen!2sin!4v1717668351032!5m2!1sen!2sin" width="100%" height="450"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389.1677344955815!2d115.8929776!3d-31.847650599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2a32b12b9029fdc1%3A0x828b4cb21cab55b4!2sShipwall%20-%20Electrical%20Wholesaler!5e0!3m2!1sen!2sin!4v1740118914732!5m2!1sen!2sin" width="100%" height="450"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>

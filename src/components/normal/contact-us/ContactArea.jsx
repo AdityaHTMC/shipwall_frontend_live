@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useAppContext } from "../../../contextApi/AppContext";
 
-
 const ContactArea = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -14,7 +13,6 @@ const ContactArea = () => {
   const [captchaToken, setCaptchaToken] = useState("");
   const { ContactUs } = useAppContext();
   const [mobileValid, setMobileValid] = useState(true);
-
 
   const handleCaptchaChange = (token) => {
     setCaptchaToken(token);
@@ -138,7 +136,6 @@ const ContactArea = () => {
                           // sitekey="6LdQ550pAAAAACy21vBwm0UoIrmvJ6sJxUpQSbhd"
                           sitekey="6LeL-p0pAAAAAPe7QA9clzcUhMk0qA8uJJceG4ig"
                           onChange={handleCaptchaChange}
-                          
                         />
                       </div>
                     </div>
@@ -152,64 +149,74 @@ const ContactArea = () => {
               </div>
             </div>
             <div className="col-xl-3 col-lg-4">
-              <div className="tp-contact-info-wrapper">
-                <div className="tp-contact-info-item">
-                  <div className="tp-contact-info-icon">
-                    <span>
-                      <img src="assets/img/contact/contact-icon-1.png" alt="" />
-                    </span>
-                  </div>
-                  <div className="tp-contact-info-content">
-                    <p data-info="mail">
-                      <Link to="mailto:shipwall@support.com">info@vdsb.au</Link>
-                    </p>
-                    <p data-info="phone">
-                      <Link to="tel:0481505909">0481505909</Link>
-                    </p>
-                  </div>
-                </div>
-                <div className="tp-contact-info-item">
-                  <div className="tp-contact-info-icon">
-                    <span>
-                      <img src="assets/img/contact/contact-icon-2.png" alt="" />
-                    </span>
-                  </div>
-                  <div className="tp-contact-info-content">
-                    <p>
-                      <Link to="#." target="_blank">
-                        1/21 Vale Street, Malaga, WA-6090
-                      </Link>
-                    </p>
-                  </div>
-                </div>
-                <div className="tp-contact-info-item">
-                  <div className="tp-contact-info-icon">
-                    <span>
-                      <img src="assets/img/contact/contact-icon-3.png" alt="" />
-                    </span>
-                  </div>
-                  <div className="tp-contact-info-content">
-                    <div className="tp-contact-social-wrapper mt-5">
-                      <h4 className="tp-contact-social-title">
-                        Find on social media
-                      </h4>
+  <div className="tp-contact-info-wrapper">
+    {/* Email & Phone */}
+    <div className="tp-contact-info-item d-flex align-items-center">
+      <div className="tp-contact-info-icon me-3">
+        <img src="assets/img/contact/contact-icon-1.png" alt="Email Icon" />
+      </div>
+      <div className="tp-contact-info-content">
+        <p data-info="mail">
+          <Link to="mailto:Info@shipwall.au">Info@shipwall.au</Link>
+        </p>
+        <p data-info="phone">
+          <Link to="tel:+611800 812 314">1800 812 314</Link>
+        </p>
+      </div>
+    </div>
 
-                      <div className="tp-contact-social-icon">
-                        <Link to="#">
-                          <i className="fa-brands fa-facebook-f"></i>
-                        </Link>
-                        <Link to="#">
-                          <i className="fa-brands fa-twitter"></i>
-                        </Link>
-                        <Link to="#">
-                          <i className="fa-brands fa-linkedin-in"></i>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    {/* Address */}
+    <div className="tp-contact-info-item d-flex align-items-center mt-3">
+      <div className="tp-contact-info-icon me-3">
+        <img src="assets/img/contact/contact-icon-2.png" alt="Location Icon" />
+      </div>
+      <div className="tp-contact-info-content">
+        <p>
+          <Link to="https://maps.app.goo.gl/ApKfR2qKfysmPArC8" target="_blank">
+            21 Vale Street, Malaga, WA-6090
+          </Link>
+        </p>
+      </div>
+    </div>
+
+    {/* Social Media */}
+    <div className="tp-contact-info-item mt-4">
+      <h4 className="tp-contact-social-title mb-3">Find us on social media</h4>
+      <div className="tp-contact-social-icon d-flex gap-3">
+        <Link
+          to="https://www.facebook.com/profile.php?id=61572529846150"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i className="fa-brands fa-facebook-f"></i>
+        </Link>
+        <Link
+          to="https://www.instagram.com/shipwall_australia/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i className="fa-brands fa-instagram"></i>
+        </Link>
+        <Link
+          to="http://wa.me/61481505909"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i className="fa-brands fa-whatsapp"></i>
+        </Link>
+        <Link
+          to="https://www.linkedin.com/company/101500407/admin/dashboard/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i className="fa-brands fa-linkedin-in"></i>
+        </Link>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
           </div>
         </div>
       </div>
