@@ -537,6 +537,32 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+
+
+  const newRegistration = async (formData) => {
+    try {
+      const response = await axios.post(
+        `${baseURL2}/api/v1/draft/add`,{...formData},
+        // Include request body if require
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${access}`,
+          },
+        }
+      );
+  
+      if (response.status === 200) {
+        toast.success(response?.data?.message)
+      } else {
+        toast.error(response?.message);
+      }
+    } catch (error) {
+      console.log(error, "error");
+    }
+  };
+
+
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -852,7 +878,7 @@ export const ApiProvider = ({ children }) => {
         newfetchsales,
         getBP,
         postCompalint,
-        postSuggestion,
+        postSuggestion,newRegistration
       }}
     >
       {children}

@@ -120,7 +120,7 @@ const SignIn = ({ show, onHide }) => {
   const navigate = useNavigate()
   const handleNewRegistration = () => {
     onHide();
-    navigate('/contact-us');
+    navigate('/new-registration');
   };
 
   return (

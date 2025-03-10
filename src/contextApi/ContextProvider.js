@@ -639,6 +639,10 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
+
+
+  
+
   const ShipingMethodPrice = async (shipping_method) => {
     const token = localStorage.getItem("token");
     try {

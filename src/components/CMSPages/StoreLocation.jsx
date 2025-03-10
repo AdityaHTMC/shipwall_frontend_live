@@ -41,7 +41,7 @@ const StoreLocation = () => {
           </p>
         </div>
 
-      {/* Right Side - Embedded Map */}
+      
       <div className="col-md-7">
         <div className="embed-responsive embed-responsive-16by9 rounded shadow">
         <iframe
